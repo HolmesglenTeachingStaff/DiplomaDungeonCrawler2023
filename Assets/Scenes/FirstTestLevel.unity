@@ -1031,7 +1031,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9422
+  m_Name: pb_Mesh-5454
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6379,7 +6379,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9446
+  m_Name: pb_Mesh-5478
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7147,7 +7147,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9372
+  m_Name: pb_Mesh-5404
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8085,7 +8085,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9408
+  m_Name: pb_Mesh-5440
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8469,7 +8469,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9434
+  m_Name: pb_Mesh-5466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10855,7 +10855,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9384
+  m_Name: pb_Mesh-5416
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11049,7 +11049,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9396
+  m_Name: pb_Mesh-5428
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13536,6 +13536,30 @@ PrefabInstance:
     - target: {fileID: 7272650404263301635, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314504, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: orthographic size
+      value: 5.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314510, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: m_StopNaN
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314510, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: m_Antialiasing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314510, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: m_RendererIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314510, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: m_AntialiasingQuality
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272650404364314510, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7272650404364314511, guid: 32d73e7a7a34744379f68be34df86a00, type: 3}
       propertyPath: m_RootOrder
