@@ -44,7 +44,11 @@ public class MeleeAttack : MonoBehaviour
        
         if (Input.GetButtonDown("Fire1") && playerMovement.currentState != PlayerMovment.state.Dashing )
         {
-            OnClick();
+            if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle"))
+            {
+                OnClick();
+            }
+            
         }
         
 

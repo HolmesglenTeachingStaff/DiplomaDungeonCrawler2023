@@ -11,7 +11,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     //script Assets
     private MeleeAttack meleeScript;
     private DamageOnTouch meleeObject;
-    private BowAttack bowScript;
+    public LanternAttack lanternScript;
     private Renderer lanternRenderer;
     public GameObject[] weaponImages;
     public GameObject lantern;
@@ -22,12 +22,13 @@ public class PlayerWeaponHandler : MonoBehaviour
     public Color Earth;
     public Color Light;
     public Color Dark;
+
     // Start is called before the first frame update
     void Start()
     {
         meleeScript = GetComponent<MeleeAttack>();
         meleeObject = meleeScript.weaponCollider.GetComponent<DamageOnTouch>();
-        bowScript = GetComponent<BowAttack>();
+        
         currentDamageType = (StatSystem.DamageType)weaponIndex;
         lanternRenderer = lantern.GetComponent<Renderer>();
         UpdateWeaponImages();
@@ -99,8 +100,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         meleeScript.damageType = currentDamageType;
         meleeObject.damageType = currentDamageType;
         meleeScript.UpdateVFX();
-        bowScript.selectedQuiver = weaponIndex;
-        bowScript.UpdateArrowUI();
+        lanternScript.damageType = currentDamageType;
     }
     void UpdateWeaponImages()
     {
