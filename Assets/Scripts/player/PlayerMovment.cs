@@ -81,7 +81,7 @@ public class PlayerMovment : MonoBehaviour
         lookTarget.y = model.transform.localPosition.y;
 
         //LERP
-        Quaternion lookDirection = Quaternion.LookRotation(-lookTarget, Vector3.up);
+        Quaternion lookDirection = Quaternion.LookRotation(lookTarget, Vector3.up);
 
         model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, lookDirection, turnSpeed * Time.deltaTime);
 
