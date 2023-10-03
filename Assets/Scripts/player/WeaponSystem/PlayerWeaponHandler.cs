@@ -15,6 +15,8 @@ public class PlayerWeaponHandler : MonoBehaviour
     private Renderer lanternRenderer;
     public GameObject[] weaponImages;
     public GameObject lantern;
+    public Light pointLight;
+    public float glowPower;
     public Color Physical;
     public Color Fire;
     public Color Water;
@@ -42,7 +44,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             weaponIndex += 1;
             if (weaponIndex >= 5) weaponIndex = 0;
             UpdateWeapon(weaponIndex);
-            //lanternRenderer.material.SetColor("_EmissionColor", Physical *10f);
+            //lanternRenderer.material.SetColor("_AlbedoColor", Physical *glowPower);
         }
         else if(Input.mouseScrollDelta.y < (0f - scrollBuffer))
         {
@@ -54,43 +56,50 @@ public class PlayerWeaponHandler : MonoBehaviour
         {
             weaponIndex = 0;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Physical*10);
+            lanternRenderer.material.SetColor("_AlbedoColor", Physical* glowPower);
+            pointLight.color = Physical;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             weaponIndex = 1;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Fire*10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Fire* glowPower);
+            pointLight.color = Fire;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             weaponIndex = 2;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Water *10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Water * glowPower);
+            pointLight.color = Water;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             weaponIndex = 3;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Wind *10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Wind * glowPower);
+            pointLight.color = Wind;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             weaponIndex = 4;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Earth *10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Earth *glowPower);
+            pointLight.color = Earth;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             weaponIndex = 5;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Light * 10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Light * glowPower);
+             pointLight.color = Light;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             weaponIndex = 6;
             UpdateWeapon(weaponIndex);
-            lanternRenderer.material.SetColor("_EmissionColor", Dark * 10f);
+            lanternRenderer.material.SetColor("_AlbedoColor", Dark * glowPower);
+            pointLight.color = Dark;
         }
     }
     void UpdateWeapon(int weaponIndex)
