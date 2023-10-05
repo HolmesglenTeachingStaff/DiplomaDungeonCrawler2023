@@ -6,15 +6,17 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
+#region variables
     //Player Static Data
-    public static int lives;
+    public static int spirits;
+    public float spiritPower;
     public static bool playerIsDead;
-    public static int keysCollected;
-    public static int points;
+    //public static int keysCollected;
+    //public static int points;
     public static int enemiesKilled;
 
     //Level Settings
-    public int keysInLevel;
+    //public int keysInLevel;
     public float screenFadeTime;
     //[HideInInspector]
     public Vector3 respawnPosition;
@@ -30,16 +32,17 @@ public class LevelManager : MonoBehaviour
     public UnityEvent EndLevel;
 
     //Object References
-    [SerializeField] GameObject[] keyImages;
-    [SerializeField] GameObject[] lifeImages;
-    [SerializeField] GameObject[] brokenLifeImages;
+    //[SerializeField] GameObject[] keyImages;
+    [SerializeField] GameObject[] spiritImages;
+    [SerializeField] GameObject[] brokenSpiritImages;
     [SerializeField] GameObject restartScreen, levelEndScreen;
     public LevelCompleter levelCompleter;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] TMP_Text enemyText;
     [SerializeField] CanvasGroup screenFader;
     public GameObject player;
-
+    public GameObject lantern;
+    #endregion
     #region signleton
     public static LevelManager instance;
 
@@ -55,6 +58,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,10 +71,10 @@ public class LevelManager : MonoBehaviour
 
     private void ResetValues()
     {
-        lives = 2;
+        spirits = 2;
         playerIsDead = false;
-        keysCollected = 0;
-        points = 0;
+        //keysCollected = 0;
+        //points = 0;
         enemiesKilled = 0;
         levelComplete = false;
         gameOver = false;
@@ -83,47 +87,48 @@ public class LevelManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        //update keys
+        /*//update keys
         for(int i = 0; i < keyImages.Length; i++)
         {
             if( (i + 1)<= keysCollected) keyImages[i].SetActive(true);
             else keyImages[i].SetActive(false);
-        }
+        }*/
         //updateLives
-        for (int j = 0; j < lifeImages.Length; j++)
+        for (int j = 0; j < spiritImages.Length; j++)
         {
-            if (j <= lives)
+            if (j <= spirits)
             {
-                lifeImages[j].SetActive(true);
-                brokenLifeImages[j].SetActive(false);
+                spiritImages[j].SetActive(true);
+                brokenSpiritImages[j].SetActive(false);
             }
             else
             {
-                lifeImages[j].SetActive(false);
-                brokenLifeImages[j].SetActive(true);
+                spiritImages[j].SetActive(false);
+                brokenSpiritImages[j].SetActive(true);
             }
         }
         //update score
-        scoreText.text = points.ToString();
+        //scoreText.text = points.ToString();
+
         //update enemies killed
         enemyText.text = enemiesKilled + " / " + totalEnemiesInLevel;
     }
 
-    public void CollectKey()
+   /* public void CollectKey()
     {
         keysCollected++;
         if (keysCollected > keysInLevel) keysCollected = keysInLevel;
         UpdateUI();
-    }
+    }*/
 
     public void KillPlayer()
     {
        // Debug.Log("KillPlayer");
         playerIsDead = true;
-        lives--;
+        spirits--;
         
         PlayerDeath.Invoke();
-        if(lives >= 0)
+        if(spirits > 0)
         {
             StartCoroutine(RespawnPlayer());
         }
@@ -143,7 +148,7 @@ public class LevelManager : MonoBehaviour
         restartScreen.SetActive(true);
 
         player.GetComponent<PlayerMovment>().enabled = false;
-        player.GetComponent<BowAttack>().enabled = false;
+        lantern.GetComponent<LanternAttack>().enabled = false;
         player.GetComponent<MeleeAttack>().enabled = false;
         WaitForEndOfFrame frame = new WaitForEndOfFrame();
 
@@ -161,7 +166,7 @@ public class LevelManager : MonoBehaviour
         playerstats.currentHealth = playerstats.maxHealth;
         playerstats.OnDamaged.Invoke();
         player.transform.position = respawnPosition;
-        player.GetComponent<PlayerRespawn>().Respawn();
+       // player.GetComponent<PlayerRespawn>().Respawn();
 
         yield return new WaitForSeconds(2);
         timer = 0;
@@ -172,7 +177,7 @@ public class LevelManager : MonoBehaviour
             yield return frame;
         }
         
-        player.GetComponent<BowAttack>().enabled = true;
+        lantern.GetComponent<LanternAttack>().enabled = true;
         player.GetComponent<MeleeAttack>().enabled = true;
         screenFader.alpha = 0f;
         playerIsDead = false;
