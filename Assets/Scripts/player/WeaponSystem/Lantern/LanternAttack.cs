@@ -44,7 +44,9 @@ public class LanternAttack : MonoBehaviour
     private float journeyLength;
     private float startTime;
     public AnimationCurve movementCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f); // Customize the curve in the Inspector
+     private Quaternion initialRotation;
 
+    public Quaternion targetRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,8 @@ public class LanternAttack : MonoBehaviour
         trail.emitting = false;
         lastShot = Time.time;
         followSpeed = follow.followSpeed;
+        initialRotation = transform.rotation; 
+       
     }
 
     // Update is called once per frame
@@ -67,6 +71,14 @@ public class LanternAttack : MonoBehaviour
             {
                 lanternState = States.Following;
                 follow.followSpeed = followSpeed;
+                
+            }
+
+              else
+            {
+                // Rotate the lantern while returning
+                float rotationSpeed = 90f; // Adjust the rotation speed as needed
+                transform.rotation *= Quaternion.Euler(Vector3.up * rotationSpeed * Time.deltaTime);
             }
         }
 
@@ -81,6 +93,9 @@ public class LanternAttack : MonoBehaviour
             }
             
         }
+
+         
+        
     }
     void AimLantern()
     {
@@ -193,6 +208,7 @@ public class LanternAttack : MonoBehaviour
             distanceCovered = (timer) * attackSpeed;
             fractionOfJourney = distanceCovered / journeyLength; // Calculate the journey progress
             currentJourneyLength = Vector3.Distance(transform.position, target);
+  targetRotation = transform.rotation; 
             yield return new WaitForEndOfFrame();
         }
 
