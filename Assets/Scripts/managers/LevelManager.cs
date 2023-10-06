@@ -150,13 +150,14 @@ public class LevelManager : MonoBehaviour
         player.GetComponent<PlayerMovment>().enabled = false;
         lantern.GetComponent<LanternAttack>().enabled = false;
         player.GetComponent<MeleeAttack>().enabled = false;
+        player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
         WaitForEndOfFrame frame = new WaitForEndOfFrame();
-
+        yield return new WaitForSeconds(4);
         float timer = 0f;
         while(timer < 1)
         {
             screenFader.alpha = Mathf.Lerp(0, 1, timer);
-            timer += screenFadeTime;
+            timer += screenFadeTime * 0.01f;
             yield return frame;
         }
 
@@ -166,23 +167,26 @@ public class LevelManager : MonoBehaviour
         playerstats.currentHealth = playerstats.maxHealth;
         playerstats.OnDamaged.Invoke();
         player.transform.position = respawnPosition;
-       // player.GetComponent<PlayerRespawn>().Respawn();
+        // player.GetComponent<PlayerRespawn>().Respawn();
 
-        yield return new WaitForSeconds(2);
-        timer = 0;
-        while (timer < 1)
-        {
-            screenFader.alpha = Mathf.Lerp(1, 0, timer);
-            timer += (screenFadeTime);
-            yield return frame;
-        }
-        
+
         lantern.GetComponent<LanternAttack>().enabled = true;
         player.GetComponent<MeleeAttack>().enabled = true;
         screenFader.alpha = 0f;
         playerIsDead = false;
         UpdateUI();
         player.GetComponent<PlayerMovment>().enabled = true;
+        player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
+        player.GetComponentInChildren<Animator>().SetBool("Dead", false);
+        timer = 0;
+        while (timer < 1)
+        {
+            screenFader.alpha = Mathf.Lerp(1, 0, timer);
+            timer += (screenFadeTime *0.01f);
+            yield return frame;
+        }
+        
+        
     }
    
     public IEnumerator LevelEnd()
