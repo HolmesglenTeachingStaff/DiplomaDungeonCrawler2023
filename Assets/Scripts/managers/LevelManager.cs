@@ -34,8 +34,13 @@ public class LevelManager : MonoBehaviour
     //Object References
     //[SerializeField] GameObject[] keyImages;
     [SerializeField] GameObject[] spiritImages;
-    [SerializeField] GameObject[] brokenSpiritImages;
-    [SerializeField] GameObject restartScreen, levelEndScreen;
+    
+    [SerializeField] ParticleSystem spiritCollection;
+    [SerializeField] ParticleSystem spiritRelease;
+    [SerializeField] ParticleSystem spiritRespawn;
+
+    [SerializeField] GameObject restartScreen, gameOverScreen, levelCompleteScreen;
+    [SerializeField] CanvasGroup[] gamerOverScreenFaders;
     public LevelCompleter levelCompleter;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] TMP_Text enemyText;
@@ -66,12 +71,13 @@ public class LevelManager : MonoBehaviour
         CollectEnemiesInLevel();
         UpdateUI();
         respawnPosition = player.transform.position;
-       // InvokeRepeating("AttemptRespawnUpdate", 1, 10f);
+        // InvokeRepeating("AttemptRespawnUpdate", 1, 10f);
+        Debug.Log("start game spirits = " + spirits);
     }
 
     private void ResetValues()
     {
-        spirits = 2;
+        spirits = 1;
         playerIsDead = false;
         //keysCollected = 0;
         //points = 0;
@@ -96,15 +102,15 @@ public class LevelManager : MonoBehaviour
         //updateLives
         for (int j = 0; j < spiritImages.Length; j++)
         {
-            if (j <= spirits)
+            if (j < spirits)
             {
                 spiritImages[j].SetActive(true);
-                brokenSpiritImages[j].SetActive(false);
+                //brokenSpiritImages[j].SetActive(false);
             }
             else
             {
                 spiritImages[j].SetActive(false);
-                brokenSpiritImages[j].SetActive(true);
+                //brokenSpiritImages[j].SetActive(true);
             }
         }
         //update score
@@ -120,39 +126,63 @@ public class LevelManager : MonoBehaviour
         if (keysCollected > keysInLevel) keysCollected = keysInLevel;
         UpdateUI();
     }*/
-
+    
+    public void UpdateSpirit(float spiritIncrease)
+    {
+        spiritPower += spiritIncrease;
+        //increase the spirits
+        if(spiritPower >= 100)
+        {
+            spirits++;
+            spiritPower -= 100;
+            spiritCollection.transform.position = player.transform.position + Vector3.up * 0.1f;
+            spiritCollection.Play();
+        }
+        UpdateUI();
+        
+    }
     public void KillPlayer()
     {
-       // Debug.Log("KillPlayer");
+        // Debug.Log("KillPlayer");
+        if (playerIsDead) return;
         playerIsDead = true;
-        spirits--;
+        
         
         PlayerDeath.Invoke();
         if(spirits > 0)
         {
             StartCoroutine(RespawnPlayer());
+            spiritRelease.transform.position = player.transform.position + Vector3.up * 0.01f;
+            spiritRelease.Play();
         }
         else
         {
             gameOver = true;
             StartCoroutine("LevelEnd");
-            levelCompleter.StartCoroutine("DisplayScores");
+            //levelCompleter.StartCoroutine("DisplayScores");
         }
+        spirits--;
+        Debug.Log("killed player spirits = " + spirits);
     }
     public IEnumerator RespawnPlayer()
     {
         if (isSpawning) yield return null;
         isSpawning = true;
 
-        levelEndScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelCompleteScreen.SetActive(false);
         restartScreen.SetActive(true);
 
         player.GetComponent<PlayerMovment>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
         lantern.GetComponent<LanternAttack>().enabled = false;
         player.GetComponent<MeleeAttack>().enabled = false;
         player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
+
         WaitForEndOfFrame frame = new WaitForEndOfFrame();
+
         yield return new WaitForSeconds(4);
+
         float timer = 0f;
         while(timer < 1)
         {
@@ -162,22 +192,27 @@ public class LevelManager : MonoBehaviour
         }
 
         screenFader.alpha = 1f;
+        player.transform.position = respawnPosition;
+        yield return new WaitForSeconds(1);
+
         Stats playerstats = player.GetComponent<Stats>();
         playerstats.currentArmour = playerstats.maxArmour;
         playerstats.currentHealth = playerstats.maxHealth;
         playerstats.OnDamaged.Invoke();
-        player.transform.position = respawnPosition;
+
+        yield return frame;
         // player.GetComponent<PlayerRespawn>().Respawn();
 
 
-        lantern.GetComponent<LanternAttack>().enabled = true;
-        player.GetComponent<MeleeAttack>().enabled = true;
+       
         screenFader.alpha = 0f;
         playerIsDead = false;
-        UpdateUI();
-        player.GetComponent<PlayerMovment>().enabled = true;
-        player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
+        
         player.GetComponentInChildren<Animator>().SetBool("Dead", false);
+        spiritRespawn.transform.position = player.transform.position + Vector3.up * 0.1f;
+        spiritRespawn.Play();
+        UpdateUI();
+
         timer = 0;
         while (timer < 1)
         {
@@ -186,25 +221,63 @@ public class LevelManager : MonoBehaviour
             yield return frame;
         }
         
-        
+        yield return new WaitForSeconds(5);
+        player.GetComponent<PlayerMovment>().enabled = true;
+        player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
+        lantern.GetComponent<LanternAttack>().enabled = true;
+        player.GetComponent<MeleeAttack>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;
+
+        playerstats.isDead = false;
+        isSpawning = false;
+        Debug.Log("respawning, spirits = " + spirits);
     }
    
     public IEnumerator LevelEnd()
     {
-        
-        levelEndScreen.SetActive(true);       
+
+        gameOverScreen.SetActive(true);
+        levelCompleteScreen.SetActive(false);
         restartScreen.SetActive(false);
+
+        player.GetComponent<PlayerMovment>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
+        lantern.GetComponent<LanternAttack>().enabled = false;
+        player.GetComponent<MeleeAttack>().enabled = false;
+        player.GetComponentInChildren<PlayerIKHandling>().ikActive = false;
+
+        yield return new WaitForSeconds(2);
+        CanvasGroup gameOverScreenFader = gameOverScreen.GetComponent<CanvasGroup>();
         float timer = 0f;
         WaitForEndOfFrame frame = new WaitForEndOfFrame();
+        
+        timer = 0;
         while (timer < 1)
         {
-            screenFader.alpha = Mathf.Lerp(0, 1, timer);
-            timer += screenFadeTime;
+            gamerOverScreenFaders[0].alpha = Mathf.Lerp(0, 1, timer);
+            timer += screenFadeTime * 0.001f;
             yield return frame;
         }
-        player.GetComponent<PlayerMovment>().enabled = false;
-        player.GetComponent<BowAttack>().enabled = false;
-        player.GetComponent<MeleeAttack>().enabled = false;
+        //yield return new WaitForSeconds(1);
+        timer = 0;
+        while (timer < 1)
+        {
+            gamerOverScreenFaders[1].alpha = Mathf.Lerp(0, 1, timer);
+            timer += screenFadeTime * 0.001f;
+            yield return frame;
+        }
+       
+        timer = 0;
+        while (timer < 1)
+        {
+            gamerOverScreenFaders[2].alpha = Mathf.Lerp(0, 1, timer);
+            timer += screenFadeTime * 0.001f;
+            yield return frame;
+        }
+       
+
+
+        
     }
 
     void AttemptRespawnUpdate()
