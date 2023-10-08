@@ -36,6 +36,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentDamageType = (StatSystem.DamageType)weaponIndex;
         lanternRenderer = lantern.GetComponent<Renderer>();
         bladeRenderer = blade.GetComponent<Renderer>();
+        UpdateWeapon(0);
         UpdateWeaponImages();
     }
 
