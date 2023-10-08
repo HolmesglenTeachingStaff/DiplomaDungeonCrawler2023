@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.Processors;
 /// A script that handles the movement of an enemy using states stored as enums and enumerators;
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Health))]
+
 public class ExampleAI : AIWayPoints
 {
     [Header("Behaviour Settings")]
@@ -19,7 +19,7 @@ public class ExampleAI : AIWayPoints
     public States currentState;
     public States defaultState;
     NavMeshAgent agent;
-    Health health;
+    
 
     [Header("MovementSettings")]
     
@@ -39,20 +39,20 @@ public class ExampleAI : AIWayPoints
     {
         currentState = defaultState;
         agent = GetComponent<NavMeshAgent>();
-        health = GetComponent<Health>();
+        
         StartCoroutine(SM());        
     }
     IEnumerator SM()
     {
         while (true)
         {
-            if (!health.isDead) yield return StartCoroutine(currentState.ToString());
-            else
+            yield return StartCoroutine(currentState.ToString());
+            /*else
             {
                 StopAllCoroutines();
                 StartCoroutine(DEAD());
                 yield return null;
-            }
+            }*/
         }
     }
     IEnumerator IDLE()

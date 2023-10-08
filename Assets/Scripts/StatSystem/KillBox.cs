@@ -13,6 +13,7 @@ public class KillBox : MonoBehaviour
             {
                 stats.currentHealth = 0f;
                 stats.currentArmour = 0f;
+                stats.isDead = true;
                 stats.OnDeath.Invoke();
             }
         }

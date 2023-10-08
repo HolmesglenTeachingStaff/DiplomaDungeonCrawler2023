@@ -5,7 +5,7 @@ using TMPro;
 
 public class LevelCompleter : MonoBehaviour
 {
-    [SerializeField] GameObject[] panels;
+    /*[SerializeField] GameObject[] panels;
     [SerializeField] TMP_Text[] results;
     [SerializeField] TMP_Text title;
     
@@ -109,5 +109,5 @@ public class LevelCompleter : MonoBehaviour
         }
 
         yield return null;
-    }
+    }*/
 }
