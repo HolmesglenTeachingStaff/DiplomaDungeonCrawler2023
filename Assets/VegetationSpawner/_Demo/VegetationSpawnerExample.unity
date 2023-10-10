@@ -162,11 +162,11 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 17c8eb6bd61fd8d48a9ba0303a6a20d4, type: 2}
-  m_TreeDistance: 1000
+  m_TreeDistance: 60
   m_TreeBillboardDistance: 300
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 205
-  m_DetailObjectDistance: 150
+  m_DetailObjectDistance: 75
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 1
   m_SplatMapDistance: 500
@@ -194,12 +194,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397911312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -333.3, y: -33, z: -323}
+  m_LocalPosition: {x: -333.3, y: -19.9, z: -323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443065824
 GameObject:
@@ -230,8 +230,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.77506477, g: 0.5518868, b: 1, a: 0.41960785}
-  m_Intensity: 1.1
+  m_Color: {r: 0.5549877, g: 0.4448202, b: 0.7924528, a: 0.41960785}
+  m_Intensity: 0.99
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -407,10 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f710250abab6f24a954bdf3c3c1ac64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 7543
   terrains:
   - {fileID: 397911314}
-  visibleTerrainsOnly: 0
+  visibleTerrainsOnly: 1
   treeTypes:
   - enabled: 1
     name: DemoSpruce
@@ -428,7 +428,7 @@ MonoBehaviour:
     - name: DemoGrass
       layerID: 0
       threshold: 0.65
-    instanceCount: 152
+    instanceCount: 299
     prefabs:
     - index: 0
       probability: 100
@@ -452,7 +452,7 @@ MonoBehaviour:
     - name: DemoDirt
       layerID: 2
       threshold: 0.498
-    instanceCount: 0
+    instanceCount: 227
     prefabs:
     - index: 1
       probability: 100
@@ -470,7 +470,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 665
     prefabs:
     - index: 2
       probability: 100
@@ -488,7 +488,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 626
     prefabs:
     - index: 3
       probability: 100
@@ -506,7 +506,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 645
     prefabs:
     - index: 4
       probability: 100
@@ -524,7 +524,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 634
     prefabs:
     - index: 5
       probability: 100
@@ -542,7 +542,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 651
     prefabs:
     - index: 6
       probability: 100
@@ -553,14 +553,14 @@ MonoBehaviour:
   - enabled: 1
     name: trees_08
     seed: 8934
-    probability: 10
+    probability: 0.1
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 6
     prefabs:
     - index: 7
       probability: 100
@@ -571,14 +571,14 @@ MonoBehaviour:
   - enabled: 1
     name: trees_09
     seed: 7891
-    probability: 10
+    probability: 0.1
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 0
+    instanceCount: 8
     prefabs:
     - index: 8
       probability: 100
@@ -589,44 +589,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_10
     seed: 7677
-    probability: 10
+    probability: 0.1
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 596
+    instanceCount: 7
     prefabs:
     - index: 9
       probability: 100
-      prefab: {fileID: 919132149155446097, guid: e92f587be0ad8294e9a4925307926772, type: 3}
+      prefab: {fileID: 1555323938777020314, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
     distance: 5
     scaleRange: {x: 0.8, y: 2}
     sinkAmount: 0
-  - enabled: 1
-    name: trees_11
-    seed: 9213
-    probability: 10
-    collisionCheck: 0
-    rejectUnderwater: 0
-    heightRange: {x: 0, y: 1000}
-    slopeRange: {x: 0, y: 60}
-    curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 543
-    prefabs:
-    - index: 10
-      probability: 100
-      prefab: {fileID: 919132149155446097, guid: e3ded0e61877fe845a8faddc42b0a5b2, type: 3}
-    distance: 5
-    scaleRange: {x: 1.6, y: 2}
-    sinkAmount: 0
   grassPrefabs:
   - enabled: 1
-    name: GrassField
-    seed: 79129
-    probability: 100
+    name: Grass_Patch_02
+    seed: 992054674
+    probability: 4
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
@@ -635,51 +617,714 @@ MonoBehaviour:
     layerMasks:
     - name: DemoGrass
       layerID: 0
-      threshold: 0.809
-    instanceCount: 69216
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.54
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 166723
     index: 0
-    type: 1
+    type: 0
     renderAsBillboard: 0
-    prefab: {fileID: 0}
+    prefab: {fileID: 919132149155446097, guid: bd30923671d4265479ccf03d9450a6c8, type: 3}
     gpuInstancing: 1
-    holeEdgePadding: 6.9
-    billboard: {fileID: 2800000, guid: 409c39177d5ac5545bede68eed1c290b, type: 3}
-    mainColor: {r: 0.1981132, g: 0.103729084, b: 0.14603917, a: 1}
-    secondaryColor: {r: 0.2594462, g: 0.496, b: 0.030523075, a: 1}
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
     linkColors: 1
-    minMaxHeight: {x: 0.2, y: 0.87288135}
-    minMaxWidth: {x: 0.049152542, y: 1.5338981}
-    noiseSize: 2.26
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 4.42
   - enabled: 1
-    name: Bush
-    seed: 83565
-    probability: 92.5
+    name: Grass_Patch_03
+    seed: 1461447072
+    probability: 4
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
-    slopeRange: {x: 7.894737, y: 60}
-    curvatureRange: {x: 0, y: 0.31578946}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
     layerMasks:
     - name: DemoGrass
       layerID: 0
-      threshold: 0.198
+      threshold: 0
     - name: DemoDirt
       layerID: 2
-      threshold: 0.47
-    instanceCount: 36377
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.563
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 165872
     index: 1
-    type: 1
-    renderAsBillboard: 1
-    prefab: {fileID: 0}
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 669799dae3a23e44aa148a14ea786a61, type: 3}
     gpuInstancing: 1
-    holeEdgePadding: 2
-    billboard: {fileID: 2800000, guid: a45825649470a7b45a56ecd6a9fdae69, type: 3}
-    mainColor: {r: 0.30980393, g: 0.22352943, b: 0.25882354, a: 1}
-    secondaryColor: {r: 0.14217353, g: 0.31132078, b: 0.024283024, a: 1}
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
     linkColors: 1
-    minMaxHeight: {x: 0.2, y: 1}
-    minMaxWidth: {x: 0.2, y: 1}
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
     noiseSize: 0.1
+  - enabled: 1
+    name: Grass_Patch_04
+    seed: 123966288
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 165604
+    index: 2
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 0877ddd6398bd1147aff33e8c689cfb2, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_01
+    seed: 15435
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.247
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.32
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 3987
+    index: 3
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: dcd951a5a3d2d01409618c68631d383e, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_02
+    seed: 57871
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.448
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.525
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 3548
+    index: 4
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 09cb5e93758a14449a9bc40303ce7a13, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_03
+    seed: 25413
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.256
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.311
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4054
+    index: 5
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8baf2e14de9ec5649b83f0006f30c471, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_04
+    seed: 13164
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.521
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.448
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4150
+    index: 6
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: c64840d7f6bbb7f4d85f522ac8a13967, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_05
+    seed: 31176
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.452
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.452
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4224
+    index: 7
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 40f1c331548a1ea4b823cff47b6ace35, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_06
+    seed: 94494
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.562
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.489
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4259
+    index: 8
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: f9da5bdce8b88c94a91cdf54446d3523, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_07
+    seed: 3106
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.512
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.548
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 3904
+    index: 9
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 1f59226caf6074d49883e10290a28545, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_09
+    seed: 27220
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.439
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.535
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4245
+    index: 10
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8b8dad22a3df16d429371a3615c6e347, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_10
+    seed: 5265
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.407
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.69
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4228
+    index: 11
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8b8dad22a3df16d429371a3615c6e347, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_11
+    seed: 90661
+    probability: 0.2
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.462
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.325
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 8501
+    index: 12
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 2bceb09b5019da842a9eeeb7c89e2354, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_12
+    seed: 98908
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.393
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.32
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4305
+    index: 13
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 2117ef2a89f56a344aa5d304cffd00fb, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_13
+    seed: 21009
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.398
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4417
+    index: 14
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 34ecb8aa1e5749e4c83054f969c19120, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_14
+    seed: 88937
+    probability: 0.2
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.22
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.498
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 7997
+    index: 15
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 4b49a67811c1376468199a752c95f0ec, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_15
+    seed: 28049
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.484
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4095
+    index: 16
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: daa78495872dbee4e9eeaddddb2570b1, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_16
+    seed: 32237
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.411
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.425
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4144
+    index: 17
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: bdcc200fb3c7b054aab5f9401b6cd674, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_17
+    seed: 27650
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.466
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.357
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.506
+    instanceCount: 4302
+    index: 18
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: dea6f8869e5719642808f6f571c4fe7f, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.93
+  - enabled: 1
+    name: Grass_Patch_01
+    seed: 20419
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0.54
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 167893
+    index: 19
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 91ffcc52d7cf4eb47a6cf421f577d1ed, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 4.42
   terrainSettings:
     drawTreesAndFoliage: 1
     preservePrefabLayer: 1
@@ -699,11 +1344,11 @@ MonoBehaviour:
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  terrainMinMaxHeight: {x: 17.682198, y: 91.713394}
-  detailResolution: 512
-  detailResolutionIndex: 2
-  grassPatchSize: 128
-  grassPatchSizeIndex: 4
+  terrainMinMaxHeight: {x: -15.317802, y: 58.713394}
+  detailResolution: 2048
+  detailResolutionIndex: 4
+  grassPatchSize: 16
+  grassPatchSizeIndex: 1
   tempColliders: []
   waterHeight: 0
   autoRespawnTrees: 1
@@ -720,65 +1365,73 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1761312485
+--- !u!1001 &1359566669
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1555323938777020314, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474354, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_Name
-      value: Tree_10 (1)
+      value: FogPlane
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.477758
+      value: 291
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7716501
+      value: 4.3
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.24010229
+      value: 117
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7669369166498402113, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+    - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 32a1ac20862cb5e4fb5ee0e18ee58f8b, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
 --- !u!1 &1903714068
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,404 +1475,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &726226335753705641
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 351569858953284885, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061160454211219164, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
-      propertyPath: m_Name
-      value: Tree_01
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
---- !u!1001 &1444441870227129324
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623507320667957279, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8619552722432019426, guid: 8597f71e500228841a288ab584e42109, type: 3}
-      propertyPath: m_Name
-      value: Tree_08
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8597f71e500228841a288ab584e42109, type: 3}
---- !u!1001 &2413683139782083563
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4481890925315714449, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_Name
-      value: Tree_09
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949450348523867549, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1288bcab7c707f64eb347fa2b7fbeb80, type: 3}
---- !u!1001 &3015200460785520608
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2972992581792289755, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_Name
-      value: Tree_07
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5380614504537127834, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
---- !u!1001 &3983381894018494694
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307863458836206675, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8597131430598304806, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
-      propertyPath: m_Name
-      value: Tree_04
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
---- !u!1001 &6112205515290149684
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4382266122294847973, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_Name
-      value: Tree_05
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285968921021459836, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
---- !u!1001 &9168868433238726398
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 508066135251770182, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3924444218081084016, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
-      propertyPath: m_Name
-      value: Tree_06
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
