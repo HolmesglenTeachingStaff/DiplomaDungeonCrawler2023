@@ -424,11 +424,14 @@ MonoBehaviour:
     layerMasks:
     - name: DemoDirt
       layerID: 2
-      threshold: 0.327
+      threshold: 0
     - name: DemoGrass
       layerID: 0
-      threshold: 0.65
-    instanceCount: 299
+      threshold: 0
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 333
     prefabs:
     - index: 0
       probability: 100
@@ -448,11 +451,14 @@ MonoBehaviour:
     layerMasks:
     - name: DemoGrass
       layerID: 0
-      threshold: 0.554
+      threshold: 0.284
     - name: DemoDirt
       layerID: 2
-      threshold: 0.498
-    instanceCount: 227
+      threshold: 0.16
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 246
     prefabs:
     - index: 1
       probability: 100
@@ -463,14 +469,23 @@ MonoBehaviour:
   - enabled: 1
     name: trees_03
     seed: 2194
-    probability: 10
+    probability: 40
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 665
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    instanceCount: 2293
     prefabs:
     - index: 2
       probability: 100
@@ -481,14 +496,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_04
     seed: 3964
-    probability: 10
+    probability: 20
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 626
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    instanceCount: 1276
     prefabs:
     - index: 3
       probability: 100
@@ -499,14 +526,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_05
     seed: 5677
-    probability: 10
+    probability: 40
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 645
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    instanceCount: 2443
     prefabs:
     - index: 4
       probability: 100
@@ -523,7 +562,19 @@ MonoBehaviour:
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
     instanceCount: 634
     prefabs:
     - index: 5
@@ -541,8 +592,20 @@ MonoBehaviour:
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 651
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    instanceCount: 647
     prefabs:
     - index: 6
       probability: 100
@@ -553,14 +616,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_08
     seed: 8934
-    probability: 0.1
+    probability: 0.5
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 6
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    instanceCount: 33
     prefabs:
     - index: 7
       probability: 100
@@ -571,14 +646,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_09
     seed: 7891
-    probability: 0.1
+    probability: 0.5
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 8
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    instanceCount: 42
     prefabs:
     - index: 8
       probability: 100
@@ -589,14 +676,26 @@ MonoBehaviour:
   - enabled: 1
     name: trees_10
     seed: 7677
-    probability: 0.1
+    probability: 0.5
     collisionCheck: 0
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
-    layerMasks: []
-    instanceCount: 7
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0
+    - name: DemoCliff
+      layerID: 1
+      threshold: 0
+    instanceCount: 34
     prefabs:
     - index: 9
       probability: 100
@@ -1377,6 +1476,10 @@ PrefabInstance:
     - target: {fileID: 2127515024101474354, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_Name
       value: FogPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127515024101474354, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2127515024101474366, guid: 06f7a43058c619844a234657f29ff4ea, type: 3}
       propertyPath: m_RootOrder
