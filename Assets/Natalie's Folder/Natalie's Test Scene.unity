@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 0
-  stats: {fileID: 1273104753}
+  stats: {fileID: 0}
   isWorldSpace: 1
 --- !u!1 &1119840133
 GameObject:
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1273104755}
   - component: {fileID: 1273104754}
   - component: {fileID: 1273104752}
-  - component: {fileID: 1273104753}
+  - component: {fileID: 1273104757}
   - component: {fileID: 1273104756}
   m_Layer: 6
   m_Name: NT_NPC
@@ -791,109 +791,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1273104753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273104750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  regenRate: 0
-  tempRegen: 0
-  maxSpeed: 10
-  currentSpeed: 0
-  maxArmour: 0
-  currentArmour: 0
-  maxBaseAttackDamage: 0
-  currentBaseAttackDamage: 0
-  immune: 0
-  isDead: 0
-  pushable: 0
-  isWet: 0
-  Physical: 0
-  Fire: 1
-  Water: 0
-  Wind: 1
-  Earth: 1
-  Light: 2
-  Dark: 3
-  statusEffectStacks: 0
-  OnDamaged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1075120535}
-        m_TargetAssemblyTypeName: StatSlider, Assembly-CSharp
-        m_MethodName: UpdateSlider
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1273104756}
-        m_TargetAssemblyTypeName: NT_DamageReactions, Assembly-CSharp
-        m_MethodName: DamageBurst
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1075120535}
-        m_TargetAssemblyTypeName: StatSlider, Assembly-CSharp
-        m_MethodName: UpdateSlider
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1273104756}
-        m_TargetAssemblyTypeName: NT_DamageReactions, Assembly-CSharp
-        m_MethodName: Die
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnBuffRecieved:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1075120535}
-        m_TargetAssemblyTypeName: StatSlider, Assembly-CSharp
-        m_MethodName: UpdateSlider
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!136 &1273104754
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -933,15 +830,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 1273104750}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  regenRate: 0
+  tempRegen: 0
+  maxSpeed: 10
+  currentSpeed: 0
+  maxArmour: 0
+  currentArmour: 0
+  maxBaseAttackDamage: 10
+  currentBaseAttackDamage: 0
+  immune: 0
+  isDead: 0
+  pushable: 0
+  isWet: 0
+  Physical: 3
+  Fire: 1
+  Water: 1
+  Wind: 1
+  Earth: 1
+  Light: 2
+  Dark: 0
+  statusEffectStacks: 0
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBuffRecieved:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1273104757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273104750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a1dd02ed6a8da43a70ec4af514c829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
+  damageAmount: 0
   damageType: 0
-  damageRange: 5
+  damageRange: 0
   attackableLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
 --- !u!1 &1524433606
 GameObject:
   m_ObjectHideFlags: 0
