@@ -86,8 +86,6 @@ public class NT_OniStateMachine : MonoBehaviour
                 currentState = States.CHASING;
             }
             yield return new WaitForEndOfFrame();
-
-            yield return null;
         }
 
         Debug.Log("Player found will start chasing mode");
@@ -181,7 +179,7 @@ public class NT_OniStateMachine : MonoBehaviour
 
         //Once reached node, immeadiately heal health back to 100%
         stat.currentHealth += 85;
-        //stat.OnBuffRecieved.Invoke();
+        stat.OnBuffRecieved.Invoke();
         }
 
         //After health is back to 100% checks for player in sight 
