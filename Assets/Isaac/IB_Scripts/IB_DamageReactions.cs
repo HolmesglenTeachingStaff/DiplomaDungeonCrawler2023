@@ -25,6 +25,7 @@ public class IB_DamageReactions : MonoBehaviour
                 {
                     //check the target has Stat
                     Stats stats = enemy.GetComponent<Stats>();
+                    
                     //deal damage to Stat
                     if (stats != null)
                     StatSystem.DealDamage(stats, damageType, damageAmount);

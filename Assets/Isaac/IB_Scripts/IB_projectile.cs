@@ -26,6 +26,7 @@ public class IB_projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         DestroySelf();
+      
     }
     void DestroySelf()
     {

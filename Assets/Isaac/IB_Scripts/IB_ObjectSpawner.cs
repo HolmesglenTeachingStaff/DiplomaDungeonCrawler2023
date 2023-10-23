@@ -13,7 +13,8 @@ public class IB_ObjectSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!isActive)
+        if (!isActive) return;
+
             if (Time.time - lastSpawnTime > spawnTime) 
             {
                 Instantiate(objectPrefab, spawnPoint.position, spawnPoint.rotation);
