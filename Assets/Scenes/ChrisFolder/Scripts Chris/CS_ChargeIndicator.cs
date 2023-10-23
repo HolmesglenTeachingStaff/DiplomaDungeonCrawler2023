@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CS_ChargeIndicator : MonoBehaviour
 {
+
+    public Transform target;
+    public float rotationSpeed;
+
+    //add turn on/off bool
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +20,6 @@ public class CS_ChargeIndicator : MonoBehaviour
     void Update()
     {
         
+        transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(target.position - transform.position), rotationSpeed*Time.deltaTime);
     }
 }
