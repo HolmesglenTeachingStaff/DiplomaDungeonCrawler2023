@@ -16,6 +16,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
     public Transform player;
     public Transform lookAt;
 
+    public GameObject objectToSummon;
+
     [Header("Reaction Range Values")]
     public float sightRange;
     public float summonRange;
@@ -29,7 +31,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     //The behaviour states available for a Summoner to switch between.
     #region States
-    public enum States {IDLE, PATROLLING, DEAD, MELEE, CHASING, COMBAT}
+    public enum States {IDLE, PATROLLING, MELEE, CHASING, COMBAT}
 
     public States currentState;
     #endregion
@@ -62,63 +64,78 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     //Contents of the states, and how to change between them.
     #region Behaviour Coroutines
+
+
+    #region IDLE
     IEnumerator IDLE()
     {
-        //ENTER THE IDLE STATE >
-        //put any code here that you want to run at the start of the behaviour
-
-        yield return new WaitForSeconds(6);
-
-        currentState = States.PATROLLING;
-        //UPDATE IDLE STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
         {
+            if (Vector3.Distance(player.position, transform.position) < sightRange)
+            {
+                currentState = States.CHASING;
+            }
 
-            yield return null;
+            //Currently trying to exit out of WaitForSeconds early if player enters range, before WaitForSeconds has ended
+
+            else if (Vector3.Distance(player.position, transform.position) > sightRange)
+            {
+                yield return new WaitForSeconds(Random.Range(5, 10));
+
+                currentState = States.PATROLLING;
+            }
+
+            yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
     }
+    #endregion
+
+    #region PATROLLING
     IEnumerator PATROLLING()
     {
-        //ENTER THE PATROLLING STATE >
-        //put any code here that you want to run at the start of the behaviour
+        agent.SetDestination(nodes[currentNode].position);
+        currentNode = Random.Range(0, nodes.Length);
 
-        yield return new WaitForSeconds(6);
-
-        currentState = States.PATROLLING;
-        //UPDATE PATROLLING STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.IDLE)
+        while (currentState == States.PATROLLING)
         {
+            if (Vector3.Distance(player.position, transform.position) < sightRange)
+            {
+                currentState = States.CHASING;
+            }
 
-            yield return null;
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                currentState = States.IDLE;
+            }
+            yield return new WaitForEndOfFrame();
         }
-
-        //EXIT PATROLLING STATE >
-        //write any code here you want to run when the state is left
     }
+    #endregion
+
+    #region CHASING
     IEnumerator CHASING()
     {
         //ENTER THE CHASING STATE >
         //put any code here that you want to run at the start of the behaviour
 
-        yield return new WaitForSeconds(6);
-
-        currentState = States.PATROLLING;
         //UPDATE CHASING STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.IDLE)
+        while (currentState == States.CHASING)
         {
+            if (!WithinRange(sightRange)) currentState = States.IDLE;
 
-            yield return null;
+            agent.SetDestination(player.position);
+            yield return new WaitForEndOfFrame();
         }
 
         //EXIT CHASING STATE >
         //write any code here you want to run when the state is left
     }
+    #endregion
+
+    #region COMBAT
     IEnumerator COMBAT()
     {
         //ENTER THE COMBAT STATE >
@@ -129,7 +146,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         currentState = States.PATROLLING;
         //UPDATE COMBAT STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.IDLE)
+        while (currentState == States.COMBAT)
         {
 
             yield return null;
@@ -138,6 +155,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //EXIT COMBAT STATE >
         //write any code here you want to run when the state is left
     }
+    #endregion
+
+    #region MELEE
     IEnumerator MELEE()
     {
         //ENTER THE MELEE STATE >
@@ -148,7 +168,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         currentState = States.PATROLLING;
         //UPDATE MELEE STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.IDLE)
+        while (currentState == States.MELEE)
         {
 
             yield return null;
@@ -157,25 +177,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //EXIT MELEE STATE >
         //write any code here you want to run when the state is left
     }
-    IEnumerator DEAD()
-    {
-        //ENTER THE DEAD STATE >
-        //put any code here that you want to run at the start of the behaviour
+    #endregion
 
-        yield return new WaitForSeconds(6);
 
-        currentState = States.PATROLLING;
-        //UPDATE DEAD STATE >
-        //put any code here you want to repeat during the state being active
-        while (currentState == States.IDLE)
-        {
-
-            yield return null;
-        }
-
-        //EXIT DEAD STATE >
-        //write any code here you want to run when the state is left
-    }
     #endregion
 
     //Used to help visualize the range values in scene.
@@ -195,4 +199,17 @@ public class BW_SummonerStateMachine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + Vector3.up, summonRange);
     }
     #endregion
+
+    //Determine whether the player is within a certain range
+    bool WithinRange(float range)
+    {
+        if (Vector3.Distance(player.position, transform.position) < range)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

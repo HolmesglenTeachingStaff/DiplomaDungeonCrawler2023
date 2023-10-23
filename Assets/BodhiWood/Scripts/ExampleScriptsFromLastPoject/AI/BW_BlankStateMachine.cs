@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Collider))]
-public class BlankStateMachine : MonoBehaviour
+public class BW_BlankStateMachine : MonoBehaviour
 {
     #region variables
     public float sightRange;
