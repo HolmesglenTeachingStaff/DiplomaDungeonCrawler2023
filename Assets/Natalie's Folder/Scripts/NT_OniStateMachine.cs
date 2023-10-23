@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class NT_OniStateMachine : MonoBehaviour
 {
     #region Variables
+    public Color sightColor;
+    public Color meleeColor;
     public float sightRange;
     public float meleeRange;
 
     public Transform player;
     private NavMeshAgent agent;
 
-    private Animator anim;
+    //private Animator anim;
 
     //patrol settings 
     [SerializeField] Transform[] nodes;
     int currentNode;
 
     //Variables for health when in retreating and restore state 
-    public int healthHealed;
-    //Variable for current health
-    int currentHealth;
     //need ref to stats script to effect health 
-    public StatSystem statSystem;
+    Stats stat;
 
     #endregion
 
@@ -43,9 +43,10 @@ public class NT_OniStateMachine : MonoBehaviour
 
     private void Start()
     {
+        stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
-        //Start the statmachine
+        //anim = GetComponent<Animator>();
+        //Start the statemachine
         StartCoroutine(OniFSM());
     }
     #endregion
@@ -69,13 +70,12 @@ public class NT_OniStateMachine : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(1, 5));
 
         //Play idle annimations
-        anim.Play("");
+        //anim.Play("");
 
         //Wait for a few seconds
         yield return new WaitForSeconds(Random.Range(1, 5));
 
         //transitions to roaming state 
-        agent.SetDestination(transform.position);
         currentState = States.ROAMING;
 
         //Check if player is in range 
@@ -86,6 +86,8 @@ public class NT_OniStateMachine : MonoBehaviour
                 currentState = States.CHASING;
             }
             yield return new WaitForEndOfFrame();
+
+            yield return null;
         }
 
         Debug.Log("Player found will start chasing mode");
@@ -99,7 +101,7 @@ public class NT_OniStateMachine : MonoBehaviour
         //Chasing state behaviour 
         while (currentState == States.CHASING)
         {
-            agent.SetDestination(transform.position);
+            agent.SetDestination(player.position);
 
             if (!IsInRange(sightRange))
             {
@@ -134,7 +136,7 @@ public class NT_OniStateMachine : MonoBehaviour
             //Roaming behaviour 
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-                yield return new WaitForSeconds(Random.Range(3, 5));
+                //yield return new WaitForSeconds(Random.Range(3, 5));
                 agent.speed = Random.Range(5, 10);
 
                 currentNode = Random.Range(0, nodes.Length);
@@ -145,48 +147,57 @@ public class NT_OniStateMachine : MonoBehaviour
         }
     }
 
-    //IEnumerator ATTACKING()
-    //{
+    IEnumerator ATTACKING()
+    { 
         //Play attacking animations 
-        //while (currentState == States.ATTACKING)
-        //{
-        //
-        //}
+        while (currentState == States.ATTACKING)
+        {
+        //anim.Play("");
+        if(!IsInRange(meleeRange))
+        {
+        currentState = States.CHASING;
+        }
+        if(stat.currentHealth <= 15)
+        {
+        currentState = States.RETREAT;
+        }
+        yield return new WaitForEndOfFrame();
+        }
         //Check if player is still in melee range 
         //switch states if not 
         //If player is still in melee range, keep attacking until health reaches below 85% 
         //Switch to retreat state
-    //}
+    }
 
-    //IEnumerator RETREAT()
-    //{
+    IEnumerator RETREAT()
+    {
         //Character goes to furthest node from player
-        //while (currentState == States.RETREAT)
-        //{
-
-        //if(IsinRange(sightRange,meleeRange) && statSystem.health <= 15%)
-        //{
-        //currentNode = Random.Range(0, nodes.Length)
-        //agent.SetDestination(nodes[currentNode].position)
+        while (currentState == States.RETREAT)
+        {
+        if(IsInRange(meleeRange) && stat.currentHealth <= 15)
+        {
+        currentNode = Random.Range(0, nodes.Length);
+        agent.SetDestination(nodes[currentNode].position);
 
         //Once reached node, immeadiately heal health back to 100%
-        //currentHealth = maxHealth
-        //}
+        stat.currentHealth += 85;
+        //stat.OnBuffRecieved.Invoke();
+        }
 
         //After health is back to 100% checks for player in sight 
-        //if(IsInRange(sightRange))
-        //{
-        //currentState = States.CHASING
-        //}
-        //else
-        //{
-        //currentState = States.ROAMING
-        //}
+        if(IsInRange(sightRange))
+        {
+        currentState = States.CHASING;
+        }
+        else
+        {
+        currentState = States.ROAMING;
+        }
         //Switches back to roaming if player is not in sight 
         //Switches to chasing/attacking if player is in sight 
-        //}
-        //yield return new WaitForEndOfFrame();
-        //}
+        }
+        yield return new WaitForEndOfFrame();
+        }
 
     #endregion
 
@@ -201,6 +212,15 @@ public class NT_OniStateMachine : MonoBehaviour
         {
             return false;
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = sightColor;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+
+        Gizmos.color = meleeColor;
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
     #endregion
 }
