@@ -1,0 +1,146 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(Collider))]
+public class JP_BlankStateMachine : MonoBehaviour
+{
+    #region variables
+    public float sightRange;
+    public float meleeRange;
+    public Transform player;
+    private NavMeshAgent agent;
+    private float timer=0;
+    private Vector3 target;
+    private Vector3 home;
+
+    [HideInInspector]
+    public Color sightColor;
+    #endregion
+
+   
+    #region States
+    /// Declare states. If you add a new state to your character,
+    /// remember to add a new States enum for it.
+    public enum States { IDLE, PATROLLING, CHASING, ATTACKING }
+
+    public States currentState;
+    #endregion
+
+    #region Initialization
+    //set default state
+    private void Awake()
+    {
+        currentState = States.IDLE;
+    }
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        //start the fsm
+        StartCoroutine(EnemyFSM());
+
+    }
+    #endregion
+
+    #region Finite StateMachine
+    IEnumerator EnemyFSM()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(currentState.ToString());
+        }
+    }
+    #endregion
+
+    #region Behaviour Coroutines
+    IEnumerator IDLE()
+    {
+        //ENTER THE IDLE STATE >
+        //put any code here that you want to run at the start of the behaviour
+
+       
+
+        //UPDATE IDLE STATE >
+        //put any code here you want to repeat during the state being active
+        while (currentState == States.IDLE)
+        {
+            if(sightRange>Vector3.Distance(player.position,transform.position))
+            {
+                currentState=States.CHASING;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        //EXIT IDLE STATE >
+        //write any code here you want to run when the state is left
+
+        
+    }
+    IEnumerator CHASING()
+    {
+        //ENTER THE Chasing STATE >
+        //put any code here that you want to run at the start of the behaviour
+
+
+
+        //UPDATE Chasing STATE >
+        //put any code here you want to repeat during the state being active
+        while (currentState == States.CHASING)
+        {
+            if(sightRange<Vector3.Distance(player.position,transform.position))
+            {
+                currentState=States.IDLE;
+            }
+            Vector3 facingDir = transform.position - player.position;
+            transform.rotation = Quaternion.LookRotation(facingDir);
+
+            timer=timer+1.0f;
+            if(timer==600f)
+            {
+                target=player.position;
+                timer=0f;
+                yield return new WaitForSeconds(0.5f);
+                currentState=States.ATTACKING;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        //EXIT IDLE STATE >
+        //write any code here you want to run when the state is left
+
+    }
+    IEnumerator ATTACKING()
+    {
+        //ENTER THE Chasing STATE >
+        //put any code here that you want to run at the start of the behaviour
+        home=transform.position;
+        transform.position=target;
+        yield return new WaitForSeconds(1);
+        transform.position=home;
+        currentState=States.CHASING;
+
+
+        //UPDATE Chasing STATE >
+        //put any code here you want to repeat during the state being active
+        while (currentState == States.ATTACKING)
+        {
+            
+            yield return new WaitForEndOfFrame();
+        }
+
+        //EXIT IDLE STATE >
+        //write any code here you want to run when the state is left
+    }
+    #endregion
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
+    }
+
+}
