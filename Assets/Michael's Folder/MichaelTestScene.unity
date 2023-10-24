@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 2141695699}
   - component: {fileID: 2141695704}
   m_Layer: 6
-  m_Name: MJ_NPC
+  m_Name: MJ_CoruptedPriest
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1274,12 +1274,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  currentHealth: 50
+  maxHealth: 70
+  currentHealth: 0
   regenRate: 5
   tempRegen: 0
   maxSpeed: 3
-  currentSpeed: 3
+  currentSpeed: 0
   maxArmour: 0
   currentArmour: 0
   maxBaseAttackDamage: 10
@@ -1483,7 +1483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7385886302312655262, guid: 4f5fe7337a3cf564cb15b88794ba0c21, type: 3}
       propertyPath: m_Name
-      value: MJ_Sphere
+      value: MJ_Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 7385886302312655262, guid: 4f5fe7337a3cf564cb15b88794ba0c21, type: 3}
       propertyPath: m_IsActive
