@@ -9,9 +9,9 @@ public class NoiseMaker : MonoBehaviour
     public int size = 32, height = 16;
 
     static Texture3D tex3D;
-    void Update()
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+       //if (Input.GetKeyDown(KeyCode.Space))
         {
             CreateTexture();
         }
