@@ -18,6 +18,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     public GameObject objectToSummon;
 
+    public bool checkingForPlayer;
+
     [Header("Reaction Range Values")]
     public float sightRange;
     public float summonRange;
@@ -62,6 +64,20 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     #endregion
 
+    #region Update
+    void Update()
+    {
+        //WORK IN PROGRESS (very janky right now)
+        if (checkingForPlayer == true)
+        {
+            if (Vector3.Distance(player.position, transform.position) < sightRange)
+            {
+                currentState = States.CHASING;
+            }
+        }
+    }
+    #endregion
+
     //Contents of the states, and how to change between them.
     #region Behaviour Coroutines
 
@@ -69,24 +85,15 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region IDLE
     IEnumerator IDLE()
     {
+        checkingForPlayer = true;
+
+        yield return new WaitForSeconds(Random.Range(5, 10));
+        currentState = States.PATROLLING;
+
         //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
         {
-            if (Vector3.Distance(player.position, transform.position) < sightRange)
-            {
-                currentState = States.CHASING;
-            }
-
-            //Currently trying to exit out of WaitForSeconds early if player enters range, before WaitForSeconds has ended
-
-            else if (Vector3.Distance(player.position, transform.position) > sightRange)
-            {
-                yield return new WaitForSeconds(Random.Range(5, 10));
-
-                currentState = States.PATROLLING;
-            }
-
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
     }
     #endregion
@@ -94,17 +101,14 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region PATROLLING
     IEnumerator PATROLLING()
     {
+        checkingForPlayer = true;
+
         agent.SetDestination(nodes[currentNode].position);
         currentNode = Random.Range(0, nodes.Length);
 
         //put any code here you want to repeat during the state being active
         while (currentState == States.PATROLLING)
         {
-            if (Vector3.Distance(player.position, transform.position) < sightRange)
-            {
-                currentState = States.CHASING;
-            }
-
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
                 currentState = States.IDLE;
@@ -117,6 +121,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region CHASING
     IEnumerator CHASING()
     {
+        checkingForPlayer = false;
+
         //ENTER THE CHASING STATE >
         //put any code here that you want to run at the start of the behaviour
 
