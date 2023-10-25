@@ -484,9 +484,9 @@ MonoBehaviour:
   talkColor: {r: 0.39677316, g: 0.2732734, b: 0.6509434, a: 1}
   sightRange: 10
   talkRange: 5
-  player: {fileID: 0}
+  player: {fileID: 1188905576}
   nodes: []
-  playerChar: {fileID: 0}
+  playerChar: {fileID: 2093460931}
   currentState: 0
 --- !u!114 &628540340
 MonoBehaviour:
@@ -1301,7 +1301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429659938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.596, y: 0.85, z: -5.413547}
+  m_LocalPosition: {x: 34.706, y: 0.85, z: -5.413547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1629,7 +1629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977639610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.09, y: 0.85, z: -5.413547}
+  m_LocalPosition: {x: 33.2, y: 0.85, z: -5.413547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2089,6 +2089,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+--- !u!1 &2093460931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6224115787055095602, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+  m_PrefabInstance: {fileID: 2092902257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3179869378327463128
 PrefabInstance:
   m_ObjectHideFlags: 0
