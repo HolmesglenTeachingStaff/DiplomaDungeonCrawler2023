@@ -25,11 +25,13 @@ public class NT_OniStateMachine : MonoBehaviour
     //need ref to stats script to effect health 
     Stats stat;
 
+    //Variables for DEATH
+
     #endregion
 
     #region States
     //Declaring states 
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, RETREAT }
+    public enum States { IDLE, ROAMING, CHASING, ATTACKING, RETREAT , DEATH}
     public States currentState;
     #endregion
 
@@ -112,9 +114,10 @@ public class NT_OniStateMachine : MonoBehaviour
                     currentState = States.ATTACKING;
                 }
             }
-            agent.SetDestination(transform.position);
+            agent.SetDestination(player.position);
+            yield return new WaitForEndOfFrame();
         }
-        yield return new WaitForEndOfFrame();
+        
     }
 
     IEnumerator ROAMING()
@@ -143,6 +146,11 @@ public class NT_OniStateMachine : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+
+        yield return new WaitForSeconds(Random.Range(20, 60));
+        agent.SetDestination(transform.position);
+
+        currentState = States.IDLE;
     }
 
     IEnumerator ATTACKING()
@@ -150,16 +158,17 @@ public class NT_OniStateMachine : MonoBehaviour
         //Play attacking animations 
         while (currentState == States.ATTACKING)
         {
-        //anim.Play("");
-        if(!IsInRange(meleeRange))
-        {
-        currentState = States.CHASING;
-        }
-        if(stat.currentHealth <= 15)
-        {
-        currentState = States.RETREAT;
-        }
-        yield return new WaitForEndOfFrame();
+           //anim.Play("");
+           if(!IsInRange(meleeRange))
+           {
+               currentState = States.CHASING;
+           }
+
+           if(stat.currentHealth <= 15)
+           {
+               currentState = States.RETREAT;
+           }
+               yield return new WaitForEndOfFrame();
         }
         //Check if player is still in melee range 
         //switch states if not 
@@ -169,34 +178,52 @@ public class NT_OniStateMachine : MonoBehaviour
 
     IEnumerator RETREAT()
     {
+        //Current bug: NPC doesnt go to node at 15% health, instead heals on the spot while fighting player 
         //Character goes to furthest node from player
         while (currentState == States.RETREAT)
         {
-        if(IsInRange(meleeRange) && stat.currentHealth <= 15)
-        {
-        currentNode = Random.Range(0, nodes.Length);
-        agent.SetDestination(nodes[currentNode].position);
+            if(IsInRange(meleeRange) && stat.currentHealth <= 15)
+                {
+                    currentNode = Random.Range(0, nodes.Length);
+                    agent.SetDestination(nodes[currentNode].position);
 
         //Once reached node, immeadiately heal health back to 100%
-        stat.currentHealth += 85;
-        stat.OnBuffRecieved.Invoke();
-        }
+                    stat.currentHealth += 85;
+                    stat.OnBuffRecieved.Invoke();
+                 }
 
         //After health is back to 100% checks for player in sight 
         if(IsInRange(sightRange))
         {
-        currentState = States.CHASING;
+             currentState = States.CHASING;
         }
         else
         {
-        currentState = States.ROAMING;
+             currentState = States.ROAMING;
         }
         //Switches back to roaming if player is not in sight 
         //Switches to chasing/attacking if player is in sight 
         }
-        yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
         }
 
+
+    IEnumerator DEATH()
+    {
+        //Once in this state, NPC will destroy itself and play shader
+        //Invoke die function from stat script 
+        //Use shader for death 
+
+        while (currentState == States.DEATH)
+        {
+            if(stat.currentHealth <= 0)
+            {
+                Destroy(gameObject);
+                stat.Die();
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
     #endregion
 
     #region Extra functions 
