@@ -86,7 +86,14 @@ public class JP_BlankStateMachine2 : MonoBehaviour
         while (currentState == States.CHASING)
         {
             agent.SetDestination(player.position);
-            yield return new WaitForEndOfFrame();
+            agent.speed=4;
+            yield return new WaitForSeconds(0.75f);
+            agent.speed=0;
+            yield return new WaitForSeconds(0.5f);
+            if(sightRange<Vector3.Distance(player.position,transform.position))
+             {
+                currentState=States.PATROLLING;
+             }
         }
 
         //EXIT IDLE STATE >
@@ -104,10 +111,18 @@ public class JP_BlankStateMachine2 : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.PATROLLING)
         {
-            if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            if(!agent.pathPending && agent.remainingDistance >= agent.stoppingDistance)
+             {
+                agent.speed=4;
+                agent.SetDestination(nodes[currentNode].position);
+                yield return new WaitForSeconds(0.75f);
+                agent.speed=0;
+                yield return new WaitForSeconds(0.5f);
+             }
+             if(!agent.pathPending && agent.remainingDistance == agent.stoppingDistance)
              {
                 currentNode = (currentNode + 1) % nodes.Length;
-                agent.SetDestination(nodes[currentNode].position);
+                agent.speed=3;
              }
              if(sightRange>Vector3.Distance(player.position,transform.position))
              {
