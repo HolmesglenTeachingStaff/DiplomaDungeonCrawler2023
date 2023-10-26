@@ -29,7 +29,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     #region States
 
     //declare states, add states where needed on the enum so it's accissible by the character
-    public enum States {IDLE, ROAMING, ATTACKING, CHASING, PATROLLING}
+    public enum States {IDLE, ROAMING, ATTACKING, CHASING, PATROLLING, CHARGING}
     public States currentState;
 
     #endregion
@@ -251,6 +251,52 @@ public class CS_FiniteStateMachine : MonoBehaviour
         Debug.Log("Ah, must have been the wind.");
 
     }
+
+
+ IEnumerator CHARGING()
+    {
+        //ENTER THE PATROLLING STATE >
+        //put any code here that you want to run while patrolling
+
+       Debug.Log("I'll find you");
+
+       agent.SetDestination(nodes[currentNode].position);
+
+        //UPDATE PATROLLING STATE >
+        //put any code here you want to repeat during patrolling state being active
+        while (currentState == States.PATROLLING)
+        {
+
+            if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
+
+             if(Vector3.Distance(player.position, transform.position) <sightRange) 
+             {
+                currentState = States.CHASING;
+             }
+
+            if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)//pathPending is when the agent is still in the process of picking a path
+            {
+                yield return new WaitForSeconds(Random.Range(0, 5)); //randomizes the time character waits between nodes
+                agent.speed = Random.Range(3, 8); //randomizes the speed the character moves between nodes
+
+                //currentNode = Random.Range(0, nodes.Length); //this would randomize the nodes the npc goes between
+
+                currentNode = (currentNode + 1) % nodes.Length; //this divides the first number by the second number, starting from node 0 going upward, resseting the nodes to 0 when they're completed through.
+
+                //currentNode++; //increasing node count
+                agent.SetDestination(nodes[currentNode].position);
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        //EXIT PATROLLING STATE >
+        //write any code here you want to run when the state is left
+
+        
+    }
+
+
 
     #endregion
 
