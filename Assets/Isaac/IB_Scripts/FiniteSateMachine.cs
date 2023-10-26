@@ -11,7 +11,14 @@ public class FiniteSateMachine : MonoBehaviour
     public Transform player;
     public NavMeshAgent agent;
     public Color sightColor;
+    
     public IB_DamageReactions KnockBack;
+    public GameObject tenguM;
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
+
+    private Animator anim;
     #endregion
 
     #region States
@@ -32,6 +39,7 @@ public class FiniteSateMachine : MonoBehaviour
     {
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         //start the fsm
         StartCoroutine(EnemyFSM());
     }
@@ -93,13 +101,23 @@ public class FiniteSateMachine : MonoBehaviour
     }
     IEnumerator ATTACKING()
     {
+        anim.Play("Attack");
+        yield return new WaitForSeconds(0.5f);
 
     }
     IEnumerator SPAWNING()
     {
         while (currentState == States.SPAWNING)
         {
-            KnockBack.DamageBurst
+            anim.Play("Spawning");
+            KnockBack.DamageBurst();
+            yield return new WaitForSeconds(2.5f);
+
+            Instantiate(tenguM, spawnPoint1.position, spawnPoint1.rotation);
+            Instantiate(tenguM, spawnPoint2.position, spawnPoint2.rotation);
+            Instantiate(tenguM, spawnPoint3.position, spawnPoint3.rotation);
+
+            yield return new WaitForEndOfFrame();
         }
     }
     #endregion
