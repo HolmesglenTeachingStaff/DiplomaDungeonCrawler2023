@@ -29,12 +29,12 @@ public class PlayerDamageAnimator : MonoBehaviour
     public void PlayAnimation()
     {
         if(lastAttackPosition == attackPosition.behind) anim.Play("BackwardImpact");
-        if (lastAttackPosition == attackPosition.front) anim.Play("forwardImpact");
+        else anim.Play("forwardImpact");
     }
     public void PlayDeathAnimation()
     {
         if (lastAttackPosition == attackPosition.behind) anim.Play("backwardDeath");
-        if (lastAttackPosition == attackPosition.front) anim.Play("forwardDeath");
+        else anim.Play("forwardDeath");
         anim.SetBool("Dead", true);
     }
 }

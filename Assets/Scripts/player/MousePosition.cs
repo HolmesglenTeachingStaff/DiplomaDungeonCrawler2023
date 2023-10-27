@@ -19,7 +19,7 @@ public class MousePosition : MonoBehaviour
 
     public Vector3 GetPosition(Camera cam)
     {
-        
+
         ray = cam.ScreenPointToRay(Input.mousePosition);
 
         float enter = 0.0f;
@@ -31,3 +31,4 @@ public class MousePosition : MonoBehaviour
         return position;
     }
 }
+    
