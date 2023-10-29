@@ -18,7 +18,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     public GameObject objectToSummon;
 
-    public bool checkingForPlayer;
+    public bool checkingForPlayer = true;
 
     [Header("Reaction Range Values")]
     public float sightRange;
@@ -67,13 +67,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region Update
     void Update()
     {
-        //WORK IN PROGRESS (very janky right now)
-        if (checkingForPlayer == true)
+        //Chase the player, if seen from any state
+        if (checkingForPlayer == true && Vector3.Distance(player.position, transform.position) < sightRange)
         {
-            if (Vector3.Distance(player.position, transform.position) < sightRange)
-            {
-                currentState = States.CHASING;
-            }
+            currentState = States.CHASING;
         }
     }
     #endregion
@@ -85,16 +82,25 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region IDLE
     IEnumerator IDLE()
     {
-        checkingForPlayer = true;
+        float timer;
 
-        yield return new WaitForSeconds(Random.Range(5, 10));
-        currentState = States.PATROLLING;
+        checkingForPlayer = true;
+        timer = 0;
 
         //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
         {
-            yield return null;
+            timer++;
+
+            //Time spent remaining IDLE
+            if (timer >= 12)
+            {
+                currentState = States.PATROLLING;
+            }
+
+            yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForEndOfFrame();
     }
     #endregion
 
@@ -115,6 +121,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+        yield return new WaitForEndOfFrame();
     }
     #endregion
 
@@ -135,7 +142,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
             agent.SetDestination(player.position);
             yield return new WaitForEndOfFrame();
         }
-
+        yield return new WaitForEndOfFrame();
         //EXIT CHASING STATE >
         //write any code here you want to run when the state is left
     }
