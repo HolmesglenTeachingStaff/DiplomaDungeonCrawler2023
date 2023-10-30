@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &288969511
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1018,6 +1018,7 @@ GameObject:
   - component: {fileID: 628540341}
   - component: {fileID: 628540340}
   - component: {fileID: 628540339}
+  - component: {fileID: 628540347}
   m_Layer: 0
   m_Name: NT_NPCTSUKUYOMISTANDIN
   m_TagString: Untagged
@@ -1207,6 +1208,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &628540347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628540338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7c269732327d64dbcb117125b85e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc: {fileID: 11400000, guid: b3ef16bcde4441842a691a97468ebc1b, type: 2}
+  player: {fileID: 2093460931}
+  dialogueUI: {fileID: 1478899661}
+  npcName: {fileID: 1091085643}
+  npcDialogueBox: {fileID: 1456946369}
+  playerResponse: {fileID: 288969512}
 --- !u!1 &701638369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,7 +1952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46532905, g: 0.45768064, b: 0.5188679, a: 1}
+  m_Color: {r: 0.64101994, g: 0.630785, b: 0.7075472, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1975,6 +1994,8 @@ GameObject:
   - component: {fileID: 1195058844}
   - component: {fileID: 1195058843}
   - component: {fileID: 1195058842}
+  - component: {fileID: 1195058847}
+  - component: {fileID: 1195058846}
   m_Layer: 5
   m_Name: Canvas - Dialogue box
   m_TagString: Untagged
@@ -2064,6 +2085,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1195058846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195058841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413d567d060b3584ca99117f698d92ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeWriterSpeed: 50
+--- !u!114 &1195058847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195058841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5c49aca83ebd44ba883267f48123f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textLabel: {fileID: 1456946369}
+  npcName: {fileID: 1091085643}
 --- !u!1 &1204189412
 GameObject:
   m_ObjectHideFlags: 0
