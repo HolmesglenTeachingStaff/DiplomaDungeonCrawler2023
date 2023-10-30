@@ -14,7 +14,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     private Animator anim;
 
     public Transform player;
-    public Transform lookAt;
+    public Transform summonLocation;
 
     public GameObject objectToSummon;
 
@@ -25,6 +25,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     public float summonRange;
     public float dangerRange;
     public float meleeRange;
+    public float bufferRange;
 
     //Nodes to indicate where to patrol.
     [SerializeField] Transform[] nodes;
@@ -68,9 +69,23 @@ public class BW_SummonerStateMachine : MonoBehaviour
     void Update()
     {
         //Chase the player, if seen from any state
-        if (checkingForPlayer == true && Vector3.Distance(player.position, transform.position) < sightRange)
+        if (checkingForPlayer == true && WithinRange(sightRange))
         {
             currentState = States.CHASING;
+        }
+
+        //Change to MELEE state from any state if the player gets too close
+        //(NOTE TO SELF)Commented out as it is not being coded yet
+        /*if (WithinRange(meleeRange))
+        {
+            currentState = States.MELEE;
+        }*/
+
+        //Rotate to face the player while in sightRange
+        //(NOTE TO SELF) check to see if you can lerp the LookAt, so it doesn't snap too the player once in range
+        if (WithinRange(sightRange))
+        {
+            transform.LookAt(player);
         }
     }
     #endregion
@@ -83,9 +98,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
     IEnumerator IDLE()
     {
         float timer;
+        timer = 0;
 
         checkingForPlayer = true;
-        timer = 0;
 
         //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
@@ -130,49 +145,51 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         checkingForPlayer = false;
 
-        //ENTER THE CHASING STATE >
-        //put any code here that you want to run at the start of the behaviour
-
-        //UPDATE CHASING STATE >
-        //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
             if (!WithinRange(sightRange)) currentState = States.IDLE;
+
+            if (WithinRange(summonRange)) currentState = States.COMBAT;
 
             agent.SetDestination(player.position);
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
-        //EXIT CHASING STATE >
-        //write any code here you want to run when the state is left
     }
     #endregion
 
     #region COMBAT
     IEnumerator COMBAT()
     {
-        //ENTER THE COMBAT STATE >
-        //put any code here that you want to run at the start of the behaviour
+        checkingForPlayer = false;
 
-        yield return new WaitForSeconds(6);
+        //Spawn Elemental at the summonLocation and rotation
+        //(NOTE TO SELF)Spawning WAY too many at the moment lol
+        //Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
 
-        currentState = States.PATROLLING;
-        //UPDATE COMBAT STATE >
+
         //put any code here you want to repeat during the state being active
         while (currentState == States.COMBAT)
         {
+            if (!WithinRange(summonRange))
+            {
+                currentState = States.CHASING;
+            }
 
-            yield return null;
+            //(NOTE TO SELF) work in progress, partly what I want, but not quite
+            agent.SetDestination(player.position * bufferRange);
+
+            yield return new WaitForEndOfFrame();
         }
-
-        //EXIT COMBAT STATE >
-        //write any code here you want to run when the state is left
+        yield return null;
     }
     #endregion
 
     #region MELEE
     IEnumerator MELEE()
     {
+        checkingForPlayer = false;
+
         //ENTER THE MELEE STATE >
         //put any code here that you want to run at the start of the behaviour
 
@@ -210,6 +227,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position + Vector3.up, summonRange);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, bufferRange);
     }
     #endregion
 

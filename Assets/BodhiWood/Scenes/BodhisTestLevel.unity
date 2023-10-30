@@ -372,11 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224115785544094219, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.032017
+      value: 37.032013
       objectReference: {fileID: 0}
     - target: {fileID: 6224115785544094219, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 37.832863
+      value: 37.83286
       objectReference: {fileID: 0}
     - target: {fileID: 6224115785544094219, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
@@ -384,11 +384,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787437046118, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.032017
+      value: 37.032013
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787437046118, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 37.832863
+      value: 37.83286
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787437046118, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
@@ -404,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.42
+      value: -5.21
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.y
@@ -412,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.81
+      value: 8.82
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalRotation.w
@@ -684,7 +684,7 @@ SphereCollider:
   m_GameObject: {fileID: 37029432}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -786,7 +786,7 @@ SphereCollider:
   m_GameObject: {fileID: 261087956}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 330046183}
   - component: {fileID: 330046182}
   - component: {fileID: 330046181}
-  - component: {fileID: 330046180}
+  - component: {fileID: 330046184}
   m_Layer: 0
   m_Name: MaterialTester
   m_TagString: Untagged
@@ -905,19 +905,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &330046180
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330046179}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &330046181
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -976,13 +963,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330046179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.34, y: 1.43, z: -1.32}
-  m_LocalScale: {x: 0.2487, y: 0.2487, z: 0.2487}
+  m_LocalPosition: {x: 1.65, y: 2.75, z: -2.95}
+  m_LocalScale: {x: 2.10352, y: 2.10352, z: 2.10352}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &330046184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330046179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744c9f1c84664614cbc1702025d00874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: bf302cf0c85f14348afa386461992917, type: 2}
+  newColor: {r: 0, g: 7.999999, b: 4.2722507, a: 0}
 --- !u!1 &454384052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1109,7 @@ SphereCollider:
   m_GameObject: {fileID: 970303510}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1302,7 +1303,7 @@ SphereCollider:
   m_GameObject: {fileID: 1165105881}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1399,7 +1400,7 @@ SphereCollider:
   m_GameObject: {fileID: 1237084855}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1628,7 +1629,7 @@ SphereCollider:
   m_GameObject: {fileID: 1489129122}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1937,7 +1938,7 @@ SphereCollider:
   m_GameObject: {fileID: 1868349577}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -2131,7 +2132,7 @@ SphereCollider:
   m_GameObject: {fileID: 2085310884}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -2303,12 +2304,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 161944149}
     - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: sightRange
-      value: 5.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: checkingForPlayer
-      value: 1
+      propertyPath: bufferRange
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: nodes.Array.data[0]
