@@ -1,0 +1,1432 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 1
+  m_FogColor: {r: 0.7803922, g: 0.91372555, b: 1, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.0005
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.13559629, g: 0, b: 0.4716981, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.3267236, g: 0, b: 0.6603774, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 443065825}
+  m_IndirectSpecularColor: {r: 0.18025236, g: 0.22567746, b: 0.30690396, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 512
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 2
+    m_PVRDenoiserTypeDirect: 0
+    m_PVRDenoiserTypeIndirect: 0
+    m_PVRDenoiserTypeAO: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 0
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_LightingSettings: {fileID: 1243697016}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 2
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &397911312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397911315}
+  - component: {fileID: 397911314}
+  - component: {fileID: 397911313}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!154 &397911313
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397911312}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: 17c8eb6bd61fd8d48a9ba0303a6a20d4, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &397911314
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397911312}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 17c8eb6bd61fd8d48a9ba0303a6a20d4, type: 2}
+  m_TreeDistance: 60
+  m_TreeBillboardDistance: 300
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 205
+  m_DetailObjectDistance: 105
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 1
+  m_SplatMapDistance: 500
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 1
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 2100000, guid: b66ad04a073fa4343afd378a5e36ca4e, type: 2}
+  m_BakeLightProbesForTrees: 0
+  m_PreserveTreePrototypeLayers: 1
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 0.01
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+--- !u!4 &397911315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397911312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -333.3, y: -19.9, z: -323}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &443065824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443065826}
+  - component: {fileID: 443065825}
+  - component: {fileID: 443065827}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &443065825
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443065824}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 0.5549877, g: 0.4448202, b: 0.7924528, a: 0.41960785}
+  m_Intensity: 0.99
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &443065826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443065824}
+  m_LocalRotation: {x: 0.40913436, y: -0.23445503, z: 0.1096272, w: 0.8749982}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 50.12, y: -30, z: 0}
+--- !u!114 &443065827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443065824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+--- !u!850595691 &1243697016
+LightingSettings:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Lighting Settings
+  serializedVersion: 4
+  m_GIWorkflowMode: 0
+  m_EnableBakedLightmaps: 1
+  m_EnableRealtimeLightmaps: 1
+  m_RealtimeEnvironmentLighting: 1
+  m_BounceScale: 1
+  m_AlbedoBoost: 1
+  m_IndirectOutputScale: 1
+  m_UsingShadowmask: 1
+  m_BakeBackend: 1
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 40
+  m_Padding: 2
+  m_LightmapCompression: 3
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_MixedBakeMode: 2
+  m_LightmapsBakeMode: 1
+  m_FilterMode: 1
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+  m_ExportTrainingData: 0
+  m_TrainingDataDestination: TrainingData
+  m_RealtimeResolution: 2
+  m_ForceWhiteAlbedo: 0
+  m_ForceUpdates: 0
+  m_FinalGather: 0
+  m_FinalGatherRayCount: 256
+  m_FinalGatherFiltering: 1
+  m_PVRCulling: 1
+  m_PVRSampling: 1
+  m_PVRDirectSampleCount: 32
+  m_PVRSampleCount: 512
+  m_PVREnvironmentSampleCount: 256
+  m_PVREnvironmentReferencePointCount: 2048
+  m_LightProbeSampleCountMultiplier: 4
+  m_PVRBounces: 2
+  m_PVRMinBounces: 1
+  m_PVREnvironmentMIS: 1
+  m_PVRFilteringMode: 1
+  m_PVRDenoiserTypeDirect: 1
+  m_PVRDenoiserTypeIndirect: 1
+  m_PVRDenoiserTypeAO: 1
+  m_PVRFilterTypeDirect: 0
+  m_PVRFilterTypeIndirect: 0
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 1
+  m_PVRFilteringGaussRadiusIndirect: 5
+  m_PVRFilteringGaussRadiusAO: 2
+  m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+  m_PVRFilteringAtrousPositionSigmaIndirect: 2
+  m_PVRFilteringAtrousPositionSigmaAO: 1
+  m_PVRTiledBaking: 0
+--- !u!1 &1270687308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1270687310}
+  - component: {fileID: 1270687309}
+  m_Layer: 0
+  m_Name: Vegetation Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1270687309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270687308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f710250abab6f24a954bdf3c3c1ac64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 1096
+  terrains:
+  - {fileID: 397911314}
+  visibleTerrainsOnly: 1
+  treeTypes:
+  - enabled: 1
+    name: Tree_01
+    seed: 508
+    probability: 100
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.411
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.416
+    instanceCount: 3788
+    prefabs:
+    - index: 0
+      probability: 100
+      prefab: {fileID: 2061160454211219164, guid: 3bb1a7c235055384b9d1472109eedccc, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0.439
+  - enabled: 1
+    name: Tree_02
+    seed: 2341
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.357
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.361
+    instanceCount: 398
+    prefabs:
+    - index: 1
+      probability: 100
+      prefab: {fileID: -8616606578545915554, guid: 779ce12fcc40a564199fa33ce97eaeea, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0
+  - enabled: 1
+    name: Tree_03
+    seed: 6914
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.375
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.393
+    instanceCount: 449
+    prefabs:
+    - index: 2
+      probability: 100
+      prefab: {fileID: -6548962770815486927, guid: dac51eb0966349e4ca285a53dfda3de5, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0.626
+  - enabled: 1
+    name: Tree_04
+    seed: 954
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.197
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.302
+    instanceCount: 428
+    prefabs:
+    - index: 3
+      probability: 100
+      prefab: {fileID: 8597131430598304806, guid: 7eb7b7c564aa47a45be8f368315f8c6d, type: 3}
+    distance: 5
+    scaleRange: {x: 1, y: 3}
+    sinkAmount: 0.284
+  - enabled: 1
+    name: Tree_05
+    seed: 2318
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.306
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.329
+    instanceCount: 396
+    prefabs:
+    - index: 4
+      probability: 100
+      prefab: {fileID: 4382266122294847973, guid: 95fe94b23ac029f47bc97eda64c6213f, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0
+  - enabled: 1
+    name: Tree_06
+    seed: 8949
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.457
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.42
+    instanceCount: 357
+    prefabs:
+    - index: 5
+      probability: 100
+      prefab: {fileID: 3924444218081084016, guid: 112f70fc8fae0794bac02bb0b95c8fbb, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0
+  - enabled: 1
+    name: Tree_07
+    seed: 8949
+    probability: 10
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.361
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.343
+    instanceCount: 374
+    prefabs:
+    - index: 6
+      probability: 100
+      prefab: {fileID: 2972992581792289755, guid: 5212e4a00ca47df4d91eea82ed8981b2, type: 3}
+    distance: 5
+    scaleRange: {x: 0.8, y: 3}
+    sinkAmount: 0.347
+  grassPrefabs:
+  - enabled: 1
+    name: Grass_Patch_02
+    seed: 992054674
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.256
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.284
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 111462
+    index: 0
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: bd30923671d4265479ccf03d9450a6c8, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 4.42
+  - enabled: 1
+    name: Grass_Patch_03
+    seed: 1461447072
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.311
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.334
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 108871
+    index: 1
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 669799dae3a23e44aa148a14ea786a61, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Grass_Patch_04
+    seed: 123966288
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.306
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.32
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 109292
+    index: 2
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 0877ddd6398bd1147aff33e8c689cfb2, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_01
+    seed: 15435
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.247
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.32
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2846
+    index: 3
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: dcd951a5a3d2d01409618c68631d383e, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_02
+    seed: 57871
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.448
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.525
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2512
+    index: 4
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 09cb5e93758a14449a9bc40303ce7a13, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_03
+    seed: 25413
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.256
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.311
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2730
+    index: 5
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8baf2e14de9ec5649b83f0006f30c471, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_04
+    seed: 13164
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.521
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.448
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2476
+    index: 6
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: c64840d7f6bbb7f4d85f522ac8a13967, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_05
+    seed: 31176
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.452
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.452
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2518
+    index: 7
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 40f1c331548a1ea4b823cff47b6ace35, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_06
+    seed: 94494
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.562
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.489
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2397
+    index: 8
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: f9da5bdce8b88c94a91cdf54446d3523, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_07
+    seed: 3106
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.512
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.548
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2519
+    index: 9
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 1f59226caf6074d49883e10290a28545, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_09
+    seed: 27220
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.439
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.535
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2611
+    index: 10
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8b8dad22a3df16d429371a3615c6e347, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_10
+    seed: 5265
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.407
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.69
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2351
+    index: 11
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 8b8dad22a3df16d429371a3615c6e347, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_11
+    seed: 90661
+    probability: 0.2
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.462
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.325
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 5213
+    index: 12
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 2bceb09b5019da842a9eeeb7c89e2354, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_12
+    seed: 98908
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.393
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.32
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2629
+    index: 13
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 2117ef2a89f56a344aa5d304cffd00fb, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_13
+    seed: 21009
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.309
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.398
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 3600
+    index: 14
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 34ecb8aa1e5749e4c83054f969c19120, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_14
+    seed: 88937
+    probability: 0.2
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.22
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.941
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 4838
+    index: 15
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 4b49a67811c1376468199a752c95f0ec, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_15
+    seed: 28049
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.272
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.886
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 3376
+    index: 16
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: daa78495872dbee4e9eeaddddb2570b1, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_16
+    seed: 32237
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.411
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.904
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 2134
+    index: 17
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: bdcc200fb3c7b054aab5f9401b6cd674, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.1
+  - enabled: 1
+    name: Mushroom_17
+    seed: 27650
+    probability: 0.1
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.466
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.913
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    instanceCount: 1887
+    index: 18
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: dea6f8869e5719642808f6f571c4fe7f, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 1, y: 2}
+    minMaxWidth: {x: 1, y: 2}
+    noiseSize: 0.93
+  - enabled: 1
+    name: Grass_Patch_01
+    seed: 20419
+    probability: 4
+    collisionCheck: 0
+    rejectUnderwater: 0
+    heightRange: {x: 0, y: 1000}
+    slopeRange: {x: 0, y: 60}
+    curvatureRange: {x: 0, y: 1}
+    layerMasks:
+    - name: DemoGrass
+      layerID: 0
+      threshold: 0.334
+    - name: DemoCliff
+      layerID: 1
+      threshold: 1
+    - name: DemoDirt
+      layerID: 2
+      threshold: 0.243
+    - name: NewLayer
+      layerID: 3
+      threshold: 1
+    instanceCount: 112835
+    index: 19
+    type: 0
+    renderAsBillboard: 0
+    prefab: {fileID: 919132149155446097, guid: 91ffcc52d7cf4eb47a6cf421f577d1ed, type: 3}
+    gpuInstancing: 1
+    holeEdgePadding: 0
+    billboard: {fileID: 0}
+    mainColor: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    secondaryColor: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    linkColors: 1
+    minMaxHeight: {x: 0.25, y: 1.5}
+    minMaxWidth: {x: 0.25, y: 1.5}
+    noiseSize: 4.42
+  terrainSettings:
+    drawTreesAndFoliage: 1
+    preservePrefabLayer: 1
+    treeLightProbes: 0
+    treeDistance: 1000
+    billboardStart: 300
+    maxMeshTrees: 205
+    grassDistance: 150
+    grassDensity: 1
+    windStrength: 0.15
+    windSpeed: 3
+    windFrequency: 8
+    wintTint: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  cellSize: 64
+  cellDivisions: 4
+  highPrecisionCollision: 1
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  terrainMinMaxHeight: {x: -15.317802, y: 58.713394}
+  detailResolution: 2048
+  detailResolutionIndex: 4
+  grassPatchSize: 16
+  grassPatchSizeIndex: 1
+  tempColliders: []
+  waterHeight: 0
+  autoRespawnTrees: 1
+--- !u!4 &1270687310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270687308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1903714068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903714070}
+  - component: {fileID: 1903714069}
+  m_Layer: 0
+  m_Name: Sphere Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1903714069
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903714068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1903714070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903714068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 116.3, y: 32.2, z: -39.6}
+  m_LocalScale: {x: 92.792, y: 92.792, z: 92.792}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

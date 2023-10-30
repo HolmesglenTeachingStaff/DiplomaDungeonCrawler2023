@@ -7772,7 +7772,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatSlider, Assembly-CSharp
-        m_MethodName: UpdateSlider
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7784,7 +7784,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatSlider, Assembly-CSharp
-        m_MethodName: UpdateSlider
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22134,6 +22134,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4630957511536181541, guid: a4d766496af48474f93bd3bef9da240b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67f8e95fe00172a46a28907e5489290d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4d766496af48474f93bd3bef9da240b, type: 3}
 --- !u!4 &5910583695820368746 stripped
