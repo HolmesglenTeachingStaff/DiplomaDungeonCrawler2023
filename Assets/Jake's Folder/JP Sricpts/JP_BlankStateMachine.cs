@@ -39,7 +39,7 @@ public class JP_BlankStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //start the fsm
         StartCoroutine(EnemyFSM());
-
+        home=transform.position;
     }
     #endregion
 
@@ -114,10 +114,12 @@ public class JP_BlankStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        home=transform.position;
-        transform.position=target;
+        
+        agent.speed=20;
+        agent.SetDestination(target);
         yield return new WaitForSeconds(1);
-        transform.position=home;
+        agent.SetDestination(home);
+        
         currentState=States.CHASING;
 
 

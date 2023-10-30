@@ -1351,6 +1351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JPEnemy2
       objectReference: {fileID: 0}
+    - target: {fileID: 8630626905907476241, guid: 3b17235422436476997c490d270b1512, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8630626905907476245, guid: 3b17235422436476997c490d270b1512, type: 3}
       propertyPath: player
       value: 
@@ -1369,11 +1373,11 @@ PrefabInstance:
       objectReference: {fileID: 1582962018}
     - target: {fileID: 8630626906766340264, guid: 3b17235422436476997c490d270b1512, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8630626906766340264, guid: 3b17235422436476997c490d270b1512, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b17235422436476997c490d270b1512, type: 3}
