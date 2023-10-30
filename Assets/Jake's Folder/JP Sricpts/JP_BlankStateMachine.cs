@@ -92,7 +92,7 @@ public class JP_BlankStateMachine : MonoBehaviour
             {
                 currentState=States.IDLE;
             }
-            Vector3 facingDir = transform.position - player.position;
+            Vector3 facingDir = player.position - transform.position;
             transform.rotation = Quaternion.LookRotation(facingDir);
 
             timer=timer+1.0f;
@@ -115,19 +115,21 @@ public class JP_BlankStateMachine : MonoBehaviour
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
         
-        agent.speed=20;
+        agent.speed=50;
         agent.SetDestination(target);
+        agent.updateRotation=false;
         yield return new WaitForSeconds(1);
         agent.SetDestination(home);
-        
-        currentState=States.CHASING;
-
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.ATTACKING)
         {
-            
+            if(!agent.pathPending && agent.remainingDistance == agent.stoppingDistance)
+            {
+                agent.updateRotation=true;
+                currentState=States.CHASING;
+            }
             yield return new WaitForEndOfFrame();
         }
 
