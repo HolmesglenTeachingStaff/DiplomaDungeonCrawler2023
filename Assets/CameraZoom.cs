@@ -33,11 +33,11 @@ public class CameraZoom : MonoBehaviour
         // Zooming with the scroll wheel
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         float newOrthographicSize = Mathf.Clamp(
-            virtualCamera.m_Lens.OrthographicSize - scrollInput * zoomSpeed,
+            virtualCamera.m_Lens.FieldOfView  - scrollInput * zoomSpeed,
             minZoom,
             maxZoom
         );
-        virtualCamera.m_Lens.OrthographicSize = newOrthographicSize;
+        virtualCamera.m_Lens.FieldOfView  = newOrthographicSize;
 
         // Rotating with middle mouse click
         if (Input.GetMouseButtonDown(2))
