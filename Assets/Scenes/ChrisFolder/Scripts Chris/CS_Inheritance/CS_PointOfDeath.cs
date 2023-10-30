@@ -24,7 +24,7 @@ public class CS_PointOfDeath : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 //try and damage a base stat
-                BaseStats stats = hit.collider.GetComponent<BaseStats>();
+                CS_BaseStats stats = hit.collider.GetComponent<CS_BaseStats>();
 
                 if(stats == null)
                 {

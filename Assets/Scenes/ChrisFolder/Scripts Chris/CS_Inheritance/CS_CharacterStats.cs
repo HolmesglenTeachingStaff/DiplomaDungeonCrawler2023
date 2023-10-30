@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CS_CharacterStats : BaseStats // on the left this script is allowed to inherit from the BaseStats script
+public class CS_CharacterStats : CS_BaseStats // on the left this script is allowed to inherit from the BaseStats script
 {
     [Header("Character Info")]
     public string characterName;

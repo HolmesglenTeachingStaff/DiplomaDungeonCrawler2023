@@ -45,7 +45,7 @@ public class CS_MoveWithNavMeshAndAnimation : MonoBehaviour
         anim.SetFloat("Horizontal", velocity.x);
         anim.SetFloat("Vertical", velocity.y);
 
-        GetComponent<LookAt>().lookAtTargetPosition = agent.steeringTarget + transform.forward;
+        GetComponent<CS_LookAt>().lookAtTargetPosition = agent.steeringTarget + transform.forward;
     }
     private void OnAnimatorMove()
     {

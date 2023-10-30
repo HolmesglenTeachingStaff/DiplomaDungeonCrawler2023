@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CS_ArmouredEnemy : BaseStats
+public class CS_ArmouredEnemy : CS_BaseStats
 {
     [Header("Armour")]
     public float defence = 8;

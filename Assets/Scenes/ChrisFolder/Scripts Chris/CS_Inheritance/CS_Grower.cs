@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CS_Grower : MonoBehaviour, IInteractable
+public class CS_Grower : MonoBehaviour, CS_IInteractable
 {
     public void Interact()
     {

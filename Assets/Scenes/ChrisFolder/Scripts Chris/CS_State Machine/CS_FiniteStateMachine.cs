@@ -212,7 +212,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             //add ATTACK anim here
             anim.Play("Standing_Attack");
-            yield new return WaitForSeconds(2.1f); //the number is the time length of the animation
+            yield return new WaitForSeconds(2f); //the number is the time length of the animation
 
             //currentState = States.CHASING;
             //yield return null;
@@ -240,7 +240,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             if (!IsInRange(meleeRange)) //much shorter version of the above code
             {
                 if (IsInRange(sightRange)) currentState = States.CHASING;
-                else currentState = State.IDLE;
+                else currentState = States.IDLE;
             }
 
             yield return new WaitForEndOfFrame();
