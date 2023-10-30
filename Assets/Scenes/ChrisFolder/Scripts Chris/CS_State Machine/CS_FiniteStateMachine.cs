@@ -29,7 +29,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     #region States
 
     //declare states, add states where needed on the enum so it's accissible by the character
-    public enum States {IDLE, ROAMING, ATTACKING, CHASING, PATROLLING, CHARGING}
+    public enum States {IDLE, ROAMING, ATTACKING, CHASING, PATROLLING, CHARGING, STUNNED}
     public States currentState;
 
     #endregion
@@ -294,6 +294,48 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //write any code here you want to run when the state is left
 
         
+    }
+
+
+    IEnumerator STUNNED()
+    {
+        //enter the STUNNED state
+        //put any code here i want to run at the start of the behaviour
+        Debug.Log("OOUUFF");
+
+        //UPDATE STUNNED state
+        //put any code here you want to repeat during the state being active
+
+        //add stunned animation here
+
+        yield return new WaitForSeconds(3f);
+
+        while(currentState == States.STUNNED)
+        {
+            
+            //checking if state should change based off distance of player using the below function (IsInRange())
+            if(!IsInRange(sightRange)) currentState = States.IDLE;
+            else if (IsInRange(meleeRange)) currentState = States.ATTACKING;
+
+            agent.SetDestination(player.position);
+
+            if(Vector3.Distance(transform.position, player.position)> sightRange)
+            {
+                currentState = States.IDLE;
+                Debug.Log("Where'd they go?");
+            }
+            else if(Vector3.Distance(transform.position, player.position) < meleeRange)
+            {
+                currentState = States.ATTACKING;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        //exit CHASING state
+        //write any code here you want to run when the state is left
+        Debug.Log("Ah, must have been the wind.");
+
     }
 
 
