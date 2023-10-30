@@ -9,8 +9,11 @@ public class NT_OniStateMachine : MonoBehaviour
     #region Variables
     public Color sightColor;
     public Color meleeColor;
+    //public Color nodeRangeColor;
     public float sightRange;
     public float meleeRange;
+    public float elapsedTime;
+    //public float nodeRange;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -41,6 +44,10 @@ public class NT_OniStateMachine : MonoBehaviour
     private void Awake()
     {
         currentState = States.IDLE;
+    }
+    void Update()
+    {
+        elapsedTime += Time.deltaTime;
     }
 
     private void Start()
@@ -114,7 +121,6 @@ public class NT_OniStateMachine : MonoBehaviour
                     currentState = States.ATTACKING;
                 }
             }
-            agent.SetDestination(player.position);
             yield return new WaitForEndOfFrame();
         }
         
@@ -143,14 +149,18 @@ public class NT_OniStateMachine : MonoBehaviour
                 currentNode = Random.Range(0, nodes.Length);
 
                 agent.SetDestination(nodes[currentNode].position);
+                yield return new WaitForSeconds(3);
+            }
+
+            if(elapsedTime >= 29)
+            {
+                Debug.Log("Time out");
+                agent.SetDestination(transform.position);
+                elapsedTime = 0;
+                currentState = States.IDLE;
             }
             yield return new WaitForEndOfFrame();
         }
-
-        yield return new WaitForSeconds(Random.Range(20, 60));
-        agent.SetDestination(transform.position);
-
-        currentState = States.IDLE;
     }
 
     IEnumerator ATTACKING()
@@ -168,7 +178,7 @@ public class NT_OniStateMachine : MonoBehaviour
            {
                currentState = States.RETREAT;
            }
-               yield return new WaitForEndOfFrame();
+           yield return new WaitForEndOfFrame();
         }
         //Check if player is still in melee range 
         //switch states if not 
@@ -180,33 +190,41 @@ public class NT_OniStateMachine : MonoBehaviour
     {
         //Current bug: NPC doesnt go to node at 15% health, instead heals on the spot while fighting player 
         //Character goes to furthest node from player
+
         while (currentState == States.RETREAT)
         {
-            if(IsInRange(meleeRange) && stat.currentHealth <= 15)
-                {
-                    currentNode = Random.Range(0, nodes.Length);
-                    agent.SetDestination(nodes[currentNode].position);
+            if (IsInRange(meleeRange) && IsInRange(sightRange) && stat.currentHealth <= 15)
+            {
+                //Once reached node, immeadiately heal health back to 100%
+                agent.speed = 6;
+                currentNode = Random.Range(0, nodes.Length);
+                agent.SetDestination(nodes[currentNode].position);
+            }
 
-        //Once reached node, immeadiately heal health back to 100%
-                    stat.currentHealth += 85;
-                    stat.OnBuffRecieved.Invoke();
-                 }
+            //stat.currentHealth += 85;
+            //stat.OnBuffRecieved.Invoke();
 
-        //After health is back to 100% checks for player in sight 
-        if(IsInRange(sightRange))
-        {
-             currentState = States.CHASING;
-        }
-        else
-        {
-             currentState = States.ROAMING;
-        }
-        //Switches back to roaming if player is not in sight 
-        //Switches to chasing/attacking if player is in sight 
-        }
+            //if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            //{
+                //Once reached node, immeadiately heal health back to 100%
+                //stat.currentHealth += 85;
+                //stat.OnBuffRecieved.Invoke();
+            //}
+
+            //After health is back to 100% checks for player in sight
+            if (IsInRange(sightRange))
+            {
+                currentState = States.CHASING;
+            }
+            else
+            {
+                currentState = States.ROAMING;
+            }
+            //Switches back to roaming if player is not in sight 
+            //Switches to chasing/attacking if player is in sight 
             yield return new WaitForEndOfFrame();
         }
-
+    }
 
     IEnumerator DEATH()
     {
@@ -246,6 +264,9 @@ public class NT_OniStateMachine : MonoBehaviour
 
         Gizmos.color = meleeColor;
         Gizmos.DrawWireSphere(transform.position, meleeRange);
+
+        //Gizmos.color = nodeRangeColor;
+        //Gizmos.DrawWireSphere(transform.position, nodeRange);
     }
     #endregion
 }

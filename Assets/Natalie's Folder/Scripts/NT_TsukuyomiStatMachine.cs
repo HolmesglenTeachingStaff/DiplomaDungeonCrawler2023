@@ -25,6 +25,10 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
 
     //Variable for player 
     public GameObject playerChar;
+    float playerCurrentHealth;
+
+    //Variables for dialogue 
+    
 
     #endregion
 
@@ -114,7 +118,12 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             if (IsInRange(sightRange))
             {
                 agent.SetDestination(transform.position);
-                //Npc will turn towards player 
+                Invoke("TurnToPlayer", 0.5f);
+            }
+
+            if (IsInRange(talkRange))
+            {
+                currentState = States.TALKING;
             }
             yield return new WaitForEndOfFrame();
         }
@@ -128,6 +137,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         while(currentState == States.HEAL)
         {
             //Gets the current health of player then heals it to full 
+            //Checks for button press 
             if (playerChar)
             {
 
@@ -139,11 +149,12 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     IEnumerator TALKING()
     {
         //Dialogue system with player 
-        //Makes interactable button for player to click 
+        //Displays UI instruction for player to follow 
 
         if(IsInRange(talkRange) && Input.GetKeyDown(KeyCode.E))
         {
-
+            //Plays talking function from different script 
+            
         }
         yield return new WaitForEndOfFrame();
     }
@@ -169,6 +180,14 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
 
         Gizmos.color = talkColor;
         Gizmos.DrawWireSphere(transform.position, talkRange);
+    }
+
+    public void TurnToPlayer()
+    {
+        //Npc will turn towards player
+        Vector3 direction = player.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = rotation;
     }
     #endregion
 }
