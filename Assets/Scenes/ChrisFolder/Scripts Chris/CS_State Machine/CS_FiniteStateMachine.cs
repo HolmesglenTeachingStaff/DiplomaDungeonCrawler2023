@@ -10,6 +10,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     public float sightRange;
     public float meleeRange;
+    public bool idleDone;
+    public float[] idleTimer;
+
     //public bool idleOvertime;
     //public float roamTime = 5f; //trying to create ROAMING loop ^^
 
@@ -43,7 +46,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //set default state
     private void Awake()
     {
-        
+        idleDone = false;
         //idleOvertime = false; trying to create ROAMING loop after so many IDLE states
         currentState = States.IDLE;
     }
@@ -84,13 +87,38 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         //UPDATE IDLE state
         //put any code here you want to repeat during the state being active
+
+        //add IDLE anim
         while(currentState == States.IDLE)
         {   
 
-            //NEED TO IMPLEMENT COUNTER BEFORE GOING INTO PATROLLING BELOW
-            yield return new WaitForSeconds(3);
+             if(Vector3.Distance(transform.position, player.position) < sightRange)
+            {
+                currentState = States.CHASING;
+            }
 
-            currentState = States.PATROLLING;
+            for(int i = 0; i < idleTimer.Length; i ++) //trying to create idle loop
+            {
+                if(i =>4)
+                {
+                    idleDone = true;
+
+                    if(idleDone = true)
+                    {
+                        currentState = States.PATROLLING;
+                    }
+                    else if(idleDone = false)
+                    {
+                        yield return new WaitForSeconds(1);
+
+                        currentState = States.IDLE;
+                    }
+                    
+                }
+            }
+
+            //NEED TO IMPLEMENT COUNTER BEFORE GOING INTO PATROLLING BELOW
+            
 
            /* for(int i = 0; i < roamTime.Length; i ++) //trying to create roaming loop
             {
@@ -106,13 +134,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 }
             }*/
 
-            if(Vector3.Distance(transform.position, player.position) < sightRange)
-            {
-                currentState = States.CHASING;
-            }
-
+           
             //roamTime += 1 (); //trying to create ROAMING loop
-            yield return new WaitForEndOfFrame();
+            
         }
 
         //exit IDLE state
