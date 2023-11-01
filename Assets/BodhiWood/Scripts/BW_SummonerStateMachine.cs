@@ -23,9 +23,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
     [Header("Reaction Range Values")]
     public float sightRange;
     public float summonRange;
-    public float dangerRange;
     public float meleeRange;
-    public float bufferRange;
+    private float bufferRange = -0.6f;
 
     //Nodes to indicate where to patrol.
     [SerializeField] Transform[] nodes;
@@ -34,7 +33,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     //The behaviour states available for a Summoner to switch between.
     #region States
-    public enum States {IDLE, PATROLLING, MELEE, CHASING, COMBAT}
+    public enum States {IDLE, PATROLLING, MELEE, COMBAT}
 
     public States currentState;
     #endregion
@@ -71,7 +70,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //Chase the player, if seen from any state
         if (checkingForPlayer == true && WithinRange(sightRange))
         {
-            currentState = States.CHASING;
+            currentState = States.COMBAT;
         }
 
         //Change to MELEE state from any state if the player gets too close
@@ -82,7 +81,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
         }*/
 
         //Rotate to face the player while in sightRange
-        //(NOTE TO SELF) check to see if you can lerp the LookAt, so it doesn't snap too the player once in range
         if (WithinRange(sightRange))
         {
             transform.LookAt(player);
@@ -102,12 +100,11 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         checkingForPlayer = true;
 
-        //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
         {
             timer++;
 
-            //Time spent remaining IDLE
+            //Time spent remaining IDLE (Double the amount of time you want to wait. For exmaple, if you want to wait for 10 seconds, then change it to 20)
             if (timer >= 12)
             {
                 currentState = States.PATROLLING;
@@ -127,7 +124,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
         agent.SetDestination(nodes[currentNode].position);
         currentNode = Random.Range(0, nodes.Length);
 
-        //put any code here you want to repeat during the state being active
         while (currentState == States.PATROLLING)
         {
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
@@ -140,44 +136,21 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     #endregion
 
-    #region CHASING
-    IEnumerator CHASING()
-    {
-        checkingForPlayer = false;
-
-        while (currentState == States.CHASING)
-        {
-            if (!WithinRange(sightRange)) currentState = States.IDLE;
-
-            if (WithinRange(summonRange)) currentState = States.COMBAT;
-
-            agent.SetDestination(player.position);
-            yield return new WaitForEndOfFrame();
-        }
-        yield return new WaitForEndOfFrame();
-    }
-    #endregion
-
     #region COMBAT
     IEnumerator COMBAT()
     {
         checkingForPlayer = false;
+        Vector3 distance = player.position - transform.position;
 
-        //Spawn Elemental at the summonLocation and rotation
-        //(NOTE TO SELF)Spawning WAY too many at the moment lol
-        //Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
+        //Spawn Elemental at the summonLocation and rotation (WORK IN PROGRESS)
+        Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
 
-
-        //put any code here you want to repeat during the state being active
         while (currentState == States.COMBAT)
         {
-            if (!WithinRange(summonRange))
-            {
-                currentState = States.CHASING;
-            }
+            if (!WithinRange(sightRange)) currentState = States.IDLE;
 
-            //(NOTE TO SELF) work in progress, partly what I want, but not quite
-            agent.SetDestination(player.position * bufferRange);
+            //Follows the player while maintaining distance
+            agent.SetDestination(player.position + distance * bufferRange);
 
             yield return new WaitForEndOfFrame();
         }
@@ -222,18 +195,19 @@ public class BW_SummonerStateMachine : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + Vector3.up, meleeRange);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up, dangerRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position + Vector3.up, dangerRange);
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position + Vector3.up, summonRange);
 
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up, bufferRange);
+        //Gizmos.color = Color.black;
+        //Gizmos.DrawWireSphere(transform.position + Vector3.up, bufferRange);
     }
     #endregion
 
     //Determine whether the player is within a certain range
+    #region Range
     bool WithinRange(float range)
     {
         if (Vector3.Distance(player.position, transform.position) < range)
@@ -245,4 +219,5 @@ public class BW_SummonerStateMachine : MonoBehaviour
             return false;
         }
     }
+    #endregion
 }
