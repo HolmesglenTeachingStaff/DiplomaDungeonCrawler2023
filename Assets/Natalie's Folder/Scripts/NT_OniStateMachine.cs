@@ -12,9 +12,10 @@ public class NT_OniStateMachine : MonoBehaviour
     //public Color nodeRangeColor;
     public float sightRange;
     public float meleeRange;
-    public float elapsedTime;
+    [SerializeField] float elapsedTime;
 
     public Transform player;
+    public GameObject oniWeapon;
     private NavMeshAgent agent;
 
     //private Animator anim;
@@ -26,8 +27,7 @@ public class NT_OniStateMachine : MonoBehaviour
     //Variables for health when in retreating and restore state 
     //need ref to stats script to effect health 
     Stats stat;
-
-    //Variables for DEATH
+    DamageOnTouch damageOnTouch;
 
     #endregion
 
@@ -168,6 +168,8 @@ public class NT_OniStateMachine : MonoBehaviour
         while (currentState == States.ATTACKING)
         {
            //anim.Play("");
+           //Toggles off collider on weapon 
+           //activates the damage on touch 
            if(!IsInRange(meleeRange))
            {
                currentState = States.CHASING;

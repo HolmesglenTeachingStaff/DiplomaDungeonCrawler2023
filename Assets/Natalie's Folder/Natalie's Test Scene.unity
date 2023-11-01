@@ -292,7 +292,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -1025,7 +1025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &628540339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,8 +1040,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sightColor: {r: 1, g: 0.2783019, b: 0.875859, a: 1}
   talkColor: {r: 0.39677316, g: 0.2732734, b: 0.6509434, a: 1}
-  sightRange: 15
-  talkRange: 7
+  sightRange: 10
+  talkRange: 4
+  elapsedTime: 0
   player: {fileID: 1188905576}
   nodes: []
   playerChar: {fileID: 2093460931}
@@ -2002,7 +2003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1195058842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2235,7 +2236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1273104751
 Transform:
   m_ObjectHideFlags: 0
@@ -2420,6 +2421,7 @@ MonoBehaviour:
   meleeRange: 4.5
   elapsedTime: 0
   player: {fileID: 1188905576}
+  oniWeapon: {fileID: 0}
   nodes:
   - {fileID: 595720766}
   - {fileID: 2066916481}

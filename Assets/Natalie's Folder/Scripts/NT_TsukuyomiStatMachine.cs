@@ -11,6 +11,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     public Color talkColor;
     public float sightRange;
     public float talkRange;
+    [SerializeField] float elapsedTime;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -51,7 +52,6 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     {
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
-        playerChar.GetComponent<Stats>();
         //anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(TsukuyomiFSM());
@@ -83,16 +83,18 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         //Wait for a few seconds
         yield return new WaitForSeconds(Random.Range(1, 5));
 
-        while (currentState == States.IDLE)
-        {
-            if (IsInRange(talkRange))
-            {
-                //Npc will turn towards player
-            }
-        }
-
         //transitions to roaming state 
         currentState = States.ROAMING;
+
+        while (currentState == States.IDLE)
+        {
+            if (IsInRange(sightRange) || IsInRange(talkRange))
+            {
+                //Stop current animations
+                agent.SetDestination(transform.position);
+                Invoke("TurnToPlayer", 0.5f);
+            }
+        }
     }
 
     IEnumerator ROAMING()
@@ -116,15 +118,24 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
                 agent.SetDestination(nodes[currentNode].position);
             }
 
-            if (IsInRange(sightRange))
+            if (IsInRange(sightRange) || IsInRange(talkRange))
             {
+                //Stop current animations
                 agent.SetDestination(transform.position);
                 Invoke("TurnToPlayer", 0.5f);
             }
 
-            if (IsInRange(talkRange))
+            if (IsInRange(talkRange) && Input.GetKeyDown(KeyCode.E))
             {
                 currentState = States.TALKING;
+            }
+
+            if(elapsedTime >= 29)
+            {
+                Debug.Log("Time out");
+                agent.SetDestination(transform.position);
+                elapsedTime = 0;
+                currentState = States.IDLE;
             }
             yield return new WaitForEndOfFrame();
         }
@@ -136,12 +147,14 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         agent.SetDestination(transform.position);
 
         while(currentState == States.HEAL)
+            //Play helaing animation with aura shader 
         {
             //Gets the current health of player then heals it to full 
             //Checks for button press 
-            if (playerChar)
+            if (playerChar.GetComponent<Stats>().currentHealth <= 100)
             {
-
+                //Plays healing animation with shader
+                playerChar.GetComponent<Stats>().currentHealth = 100;
             }
             yield return new WaitForEndOfFrame();
         }
@@ -151,12 +164,8 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     {
         //Dialogue system with player 
         //Displays UI instruction for player to follow 
+        //Plays talking function from different script 
 
-        if(IsInRange(talkRange) && Input.GetKeyDown(KeyCode.E))
-        {
-            //Plays talking function from different script 
-            
-        }
         yield return new WaitForEndOfFrame();
     }
     #endregion

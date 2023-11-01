@@ -16,7 +16,7 @@ public class NT_ShaderInteraction : MonoBehaviour
     {
         //Find material instance based on meshrenderer
         mat = GetComponent<MeshRenderer>().material;
-        originColor = mat.GetColor("_EmissiveColor");
+        originColor = mat.GetColor("EmissionColor");
     }
 
     // Update is called once per frame
