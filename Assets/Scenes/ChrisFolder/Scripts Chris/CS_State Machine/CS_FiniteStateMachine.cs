@@ -13,6 +13,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public bool idleOvertime;
     //public float roamTime = 5f; //trying to create ROAMING loop ^^
 
+    public bool chargePointer;
+
+    
     public Transform player;
     private NavMeshAgent agent;
 
@@ -40,6 +43,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //set default state
     private void Awake()
     {
+        
         //idleOvertime = false; trying to create ROAMING loop after so many IDLE states
         currentState = States.IDLE;
     }
@@ -84,7 +88,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         {   
 
             //NEED TO IMPLEMENT COUNTER BEFORE GOING INTO PATROLLING BELOW
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
 
             currentState = States.PATROLLING;
 
@@ -208,11 +212,11 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while(currentState == States.ATTACKING)
         {
-            
-
+                    
             //add ATTACK anim here
-            anim.Play("Standing_Attack");
+            // anim.Play("Standing_Attack");
             yield return new WaitForSeconds(2f); //the number is the time length of the animation
+            Debug.Log("attack AGANE!");
 
             //currentState = States.CHASING;
             //yield return null;
@@ -237,12 +241,26 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 currentState = States.ATTACKING;
             }*/
 
-            if (!IsInRange(meleeRange)) //much shorter version of the above code
+            /* if (!IsInRange(meleeRange)) //much shorter version of the above code
             {
                 if (IsInRange(sightRange)) currentState = States.CHASING;
                 else currentState = States.IDLE;
-            }
+            } */
 
+            if(Vector3.Distance(transform.position, player.position) < meleeRange)
+            {
+                currentState = States.ATTACKING;
+            }
+            else if(Vector3.Distance(transform.position, player.position)> sightRange)
+            {
+                currentState = States.IDLE;
+                Debug.Log("Where'd they go?");
+            }
+            else if(Vector3.Distance(transform.position, player.position) < sightRange)
+            {
+                currentState = States.CHARGING;
+            }
+            
             yield return new WaitForEndOfFrame();
         }
 
@@ -255,16 +273,17 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
  IEnumerator CHARGING()
     {
-        //ENTER THE PATROLLING STATE >
-        //put any code here that you want to run while patrolling
+        //ENTER THE CHARGING STATE >
+        //put any code here that you want to run while CHARGING
 
-       Debug.Log("I'll find you");
+       Debug.Log("HER I COME!");
+       //CHARGING anim here
 
-       agent.SetDestination(nodes[currentNode].position);
+        
+        //UPDATE CHARGING STATE
 
-        //UPDATE PATROLLING STATE >
-        //put any code here you want to repeat during patrolling state being active
-        while (currentState == States.PATROLLING)
+        //put any code here you want to repeat during CHARGING state being active
+        while (currentState == States.CHARGING)
         {
 
             if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
