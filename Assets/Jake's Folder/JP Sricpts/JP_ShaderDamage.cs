@@ -13,8 +13,19 @@ public class JP_ShaderDamage : MonoBehaviour
         mat1=GetComponent<MeshRenderer>().material;
     }
 
-    public void Flash()
+    public void FlashActive()
     {
-      mat1.SetColor("_EmissionColorD",newColor1);
+      StartCoroutine(Flash());
+    }
+
+    public IEnumerator Flash()
+    {
+      //mat1.SetColor("_EmissionColorD",newColor1);
+      mat1.SetFloat("_Float",0.5f);
+      yield return new WaitForSeconds(0.10f);
+      mat1.SetFloat("_Float",1f);
+      yield return new WaitForSeconds(0.25f);
+      mat1.SetFloat("_Float",0f);
+      yield return null;
     }
 }
