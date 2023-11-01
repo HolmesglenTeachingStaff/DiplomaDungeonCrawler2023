@@ -13,7 +13,6 @@ public class NT_OniStateMachine : MonoBehaviour
     public float sightRange;
     public float meleeRange;
     public float elapsedTime;
-    //public float nodeRange;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -73,23 +72,23 @@ public class NT_OniStateMachine : MonoBehaviour
     #region Behaviour coroutines
     IEnumerator IDLE()
     {
-        //Enter Idle state
-        Debug.Log("Entered Idle state");
-        //Wait for a few seconds 
-        yield return new WaitForSeconds(Random.Range(1, 5));
-
-        //Play idle annimations
-        //anim.Play("");
-
-        //Wait for a few seconds
-        yield return new WaitForSeconds(Random.Range(1, 5));
-
-        //transitions to roaming state 
-        currentState = States.ROAMING;
-
         //Check if player is in range 
         while (currentState == States.IDLE)
         {
+            //Enter Idle state
+            Debug.Log("Entered Idle state");
+            //Wait for a few seconds 
+            yield return new WaitForSeconds(Random.Range(1, 5));
+
+            //Play idle annimations
+            //anim.Play("");
+
+            //Wait for a few seconds
+            yield return new WaitForSeconds(Random.Range(1, 5));
+
+            //transitions to roaming state 
+            currentState = States.ROAMING;
+
             if (IsInRange(sightRange))
             {
                 currentState = States.CHASING;
@@ -178,7 +177,12 @@ public class NT_OniStateMachine : MonoBehaviour
            {
                currentState = States.RETREAT;
            }
-           yield return new WaitForEndOfFrame();
+
+            if (stat.currentHealth <= 0)
+            {
+                currentState = States.DEATH;
+            }
+            yield return new WaitForEndOfFrame();
         }
         //Check if player is still in melee range 
         //switch states if not 
@@ -193,30 +197,45 @@ public class NT_OniStateMachine : MonoBehaviour
 
         while (currentState == States.RETREAT)
         {
-            if (IsInRange(meleeRange) && IsInRange(sightRange) && stat.currentHealth <= 15)
+            bool hasHealed = false;
+            bool hasWaypoint = false;
+
+            if (IsInRange(meleeRange) && IsInRange(sightRange) && stat.currentHealth <= 25)
             {
                 //Once reached node, immeadiately heal health back to 100%
-                agent.speed = 6;
-                currentNode = Random.Range(0, nodes.Length);
-                agent.SetDestination(nodes[currentNode].position);
+                if(hasWaypoint == false)
+                {
+                    agent.speed = 15;
+                    currentNode = Random.Range(0, nodes.Length);
+                    agent.SetDestination(nodes[currentNode].position);
+                    hasWaypoint = true;
+                    if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        //Once reached node, immeadiately heal health back to 100%
+                        //Once reached node, haswaypoint is true
+                        stat.currentHealth += 75;
+                        stat.OnBuffRecieved.Invoke();
+                        hasHealed = true;
+                    }
+                }
+                else
+                {
+                    hasWaypoint = false;
+                }
+
             }
 
-            //stat.currentHealth += 85;
-            //stat.OnBuffRecieved.Invoke();
-
-            //if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-            //{
-                //Once reached node, immeadiately heal health back to 100%
-                //stat.currentHealth += 85;
-                //stat.OnBuffRecieved.Invoke();
-            //}
+            if(stat.currentHealth <= 0)
+            {
+                currentState = States.DEATH;
+            }
 
             //After health is back to 100% checks for player in sight
-            if (IsInRange(sightRange))
+            if (IsInRange(sightRange) && hasHealed == true)
             {
                 currentState = States.CHASING;
             }
-            else
+            else if(!IsInRange(sightRange) && hasHealed == true)
             {
                 currentState = States.ROAMING;
             }

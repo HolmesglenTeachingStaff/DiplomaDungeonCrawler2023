@@ -51,6 +51,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     {
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
+        playerChar.GetComponent<Stats>();
         //anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(TsukuyomiFSM());
@@ -84,7 +85,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
 
         while (currentState == States.IDLE)
         {
-            if (IsInRange(sightRange))
+            if (IsInRange(talkRange))
             {
                 //Npc will turn towards player
             }
