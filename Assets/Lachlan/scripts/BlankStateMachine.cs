@@ -51,8 +51,6 @@ public class BlankStateMachine : MonoBehaviour
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
 
-
-
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
