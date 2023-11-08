@@ -85,9 +85,6 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here i want to run at the start of the behaviour
         Debug.Log("Ok, no one here, lets chill");
 
-        //UPDATE IDLE state
-        //put any code here you want to repeat during the state being active
-
         //add IDLE anim
         while(currentState == States.IDLE)
         {   
@@ -96,28 +93,38 @@ public class CS_FiniteStateMachine : MonoBehaviour
             {
                 currentState = States.CHASING;
             }
-
+            
             for(int i = 0; i < idleTimer.Length; i ++) //trying to create idle loop
             {
-                if(i =>4)
+                if(i >= 4)
                 {
-                    idleDone = true;
-
-                    if(idleDone = true)
-                    {
+                    if(Vector3.Distance(transform.position, player.position) < sightRange)
+                     {
+                        currentState = States.CHASING;
+                     }
+                    else if(Vector3.Distance(transform.position, player.position) > sightRange)
+                     {
+                        idleDone = true;
                         currentState = States.PATROLLING;
-                    }
-                    else if(idleDone = false)
-                    {
-                        yield return new WaitForSeconds(1);
-
-                        currentState = States.IDLE;
-                    }
-                    
+                     }                   
+                                                            
                 }
-            }
+                else if (i <= 4)
+                {
+                    if(Vector3.Distance(transform.position, player.position) < sightRange)
+                    {
+                        currentState = States.CHASING;
+                    }
+                    else if(Vector3.Distance(transform.position, player.position) > sightRange)
+                    {
+                        idleDone = false;
+                        yield return new WaitForSeconds(1);
+                        currentState = States.IDLE;
+                    }                   
 
-            //NEED TO IMPLEMENT COUNTER BEFORE GOING INTO PATROLLING BELOW
+                }
+                
+            }
             
 
            /* for(int i = 0; i < roamTime.Length; i ++) //trying to create roaming loop
@@ -135,8 +142,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             }*/
 
            
-            //roamTime += 1 (); //trying to create ROAMING loop
-            
+            //roamTime += 1 (); //trying to create ROAMING loop            
         }
 
         //exit IDLE state
