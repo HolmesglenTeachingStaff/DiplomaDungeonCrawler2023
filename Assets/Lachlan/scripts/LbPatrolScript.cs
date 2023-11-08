@@ -5,7 +5,7 @@ public class LbPatrolScript : MonoBehaviour
 {
     public NavMeshAgent agent;
 
-    public Transform player;
+    public Transform Player;
 
     public LayerMask whatIsEnvironment, whatIsPlayer;
 
@@ -24,7 +24,7 @@ public class LbPatrolScript : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        Player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }
@@ -65,7 +65,25 @@ public class LbPatrolScript : MonoBehaviour
     }
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        int MoveSpeed = 4;
+        int MaxDist = 10;
+        int MinDist = 5;
+        void Start()
+        {
+
+        }
+        void Update()
+        {
+            transform.LookAt(Player);
+            if (Vector3.Distance(transform.position, Player.position) >= MinDist);
+            {
+                transform.position += transform.forward * MoveSpeed * Time.deltaTime;
+            }
+            //if (Vector3.Distance(transform.position, Player.position) <= MaxDist) ;
+            {
+                
+            }
+        }
     }
     private void AttackPlayer()
     {

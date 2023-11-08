@@ -1090,7 +1090,7 @@ BoxCollider:
   m_GameObject: {fileID: 2428989249012675034}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 8.001498, y: 1, z: 7.4849257}
   m_Center: {x: 0.026576215, y: -0.000009786444, z: -6.9588633}
@@ -1378,7 +1378,7 @@ PrefabInstance:
       objectReference: {fileID: 1184401447}
     - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
       propertyPath: sightRange
-      value: 2.55
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
       propertyPath: attackRange
