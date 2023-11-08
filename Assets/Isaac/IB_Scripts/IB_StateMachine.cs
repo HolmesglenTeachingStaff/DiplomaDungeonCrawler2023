@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FiniteSateMachine : MonoBehaviour
+public class IB_StateMachine : MonoBehaviour
 {
     #region variables
     public float sightRange;
@@ -11,19 +11,20 @@ public class FiniteSateMachine : MonoBehaviour
     public Transform player;
     public NavMeshAgent agent;
     public Color sightColor;
-    
+
     public IB_DamageReactions KnockBack;
     public GameObject tenguM;
     public Transform spawnPoint1;
     public Transform spawnPoint2;
     public Transform spawnPoint3;
+    public GameObject Weapon;
 
     private Animator anim;
     #endregion
 
     #region States
     //Declare states. If you add a new sate to your character, remember to add a new States enum for it.
-    public enum States {IDLE, ROAMING, CHASING, ATTACKING, SPAWNING}
+    public enum States { IDLE, ROAMING, CHASING, ATTACKING, SPAWNING, DEATH }
     public States currentState;
     #endregion
 
@@ -40,6 +41,7 @@ public class FiniteSateMachine : MonoBehaviour
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        Weapon.GetComponent<BoxCollider>().enabled = false;
         //start the fsm
         StartCoroutine(EnemyFSM());
     }
@@ -47,11 +49,11 @@ public class FiniteSateMachine : MonoBehaviour
     #region Finite StateMachine
     IEnumerator EnemyFSM()
     {
-        while(true)
+        while (true)
         {
             yield return StartCoroutine(currentState.ToString());
         }
-        
+
     }
     #endregion
 
@@ -62,10 +64,10 @@ public class FiniteSateMachine : MonoBehaviour
         Debug.Log("Alright, seems no evil Player is around, I can chill!");
 
         //Update IDLE STATE > put any code here to repeat during the state being active
-        while (currentState== States.IDLE)
+        while (currentState == States.IDLE)
         {
             //Check player distance
-            if(Vector3.Distance(transform.position,player.position)< sightRange)
+            if (Vector3.Distance(transform.position, player.position) < sightRange)
             {
                 //Change state
                 currentState = States.CHASING;
@@ -102,7 +104,9 @@ public class FiniteSateMachine : MonoBehaviour
     IEnumerator ATTACKING()
     {
         anim.Play("Attack");
+        Weapon.GetComponent<BoxCollider>().enabled = true;
         yield return new WaitForSeconds(0.5f);
+        Weapon.GetComponent<BoxCollider>().enabled = false;
 
     }
     IEnumerator SPAWNING()
@@ -120,6 +124,14 @@ public class FiniteSateMachine : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    IEnumerator DEATH()
+    {
+        while (currentState == States.DEATH)
+        {
+            anim.Play("Death");
+            yield return new WaitForEndOfFrame();
+        }
+    }
     #endregion
 
     private void OnDrawGizmosSelected()
@@ -131,9 +143,8 @@ public class FiniteSateMachine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Death()
     {
-        
+        currentState = States.DEATH;
     }
 }
