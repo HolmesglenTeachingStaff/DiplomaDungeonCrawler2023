@@ -13,6 +13,7 @@ public class NT_OniStateMachine : MonoBehaviour
     public float sightRange;
     public float meleeRange;
     [SerializeField] float elapsedTime;
+    public float setTime;
 
     public Transform player;
     public GameObject oniWeapon;
@@ -151,7 +152,7 @@ public class NT_OniStateMachine : MonoBehaviour
                 yield return new WaitForSeconds(3);
             }
 
-            if(elapsedTime >= 29)
+            if(elapsedTime >= setTime)
             {
                 Debug.Log("Time out");
                 agent.SetDestination(transform.position);

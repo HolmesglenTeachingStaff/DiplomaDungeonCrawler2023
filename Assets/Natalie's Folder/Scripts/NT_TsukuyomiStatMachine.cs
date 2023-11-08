@@ -12,6 +12,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     public float sightRange;
     public float talkRange;
     [SerializeField] float elapsedTime;
+    public float setTime;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -130,7 +131,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
                 currentState = States.TALKING;
             }
 
-            if(elapsedTime >= 29)
+            if(elapsedTime >= setTime)
             {
                 Debug.Log("Time out");
                 agent.SetDestination(transform.position);
