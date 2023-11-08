@@ -13,7 +13,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     private DR_ElementalPlayerTracker tracker;
     private OrbitTarget orbitTarget;
     private Animator anim;
-    public float lastCharge, timeBetweenCharges, chargeTime;
+    public float lastCharge, timeBetweenCharges, chargeTime, attackSpeed;
     [HideInInspector]
     public Color sightColor;
     #endregion
@@ -94,8 +94,14 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
+        agent.SetDestination(transform.position);
+        yield return new WaitForEndOfFrame();
+        agent.updatePosition = true;
+        agent.updateRotation = false;
+
+        
         lastCharge = Time.time;
-        float originalSpeed = agent.speed;
+        agent.speed = 3.5f;
         agent.speed *= 0.25f;
 
 
@@ -105,7 +111,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
         {
             if (Vector3.Distance(player.position, transform.position) <= orbitTarget.orbitDistance)
             {
-                agent.speed = originalSpeed * 2f;
+                agent.speed = 3.5f * 2f;
             }
             agent.SetDestination(orbitTarget.orbitPosition);
 
@@ -115,6 +121,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             {
                 currentState = States.AIMING;
             }
+            transform.rotation = RotateToPlayer();
         }
 
         //EXIT IDLE STATE >
@@ -144,10 +151,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             }
 
             //rotate to face player
-            Vector3 dir = player.position - transform.position;
-            Quaternion desiredRot = Quaternion.LookRotation(dir);
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRot, 0.02f);
+            transform.rotation = RotateToPlayer();
             yield return new WaitForEndOfFrame();
         }
 
@@ -160,13 +164,35 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
+        //pick the direction to shoot
+        Vector3 moveTarget = transform.position + transform.forward * 10f;
+        agent.updatePosition = false;
 
+        /*RaycastHit hit;
+        if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 10f, LayerMask.NameToLayer("Environment")))
+        {
+            moveTarget = hit.point;
+            moveTarget.y = transform.position.y;
+        }*/
 
+        float pos = 0;
+        Vector3 start = transform.position;
+        float duration = 2;
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.AIMING)
+        while (currentState == States.ATTACKING)
         {
-          
+            if(pos < duration)
+            {
+                pos += Time.deltaTime;
+                transform.position = Vector3.Lerp(start, moveTarget, pos/duration);
+
+            }
+            else
+            {
+                yield return new WaitForSeconds(3f);
+                currentState = States.FOLLOW;
+            }
             yield return new WaitForEndOfFrame();
         }
 
@@ -177,6 +203,14 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     }
     #endregion
 
+    public Quaternion RotateToPlayer()
+    {
+        //rotate to face player
+        Vector3 dir = player.position - transform.position;
+        Quaternion desiredRot = Quaternion.LookRotation(dir);
+
+        return Quaternion.Lerp(transform.rotation, desiredRot, 0.02f);
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = sightColor;
