@@ -10,6 +10,15 @@ public class NT_ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
 
+    private NT_DialogueUI dialogueUI;
+
+    private List<GameObject> tempResponseButtons = new List<GameObject>();
+
+    private void Start()
+    {
+        dialogueUI = GetComponent<NT_DialogueUI>();
+    }
+
     public void ShowResponses(NT_Response[] responses)
     {
         float responseBoxHeight = 0; 
@@ -21,6 +30,8 @@ public class NT_ResponseHandler : MonoBehaviour
             responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
             responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
 
+            tempResponseButtons.Add(responseButton);
+
             responseBoxHeight += responseButtonTemplate.sizeDelta.y;
         }
 
@@ -30,6 +41,14 @@ public class NT_ResponseHandler : MonoBehaviour
 
     private void OnPickedResponse(NT_Response response)
     {
+        responseBox.gameObject.SetActive(false);
 
+        foreach(GameObject button in tempResponseButtons)
+        {
+            Destroy(button);
+        }
+        tempResponseButtons.Clear();
+
+        dialogueUI.ShowDialogue(response.DialogueObject);
     }
 }

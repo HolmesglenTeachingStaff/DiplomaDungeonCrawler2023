@@ -12,5 +12,5 @@ public class NT_DialogueObject : ScriptableObject
 
     public bool HasResponses => Responses != null && Responses.Length > 0;
 
-    private NT_Response[] Responses => responses;
+    public NT_Response[] Responses => responses;
 }

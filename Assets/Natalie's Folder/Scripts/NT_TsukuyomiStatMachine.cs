@@ -30,7 +30,10 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     float playerCurrentHealth;
 
     //Variables for dialogue 
-    
+    NT_DialogueText dialogueText;
+    [SerializeField] float messageCount;
+    public bool HasDisplayed;
+
 
     #endregion
 
@@ -150,13 +153,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         while(currentState == States.HEAL)
             //Play helaing animation with aura shader 
         {
-            //Gets the current health of player then heals it to full 
-            //Checks for button press 
-            if (playerChar.GetComponent<Stats>().currentHealth <= 100)
-            {
-                //Plays healing animation with shader
-                playerChar.GetComponent<Stats>().currentHealth = 100;
-            }
+            StartCoroutine(dialogueText.Healing());
             yield return new WaitForEndOfFrame();
         }
     }
@@ -166,8 +163,20 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         //Dialogue system with player 
         //Displays UI instruction for player to follow 
         //Plays talking function from different script 
+        while(currentState == States.TALKING)
+        {
+            if (Input.GetKeyDown(KeyCode.E) && dialogueText.HasDisplayed == false)
+            {
+                StartCoroutine(dialogueText.TypeWriterIntro());
+                dialogueText.dialogueBox.gameObject.SetActive(true);
+            }
+            else if(dialogueText.HasDisplayed == true)
+            {
+                StartCoroutine(dialogueText.TypeWriterLore());
+            }
 
-        yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+        }
     }
     #endregion
 

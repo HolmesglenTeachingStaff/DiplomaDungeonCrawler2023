@@ -47,7 +47,7 @@ public class NT_DialogueUI : MonoBehaviour
 
         if (dialogueObject.HasResponses)
         {
-            //NT_ResponseHandler.ShowResponses(dialogueObject.Responses);
+            responseHandler.ShowResponses(dialogueObject.Responses);
         }
         else
         {
