@@ -73,11 +73,14 @@ public class PlayerMovment : MonoBehaviour
 
     void DetermineDirection()
     {
+        //get mouse position:
+        Vector3 mousePos = mousePosition.GetPosition(cam, transform.position) + Vector3.up;
         //check if mouse is close
-        if (Vector3.Distance(transform.position, mousePosition.GetPosition(cam)) < 1) return;
+
+        if (Vector3.Distance(transform.position, mousePos) < 1) return;
 
         //determine base look direction
-        lookTarget =  mousePosition.GetPosition(cam) - transform.position;
+        lookTarget =  mousePos - transform.position;
         lookTarget.y = model.transform.localPosition.y;
 
         //LERP
@@ -85,7 +88,7 @@ public class PlayerMovment : MonoBehaviour
 
         model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, lookDirection, turnSpeed * Time.deltaTime);
 
-        var IKTarget = mousePosition.GetPosition(cam);
+        var IKTarget = mousePos;
         IKTarget.y = model.transform.localPosition.y + 1;
 
         Vector3 newIkTarget = Vector3.Lerp(IKhandling.lookTarget, IKTarget, turnSpeed);

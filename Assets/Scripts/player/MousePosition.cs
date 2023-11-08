@@ -8,17 +8,21 @@ public class MousePosition : MonoBehaviour
     Ray ray;
     Plane plane;
     Vector3 position;
+    Vector3 planePosition;
 
     // Start is called before the first frame update
     public void Start()
     {
 
-        plane = new Plane(Vector3.up, Vector3.zero);
+        
+        
 
     }
 
-    public Vector3 GetPosition(Camera cam)
+    public Vector3 GetPosition(Camera cam, Vector3 planePosition = default(Vector3))
     {
+
+        plane = new Plane(Vector3.up, planePosition);
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
 
