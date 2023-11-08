@@ -11,11 +11,12 @@ public class BlankStateMachine : MonoBehaviour
     public float meleeRange;
     public Transform player;
     private NavMeshAgent agent;
+    public GameObject weapon;
 
     [HideInInspector]
     public Color sightColor;
     #endregion
-
+   
     #region States
     /// Declare states. If you add a new state to your character,
     /// remember to add a new States enum for it.
@@ -31,7 +32,7 @@ public class BlankStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //start the fsm
         StartCoroutine(EnemyFSM());
-
+        weapon.GetComponent<BoxCollider>().enabled = false;
     }
     #endregion
 
@@ -77,21 +78,40 @@ public class BlankStateMachine : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+        IEnumerator ATTACKING()
+        {
+            //ENTER THE Chasing STATE >
+            //put any code here that you want to run at the start of the behaviour
 
-        //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
+            Debug.Log("ATTACKING");
 
-        Debug.Log("Oh no I see the player!");
+            //UPDATE Chasing STATE >
+            //put any code here you want to repeat during the state being active
+            while (currentState == States.ATTACKING)
+            {
+
+                weapon.GetComponent<BoxCollider>().enabled = true;
+
+                yield return new WaitForEndOfFrame();
+
+                weapon.GetComponent<BoxCollider>().enabled = false;
+
+            }
+
+            //EXIT IDLE STATE >
+            //write any code here you want to run when the state is left
+
+            Debug.Log("Oh no I see the player!");
+        }
+        #endregion
+
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, meleeRange);
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireSphere(transform.position, sightRange);
+        }
     }
-    #endregion
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = sightColor;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, meleeRange);
-    }
-
 }
