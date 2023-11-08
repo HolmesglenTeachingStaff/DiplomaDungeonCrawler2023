@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: fee343cd63dc5364ba3925a7ff425ad1, type: 2}
+--- !u!4 &693436549 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6369773603616487198, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+  m_PrefabInstance: {fileID: 797874475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &797874475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1373,6 +1378,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 693436549}
+    - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1184401447}
@@ -1383,6 +1392,14 @@ PrefabInstance:
     - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
       propertyPath: attackRange
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
+      propertyPath: playerInSightRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388028727474734045, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
+      propertyPath: playerInAttackRange
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4538021605282282250, guid: 69d3ee767fa118548abb9e78c7944191, type: 3}
       propertyPath: m_Layer

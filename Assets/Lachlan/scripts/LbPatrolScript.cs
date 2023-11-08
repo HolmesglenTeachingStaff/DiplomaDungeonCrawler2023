@@ -89,11 +89,10 @@ public class LbPatrolScript : MonoBehaviour
     {
 
     }
-
-    private void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }
 

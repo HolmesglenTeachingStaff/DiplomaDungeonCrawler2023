@@ -107,11 +107,9 @@ public class BlankStateMachine : MonoBehaviour
 
         void OnDrawGizmosSelected()
         {
+            print("Drawing Gizmo's");
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, meleeRange);
-
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, sightRange);
         }
     }
 }
