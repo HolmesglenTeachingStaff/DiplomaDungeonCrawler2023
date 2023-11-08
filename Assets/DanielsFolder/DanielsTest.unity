@@ -238,6 +238,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &334122479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6224115787055095602, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+  m_PrefabInstance: {fileID: 1794310654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &390994059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0102726a80e5b42b9a1ef32ac186102d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerEntered: 0
+  playerExitted: 0
 --- !u!135 &455247508
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -462,6 +469,7 @@ GameObject:
   - component: {fileID: 1325137732}
   - component: {fileID: 1325137731}
   - component: {fileID: 1325137730}
+  - component: {fileID: 1325137735}
   m_Layer: 6
   m_Name: Fire_Elemental
   m_TagString: Enemy
@@ -481,6 +489,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca9c5c7865ce45c398d986bef646eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightRange: 0
+  meleeRange: 0
+  player: {fileID: 0}
+  lastCharge: 0
+  timeBetweenCharges: 3
+  chargeTime: 1
+  sightColor: {r: 0, g: 0, b: 0, a: 0}
+  currentState: 0
 --- !u!195 &1325137731
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -558,7 +574,19 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1325137729}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBuffRecieved:
     m_PersistentCalls:
       m_Calls: []
@@ -578,6 +606,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325137735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325137729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aac160c756f1401eb614a3ca5d9fb5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitTarget: {fileID: 0}
+  orbitSpeed: 0.3
+  orbitDistance: 5
+  orbitValue1: 0
+  orbitValue2: 0
+  orbitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1638224114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1181,7 @@ GameObject:
   - component: {fileID: 1914846176}
   - component: {fileID: 1914846175}
   - component: {fileID: 1914846174}
+  - component: {fileID: 1914846178}
   m_Layer: 0
   m_Name: MaterialTester (2)
   m_TagString: Untagged
@@ -1150,7 +1197,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914846173}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -1220,6 +1267,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1914846178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914846173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aac160c756f1401eb614a3ca5d9fb5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitTarget: {fileID: 334122479}
+  orbitSpeed: 1
+  orbitDistance: 1
+  orbitValue1: 0
+  orbitValue2: 0
+  orbitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2059254513
 GameObject:
   m_ObjectHideFlags: 0
