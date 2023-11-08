@@ -21,9 +21,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
     public bool checkingForPlayer = true;
 
     [Header("Reaction Range Values")]
-    public float sightRange;
-    public float summonRange;
-    public float meleeRange;
+    private float sightRange = 12;
+    private float summonRange = 9;
+    private float meleeRange = 2;
     private float bufferRange = -0.6f;
 
     //Nodes to indicate where to patrol.
@@ -74,11 +74,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
         }
 
         //Change to MELEE state from any state if the player gets too close
-        //(NOTE TO SELF)Commented out as it is not being coded yet
-        /*if (WithinRange(meleeRange))
+        if (WithinRange(meleeRange))
         {
             currentState = States.MELEE;
-        }*/
+        }
 
         //Rotate to face the player while in sightRange
         if (WithinRange(sightRange))
@@ -102,15 +101,15 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         while (currentState == States.IDLE)
         {
-            timer++;
+            timer += Time.deltaTime;
 
             //Time spent remaining IDLE (Double the amount of time you want to wait. For exmaple, if you want to wait for 10 seconds, then change it to 20)
-            if (timer >= 12)
+            if (timer >= 6)
             {
                 currentState = States.PATROLLING;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
     }
@@ -142,12 +141,21 @@ public class BW_SummonerStateMachine : MonoBehaviour
         checkingForPlayer = false;
         Vector3 distance = player.position - transform.position;
 
-        //Spawn Elemental at the summonLocation and rotation (WORK IN PROGRESS)
-        Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
+        int maxSummons = 0;
+        float summonTimer = 0;
 
         while (currentState == States.COMBAT)
         {
             if (!WithinRange(sightRange)) currentState = States.IDLE;
+
+            summonTimer += Time.deltaTime;
+            //Spawn a new summon every 10 seconds (With a max of 3 summons at one time)
+            if (maxSummons < 3 && summonTimer >= 10)
+            {
+                Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
+                summonTimer = 0;
+                maxSummons++;
+            }
 
             //Follows the player while maintaining distance
             agent.SetDestination(player.position + distance * bufferRange);
@@ -163,27 +171,31 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         checkingForPlayer = false;
 
-        //ENTER THE MELEE STATE >
-        //put any code here that you want to run at the start of the behaviour
+        agent.SetDestination(agent.transform.position);
 
-        yield return new WaitForSeconds(6);
-
-        currentState = States.PATROLLING;
-        //UPDATE MELEE STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.MELEE)
         {
+            if (!WithinRange(meleeRange)) currentState = States.COMBAT;
+            //play animation
+            //set active the damage collider
 
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
-
-        //EXIT MELEE STATE >
-        //write any code here you want to run when the state is left
+        yield return null;
     }
     #endregion
 
 
     #endregion
+
+    //Function called from the inspector using an Event in the Stats script
+    public void Dead()
+    {
+        //play animation and play shader
+        //wait until it's finished
+        Destroy(gameObject);
+    }
 
     //Used to help visualize the range values in scene.
     #region Gizmos

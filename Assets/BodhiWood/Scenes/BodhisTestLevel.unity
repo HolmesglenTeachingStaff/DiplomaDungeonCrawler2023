@@ -1828,10 +1828,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BW_SummonerNPC
       objectReference: {fileID: 0}
-    - target: {fileID: 2782627454707088630, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     - target: {fileID: 2782627454707088631, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1877,32 +1873,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: lookAt
-      value: 
-      objectReference: {fileID: 161944149}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 161944149}
     - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: meleeRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: sightRange
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: bufferRange
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: dangerRange
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: summonRange
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: nodes.Array.data[0]
