@@ -36,8 +36,13 @@ public class DR_ElementalAttack : MonoBehaviour
     public void Explode(float radius, float damage)
     {
         lastBurst = Time.time;
+        if(radius == smallAttackRange)
+        {
+            GetComponentInParent<DR_Elemental_StateMachine>().particles.explode.Play();
+        }
         //get objects within a radius and store to a variable
         Collider[] possibleEnemies = Physics.OverlapSphere(transform.position, radius, attackableLayers);
+        
         //itterate through each potential target
         if (possibleEnemies.Length > 0)
         {

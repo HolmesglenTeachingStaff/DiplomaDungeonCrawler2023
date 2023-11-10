@@ -21,6 +21,13 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     private Stats stats;
 
     public CanvasGroup healthSliders;
+
+    [System.Serializable]
+    public class ParticleEffects
+    {
+        public ParticleSystem idle, emerge, follow, charging, attack, explode, largeExplode, desolve;
+    }
+    public ParticleEffects particles;
     #endregion
 
     #region States
@@ -89,10 +96,12 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE IDLE STATE >
         //put any code here that you want to run at the start of the behaviour
+        particles.idle.Stop();
         anim.SetBool("Emerge", true);
-
+        particles.emerge.Play();
         yield return new WaitForSeconds(5f);
 
+        particles.emerge.Stop();
         currentState = States.FOLLOW;
         
 
@@ -102,7 +111,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        
+        particles.follow.Play();
         yield return new WaitForEndOfFrame();
         agent.updatePosition = true;
         agent.updateRotation = false;
@@ -131,6 +140,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             yield return new WaitForEndOfFrame();
             if(Time.time - lastCharge > timeBetweenCharges)
             {
+                particles.follow.Stop();
                 currentState = States.AIMING;
             }
             transform.rotation = RotateToPlayer();
@@ -147,6 +157,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
 
         Debug.Log("I'ma Get Ya!");
         anim.SetBool("Charging", true);
+        particles.charging.Play();
         agent.SetDestination(transform.position);
         agent.updateRotation = false;
         float timer = 0;
@@ -158,6 +169,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             timer += Time.deltaTime;
             if(timer >= chargeTime)
             {
+                particles.charging.Stop();
                 currentState = States.ATTACKING;
                 anim.SetBool("Charging", false);
                 anim.SetBool("Attacking", true);
@@ -178,6 +190,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
         //pick the direction to shoot
+        particles.attack.Play();
         Vector3 moveTarget = transform.position + transform.forward * 10f;
         agent.updatePosition = false;
         attack.attackActive = true;
@@ -210,6 +223,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
                 attack.attackActive = false;
                 anim.SetBool("Attacking", false);
                 yield return new WaitForSeconds(1f);
+                particles.attack.Stop();
                 currentState = States.FOLLOW;
             }
             yield return new WaitForEndOfFrame();
@@ -225,6 +239,12 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
+        particles.attack.Stop();
+        particles.idle.Stop();
+        particles.follow.Stop();
+        particles.charging.Play();
+
+        
         agent.SetDestination(transform.position);
         agent.nextPosition = transform.position;
         agent.updatePosition = true;
@@ -248,6 +268,11 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             }
             else
             {
+                particles.attack.Stop();
+                particles.idle.Stop();
+                particles.follow.Stop();
+                particles.charging.Stop();
+                particles.largeExplode.Play();
                 attack.Explode(attack.bigAttackRange, attack.maxDamage * 2);
                 currentState = States.DIE;
             }
