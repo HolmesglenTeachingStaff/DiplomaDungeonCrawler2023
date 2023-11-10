@@ -86,7 +86,7 @@ public class PlayerMovment : MonoBehaviour
         //LERP
         Quaternion lookDirection = Quaternion.LookRotation(lookTarget, Vector3.up);
 
-        model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, lookDirection, turnSpeed * Time.deltaTime);
+        model.transform.rotation = Quaternion.Lerp(model.transform.rotation, lookDirection, turnSpeed * Time.deltaTime);
 
         var IKTarget = mousePos;
         IKTarget.y = model.transform.position.y + 1.6f;
