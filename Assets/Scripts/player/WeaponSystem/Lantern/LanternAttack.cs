@@ -151,8 +151,10 @@ public class LanternAttack : MonoBehaviour
         foreach (Collider hit in possibleEnemies)
         {
             Stats stats = hit.GetComponent<Stats>();
-            if(stats != null)
-            {
+            if (stats == null) stats = hit.GetComponentInParent<Stats>();
+            if (stats == null) stats = hit.GetComponentInChildren<Stats>();
+            if (stats == null) return;
+            
                 //measure the distance from the centre of the explosion to the target
                 float distance = Vector3.Distance(hit.transform.position, transform.position);
                 //convert the distance / radius to get a percentage damage
@@ -163,7 +165,7 @@ public class LanternAttack : MonoBehaviour
                 float damage = Mathf.Lerp(maxDamage, minDamage, ratio);
                 //deal the damage
                 StatSystem.DealDamage(stats, damageType, damage, true, transform.position);
-            }
+           
         }
         //lanternParticles[0].Play();
         
