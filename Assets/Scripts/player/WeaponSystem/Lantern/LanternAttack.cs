@@ -100,19 +100,21 @@ public class LanternAttack : MonoBehaviour
     void AimLantern()
     {
         //find direction
-        Vector3 direction = mousePos.GetPosition(Camera.main) - player.transform.position;
-        direction.y = player.transform.position.y;
+        Vector3 direction = MousePosition.mousePosition - player.transform.position;
+        //direction.y = player.transform.position.y;
         direction.Normalize();
+
+        float tempRange = Mathf.Clamp(range, 0, Vector3.Distance(player.transform.position, MousePosition.mousePosition));
         //check raycast
-        if(Physics.Raycast(player.position, direction, out hit, range, obsticleLayers))
+        if(Physics.Raycast(player.position, direction, out hit, tempRange, obsticleLayers))
         {
             target = hit.point;
         }
         else
         {
-            target = player.transform.position + direction * range;
+            target = player.transform.position + direction * tempRange;
         }
-        target.y = transform.position.y;
+        target.y = MousePosition.mousePosition.y+1;
 
     }
 

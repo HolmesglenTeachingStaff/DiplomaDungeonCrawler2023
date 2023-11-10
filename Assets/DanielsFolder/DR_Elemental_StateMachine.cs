@@ -94,7 +94,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        agent.SetDestination(transform.position);
+        
         yield return new WaitForEndOfFrame();
         agent.updatePosition = true;
         agent.updateRotation = false;
@@ -190,6 +190,10 @@ public class DR_Elemental_StateMachine : MonoBehaviour
             }
             else
             {
+                agent.SetDestination(transform.position);
+                agent.nextPosition = transform.position;
+                agent.updatePosition = true;
+                agent.updateRotation = false;
                 yield return new WaitForSeconds(3f);
                 currentState = States.FOLLOW;
             }

@@ -8,12 +8,12 @@ public class MousePosition : MonoBehaviour
     Ray ray;
     Plane plane;
     Vector3 position;
-    Vector3 planePosition;
+    public static Vector3 mousePosition;
 
     // Start is called before the first frame update
     public void Start()
     {
-
+        Cursor.visible = false;
         
         
 
@@ -32,6 +32,7 @@ public class MousePosition : MonoBehaviour
         {
             position = ray.GetPoint(enter);
         }
+        mousePosition = position;
         return position;
     }
 }

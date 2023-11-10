@@ -89,7 +89,7 @@ public class PlayerMovment : MonoBehaviour
         model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, lookDirection, turnSpeed * Time.deltaTime);
 
         var IKTarget = mousePos;
-        IKTarget.y = model.transform.localPosition.y + 1;
+        IKTarget.y = model.transform.position.y + 1.6f;
 
         Vector3 newIkTarget = Vector3.Lerp(IKhandling.lookTarget, IKTarget, turnSpeed);
         IKhandling.lookTarget = newIkTarget;

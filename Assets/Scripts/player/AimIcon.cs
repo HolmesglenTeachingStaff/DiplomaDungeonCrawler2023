@@ -6,7 +6,7 @@ public class AimIcon : MonoBehaviour
 {
     Camera cam;
     GameObject player;
-    [SerializeField] MousePosition mousePosition;
+    //[SerializeField] MousePosition mousePosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,7 @@ public class AimIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = mousePosition.GetPosition(cam, player.transform.position);// + Vector3.up;
+        transform.position = MousePosition.mousePosition + Vector3.up;
         transform.rotation = Quaternion.LookRotation(transform.position - cam.transform.position);
     }
 }
