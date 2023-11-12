@@ -1967,11 +1967,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254362597}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1360438623 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6949095984693402653, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
-  m_PrefabInstance: {fileID: 1062933963}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366953789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,9 +2174,11 @@ GameObject:
   - component: {fileID: 1572850562}
   - component: {fileID: 1572850563}
   - component: {fileID: 1572850564}
-  m_Layer: 0
-  m_Name: Enemy1
-  m_TagString: Untagged
+  - component: {fileID: 1572850565}
+  - component: {fileID: 1572850566}
+  m_Layer: 6
+  m_Name: Nekomata
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2258,12 +2255,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572850557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.66, y: 6.29, z: -5.88}
+  m_LocalPosition: {x: 6.6, y: 6.29, z: -15.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1572850562
 MonoBehaviour:
@@ -2277,10 +2274,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e7be50defe70240a665c27699ba82d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1572850563}
-  player: {fileID: 1360438623}
-  speed: 10
-  rb: {fileID: 1572850564}
+  agent: {fileID: 0}
+  player: {fileID: 1597387587}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
+  timeBetweenAttacks: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSightRange: 0
+  playerInAttackRange: 0
 --- !u!195 &1572850563
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2317,8 +2325,64 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!135 &1572850565
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572850557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1572850566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572850557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  currentHealth: 0
+  regenRate: 10
+  tempRegen: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  maxArmour: 0
+  currentArmour: 0
+  maxBaseAttackDamage: 0
+  currentBaseAttackDamage: 0
+  immune: 0
+  isDead: 0
+  pushable: 0
+  isWet: 0
+  Physical: 0
+  Fire: 1
+  Water: 1
+  Wind: 2
+  Earth: 1
+  Light: 3
+  Dark: 2
+  statusEffectStacks: 0
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBuffRecieved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1576587964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2568,7 @@ Transform:
   - {fileID: 94817594}
   - {fileID: 550359852}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597387582
 GameObject:
@@ -2678,14 +2742,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597387582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.37, y: 7.45, z: -13.299999}
+  m_LocalPosition: {x: 12.22, y: 4.39, z: -2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1206744919}
   - {fileID: 801446731}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1597387588
 MonoBehaviour:
@@ -2890,7 +2954,7 @@ Transform:
   - {fileID: 1254362598}
   - {fileID: 168589805}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1794238342
 GameObject:
