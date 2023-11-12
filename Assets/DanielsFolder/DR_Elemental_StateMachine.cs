@@ -291,13 +291,29 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     IEnumerator DIE()
     {
         //kill the object
+        particles.attack.Stop();
+        particles.idle.Stop();
+        particles.follow.Stop();
+        particles.charging.Stop();
+        particles.attack.Stop();
         StatSystem.DealDamage(stats, StatSystem.DamageType.Physical, 10000, false);
         MeshRenderer[] models = GetComponentsInChildren<MeshRenderer>();
+        float timer = 0;
         foreach(MeshRenderer model in models)
         {
             model.enabled = false;
         }
-        yield return new WaitForSeconds(3);
+        particles.desolve.Play();
+        while(timer < 3f)
+        {
+            if (healthSliders.alpha > 0)
+            {
+                healthSliders.alpha -= Time.deltaTime;
+            }
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
         Destroy(gameObject);
     }
     #endregion
