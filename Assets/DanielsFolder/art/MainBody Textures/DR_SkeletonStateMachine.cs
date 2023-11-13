@@ -8,6 +8,9 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     #region variables
     public float sightRange;
     public float meleeRange;
+    //variables for attack timer;
+    public float timeBetweenAttacks;
+    float lastAttack;
     public Transform player;
     private NavMeshAgent agent;
 
@@ -16,8 +19,8 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     public ParticleSystem deathParticel, attackParticle, attack2Particle, attack3Particle;
 
     //patrolling
-    public List<Transform> waypoints;
-    public int waypointIndex;
+    public List<Vector3> waypoints = new List<Vector3>();
+    private int waypointIndex;
 
     [HideInInspector]
     public Color sightColor;
@@ -26,7 +29,7 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     #region States
     /// Declare states. If you add a new state to your character,
     /// remember to add a new States enum for it.
-    public enum States { IDLE, PATROLLING, CHASING, ATTACKING,DIE }
+    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, DEATH }
 
     public States currentState;
     #endregion
@@ -39,9 +42,9 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     }
     private void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        //start the fsm
-        StartCoroutine(EnemyFSM());
+        GetComponent<Stats>().OnDamaged.Invoke();
+        agent = GetComponent<NavMeshAgent>();
+        
         anim = GetComponentInChildren<Animator>();
 
         //turn hitboxes off by default
@@ -50,6 +53,18 @@ public class DR_SkeletonStateMachine : MonoBehaviour
         weapon3.enabled = false;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        //collect the waypoint positions
+        foreach(Transform item in transform)
+        {
+            if(item.tag == "Waypoint")
+            {
+                waypoints.Add(item.position);
+            }
+        }
+        lastAttack = 0;
+        //start the fsm
+        StartCoroutine(EnemyFSM());
     }
     #endregion
 
@@ -80,7 +95,7 @@ public class DR_SkeletonStateMachine : MonoBehaviour
             else if (IsInRange(sightRange)) currentState = States.CHASING;
             else timer += Time.deltaTime;
             if (timer > 5) currentState = States.PATROLLING;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForEndOfFrame();
         }
 
         //EXIT IDLE STATE >
@@ -100,7 +115,7 @@ public class DR_SkeletonStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
-            if (IsInRange(meleeRange)) currentState = States.ATTACKING;
+            if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
             else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
             else agent.SetDestination(player.position);
             yield return new WaitForEndOfFrame();
@@ -114,13 +129,24 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-
+        agent.SetDestination(waypoints[waypointIndex]);
         Debug.Log("I'ma Get Ya!");
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.PATROLLING)
         {
+            if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
+            else if (IsInRange(sightRange)) currentState = States.CHASING;
+            else
+            {
+                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    waypointIndex = waypointIndex + 1 % waypoints.Count;
+                }
+
+                agent.SetDestination(waypoints[waypointIndex]);
+            }
             
             yield return new WaitForEndOfFrame();
         }
@@ -136,17 +162,48 @@ public class DR_SkeletonStateMachine : MonoBehaviour
         //put any code here that you want to run at the start of the behaviour
 
         Debug.Log("I'ma Get Ya!");
+        agent.SetDestination(transform.position);
+        agent.updateRotation = false;
+        lastAttack = Time.time;
+        //roll a number to pick which attack to run
+        int attackType = Random.Range(0, 100);
 
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
-        while (currentState == States.ATTACKING)
+        if(attackType < 70)//70%chance to run the basic attack
         {
+            anim.SetTrigger("BasicAttack");//run the attack animation
+            weapon1.enabled = true;//enable the damage collider
+            if (attackParticle != null) attackParticle.Play(); //play a particle if possible;
+            yield return new WaitForSeconds(4); //wait for the animation to end
+            weapon1.enabled = false;
+            if (attackParticle != null) attackParticle.Stop(); //play a particle if possible;
+        }
+        else if(attackType > 70)//remaining 30% chance to run the special attack
+        {
+            anim.SetTrigger("RoarAttack");//run the attack animation
+            yield return new WaitForSeconds(1.5f); //wait for first hitbox
+            weapon2.enabled = true;//enable the damage collider
+            if (attack2Particle != null) attack2Particle.Play(); //play a particle if possible;
+            yield return new WaitForSeconds(0.1f); //wait for first hitbox
+            weapon3.enabled = true;
+            
+            if (attack3Particle != null) attack3Particle.Play(); //play a particle if possible;
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.1f); //wait for first hitbox to finish
+
+            weapon2.enabled = false;
+            if (attack2Particle != null) attack2Particle.Stop(); //play a particle if possible;
+
+            yield return new WaitForSeconds(3); //wait for the animation to end
+            weapon3.enabled = false;
+            if (attack3Particle != null) attack3Particle.Stop(); //play a particle if possible;
         }
 
         //EXIT IDLE STATE >
         //write any code here you want to run when the state is left
+        agent.updateRotation = true;
+        if (IsInRange(sightRange)) currentState = States.CHASING;
+        else currentState = States.PATROLLING;
+
 
         Debug.Log("Oh no I see the player!");
     }
@@ -154,19 +211,21 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-
-        Debug.Log("I'ma Get Ya!");
-
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
-        while (currentState == States.DIE)
+        agent.speed = 0;
+        agent.SetDestination(transform.position);
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(1f); //wait for the animation to end
+        
+        MeshRenderer[] models = GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer model in models)
         {
-
-            yield return new WaitForEndOfFrame();
+            model.enabled = false;
         }
+        
+        if (deathParticel != null) deathParticel.Play(); //play a particle if possible;
+        Destroy(gameObject, 2);
 
-        //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
+        
 
         Debug.Log("Oh no I see the player!");
     }
@@ -182,11 +241,11 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     }
     public void DIE()
     {
-        currentState = States.DIE;
+        currentState = States.DEATH;
     }
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = sightColor;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
 
         Gizmos.color = Color.red;

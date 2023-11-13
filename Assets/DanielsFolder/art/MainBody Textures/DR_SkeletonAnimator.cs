@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+//[RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 public class DR_SkeletonAnimator : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class DR_SkeletonAnimator : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponentInParent<NavMeshAgent>();
-        // Don’t update position automatically
+        // Don?t update position automatically
         agent.updatePosition = false;
     }
 
@@ -48,6 +48,6 @@ public class DR_SkeletonAnimator : MonoBehaviour
     void OnAnimatorMove()
     {
         // Update position to agent position
-        transform.position = agent.nextPosition;
+        transform.root.position = agent.nextPosition;
     }
 }
