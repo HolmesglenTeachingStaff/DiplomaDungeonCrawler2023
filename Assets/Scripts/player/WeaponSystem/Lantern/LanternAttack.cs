@@ -100,19 +100,21 @@ public class LanternAttack : MonoBehaviour
     void AimLantern()
     {
         //find direction
-        Vector3 direction = mousePos.GetPosition(Camera.main) - player.transform.position;
-        direction.y = player.transform.position.y;
+        Vector3 direction = MousePosition.mousePosition - player.transform.position;
+        //direction.y = player.transform.position.y;
         direction.Normalize();
+
+        float tempRange = Mathf.Clamp(range, 0, Vector3.Distance(player.transform.position, MousePosition.mousePosition));
         //check raycast
-        if(Physics.Raycast(player.position, direction, out hit, range, obsticleLayers))
+        if(Physics.Raycast(player.position, direction, out hit, tempRange, obsticleLayers))
         {
             target = hit.point;
         }
         else
         {
-            target = player.transform.position + direction * range;
+            target = player.transform.position + direction * tempRange;
         }
-        target.y = transform.position.y;
+        target.y = MousePosition.mousePosition.y+1;
 
     }
 
@@ -149,8 +151,10 @@ public class LanternAttack : MonoBehaviour
         foreach (Collider hit in possibleEnemies)
         {
             Stats stats = hit.GetComponent<Stats>();
-            if(stats != null)
-            {
+            if (stats == null) stats = hit.GetComponentInParent<Stats>();
+            if (stats == null) stats = hit.GetComponentInChildren<Stats>();
+            if (stats == null) return;
+            
                 //measure the distance from the centre of the explosion to the target
                 float distance = Vector3.Distance(hit.transform.position, transform.position);
                 //convert the distance / radius to get a percentage damage
@@ -161,7 +165,7 @@ public class LanternAttack : MonoBehaviour
                 float damage = Mathf.Lerp(maxDamage, minDamage, ratio);
                 //deal the damage
                 StatSystem.DealDamage(stats, damageType, damage, true, transform.position);
-            }
+           
         }
         //lanternParticles[0].Play();
         
