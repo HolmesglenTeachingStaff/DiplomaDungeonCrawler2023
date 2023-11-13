@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IB_StateMachine : MonoBehaviour
+public class IB_FSM2 : MonoBehaviour
 {
     #region variables
     public float sightRange;
     public float meleeRange;
-    public Stats statScript;
     public Transform player;
     public NavMeshAgent agent;
     public Color sightColor;
@@ -25,7 +24,7 @@ public class IB_StateMachine : MonoBehaviour
 
     #region States
     //Declare states. If you add a new sate to your character, remember to add a new States enum for it.
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, SPAWNING, DEATH }
+    public enum States { IDLE, ROAMING, CHASING, ATTACKING, DEATH }
     public States currentState;
     #endregion
 
@@ -39,12 +38,10 @@ public class IB_StateMachine : MonoBehaviour
 
     void Start()
     {
-        statScript = GetComponent<Stats>();
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
-        player = GameObject.FindGameObjectWithTag("player").transform;
         //start the fsm
         StartCoroutine(EnemyFSM());
     }
@@ -92,15 +89,17 @@ public class IB_StateMachine : MonoBehaviour
         {
             agent.SetDestination(player.position);
 
+            if (Vector3.Distance(transform.position, player.position) < meleeRange)
+            {
+                currentState = States.ATTACKING;
+            }
+
             if (Vector3.Distance(transform.position, player.position) > sightRange)
             {
                 currentState = States.IDLE;
             }
 
-            if (Vector3.Distance(transform.position, player.position) < meleeRange)
-            {
-                currentState = States.ATTACKING;
-            }
+           
             yield return new WaitForEndOfFrame();
         }
 
@@ -116,22 +115,7 @@ public class IB_StateMachine : MonoBehaviour
         Weapon.GetComponent<BoxCollider>().enabled = false;
         currentState = States.CHASING;
     }
-    IEnumerator SPAWNING()
-    {
-        while (currentState == States.SPAWNING)
-        {
-            anim.Play("Spawning");
-            KnockBack.DamageBurst();
-            yield return new WaitForSeconds(2.5f);
 
-            Instantiate(tenguM, spawnPoint1.position, spawnPoint1.rotation);
-            Instantiate(tenguM, spawnPoint2.position, spawnPoint2.rotation);
-            Instantiate(tenguM, spawnPoint3.position, spawnPoint3.rotation);
-
-            yield return new WaitForEndOfFrame();
-            currentState = States.CHASING;
-        }
-    }
     IEnumerator DEATH()
     {
         while (currentState == States.DEATH)
@@ -154,13 +138,5 @@ public class IB_StateMachine : MonoBehaviour
     public void Death()
     {
         currentState = States.DEATH;
-    }
-
-    public void CurrentHealth()
-    {
-        if (statScript.currentHealth <= statScript.maxHealth * 0.5)
-        {
-            currentState = States.SPAWNING;
-        }
     }
 }

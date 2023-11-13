@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -328,6 +328,11 @@ LookAtConstraint:
   m_Sources:
   - sourceTransform: {fileID: 0}
     weight: 1
+--- !u!4 &549229461 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6224115787055095601, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+  m_PrefabInstance: {fileID: 1601200916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &618152653
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,9 +582,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61222bd1abe364a18b6940fc15e2650a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 0
-  meleeRange: 0
-  player: {fileID: 0}
+  sightRange: 3
+  meleeRange: 1
+  statScript: {fileID: 0}
+  player: {fileID: 549229461}
   agent: {fileID: 0}
   sightColor: {r: 0.7264151, g: 0.24387555, b: 0.22957456, a: 0}
   KnockBack: {fileID: 0}
@@ -1285,7 +1291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
       propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
@@ -1304,6 +1310,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1903711288}
     - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1275706754}
+    - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -1320,6 +1330,10 @@ PrefabInstance:
       value: UpdateSlider
       objectReference: {fileID: 0}
     - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CurrentHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: IB_StateMachine, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -1332,7 +1346,15 @@ PrefabInstance:
       value: StatSlider, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: IB_StateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429649277798989036, guid: 78ad69ce594574c598b394584942fc48, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1429649277798989037, guid: 78ad69ce594574c598b394584942fc48, type: 3}
