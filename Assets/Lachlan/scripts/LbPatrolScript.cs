@@ -1,13 +1,21 @@
 using System.Xml;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 public class LbPatrolScript : MonoBehaviour
+
+
 {
     public NavMeshAgent agent;
 
     public Transform Player;
 
     public LayerMask whatIsEnvironment, whatIsPlayer;
+
+    public enum States { PATROLLING, CHASING, ATTACKING, DEATH }
+
+    public States currentState;
 
     //patroling
     public Vector3 walkPoint;
@@ -22,13 +30,15 @@ public class LbPatrolScript : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    private void Awake()
+    void Start()
+
     {
         Player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }
 
+   
     private void Update()
     {
         //Check For sight and attack range 
@@ -36,7 +46,7 @@ public class LbPatrolScript : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && !playerInAttackRange) CHASING();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
     private void Patroling()
@@ -63,27 +73,27 @@ public class LbPatrolScript : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsEnvironment))
             walkPointSet = true;
     }
-    private void ChasePlayer()
+   private void CHASING()
     {
-        int MoveSpeed = 4;
-        int MaxDist = 10;
-        int MinDist = 5;
-        void Start()
-        {
+        //ENTER THE CHASING STATE >
+        //put any code here that you want to run at the start of the behaviour
+        agent.updateRotation = true;
+        agent.SetDestination(Player.position);
 
-        }
-        void Update()
-        {
-            transform.LookAt(Player);
-            if (Vector3.Distance(transform.position, Player.position) >= MinDist);
-            {
-                transform.position += transform.forward * MoveSpeed * Time.deltaTime;
-            }
-            //if (Vector3.Distance(transform.position, Player.position) <= MaxDist) ;
-            {
-                
-            }
-        }
+
+        //UPDATE Chasing STATE >
+        //put any code here you want to repeat during the state being active
+        //while (currentState == States.CHASING) ;
+        //{
+           // if ((attackRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
+           // else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
+            //agent.SetDestination(Player.position);
+          //  yield return new WaitForEndOfFrame();
+        //}
+
+        //EXIT IDLE STATE >
+        //write any code here you want to run when the state is left
+
     }
     private void AttackPlayer()
     {
@@ -94,5 +104,6 @@ public class LbPatrolScript : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+    
 }
 
