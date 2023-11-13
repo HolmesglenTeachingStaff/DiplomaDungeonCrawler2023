@@ -199,10 +199,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //wait until it's finished
         Destroy(gameObject);
     }
-    public void DamageReceived()
-    {
 
-    }
 
     //Used to help visualize the range values in scene.
     #region Gizmos
