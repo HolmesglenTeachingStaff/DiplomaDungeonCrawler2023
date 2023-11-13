@@ -24,7 +24,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     [Header("Reaction Range Values")]
     public float sightRange = 12;
-    public float summonRange = 9;
     public float meleeRange = 2;
 
     //Nodes to indicate where to patrol.
@@ -200,6 +199,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //wait until it's finished
         Destroy(gameObject);
     }
+    public void DamageReceived()
+    {
+
+    }
 
     //Used to help visualize the range values in scene.
     #region Gizmos
@@ -210,15 +213,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + Vector3.up, meleeRange);
-
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position + Vector3.up, dangerRange);
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up, summonRange);
-
-        //Gizmos.color = Color.black;
-        //Gizmos.DrawWireSphere(transform.position + Vector3.up, bufferRange);
     }
     #endregion
 
