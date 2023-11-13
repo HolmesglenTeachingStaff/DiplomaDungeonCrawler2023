@@ -19,6 +19,7 @@ public class NT_DialogueText : MonoBehaviour
     int messageCounter;
     [SerializeField] float messageCount;
     public bool HasDisplayed = false;
+    public bool canTalk;
     public GameObject dialogueBox;
     public GameObject playerChar;
 
@@ -31,20 +32,26 @@ public class NT_DialogueText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Checks if button has been clicked 
-        if (Input.GetKeyDown(KeyCode.E) && HasDisplayed == false)
+        //Checks for canTalk variable 
+        if(canTalk == true)
         {
-            messageCount++;
-        }
+            //Checks if button has been clicked 
+            if (Input.GetKeyDown(KeyCode.E) && HasDisplayed == false)
+            {
+                messageCount++;
+                StartCoroutine(TypeWriterIntro());
+                dialogueBox.gameObject.SetActive(true);
+            }
 
-        if(messageCount > 0)
-        {
-            HasDisplayed = true;
-        }
+            if (messageCount > 0)
+            {
+                HasDisplayed = true;
+            }
 
-        if(messageCount >= 2)
-        {
-            messageCount = 1;
+            if (messageCount >= 2)
+            {
+                messageCount = 1;
+            }
         }
 
         if (Input.GetMouseButton(0) && messageCounter < introMessages.Length - 1 && messageCount == 0)

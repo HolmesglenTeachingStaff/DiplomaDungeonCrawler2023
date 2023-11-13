@@ -76,27 +76,32 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
 
     IEnumerator IDLE()
     {
-        //Enter Idle state
-        Debug.Log("Entered Idle state");
-        //Wait for a few seconds 
-        yield return new WaitForSeconds(Random.Range(1, 5));
-
-        //Play idle annimations
-        //anim.Play("");
-
-        //Wait for a few seconds
-        yield return new WaitForSeconds(Random.Range(1, 5));
-
-        //transitions to roaming state 
-        currentState = States.ROAMING;
-
         while (currentState == States.IDLE)
         {
+            //Enter Idle state
+            Debug.Log("Entered Idle state");
+            //Wait for a few seconds 
+            yield return new WaitForSeconds(Random.Range(1, 5));
+
+            //Play idle annimations
+            //anim.Play("");
+
+            //Wait for a few seconds
+            yield return new WaitForSeconds(Random.Range(1, 5));
+
+            //transitions to roaming state 
+            currentState = States.ROAMING;
+
             if (IsInRange(sightRange) || IsInRange(talkRange))
             {
                 //Stop current animations
                 agent.SetDestination(transform.position);
                 Invoke("TurnToPlayer", 0.5f);
+            }
+
+            if (IsInRange(talkRange))
+            {
+                currentState = States.TALKING;
             }
         }
     }
@@ -129,7 +134,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
                 Invoke("TurnToPlayer", 0.5f);
             }
 
-            if (IsInRange(talkRange) && Input.GetKeyDown(KeyCode.E))
+            if (IsInRange(talkRange))
             {
                 currentState = States.TALKING;
             }
@@ -165,15 +170,16 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         //Plays talking function from different script 
         while(currentState == States.TALKING)
         {
-            if (Input.GetKeyDown(KeyCode.E) && dialogueText.HasDisplayed == false)
-            {
-                StartCoroutine(dialogueText.TypeWriterIntro());
-                dialogueText.dialogueBox.gameObject.SetActive(true);
-            }
-            else if(dialogueText.HasDisplayed == true)
-            {
-                StartCoroutine(dialogueText.TypeWriterLore());
-            }
+            dialogueText.canTalk = true;
+            //if (Input.GetKeyDown(KeyCode.E) && dialogueText.HasDisplayed == false)
+            //{
+                //StartCoroutine(dialogueText.TypeWriterIntro());
+                //dialogueText.dialogueBox.gameObject.SetActive(true);
+            //}
+            //else if(dialogueText.HasDisplayed == true)
+            //{
+                //StartCoroutine(dialogueText.TypeWriterLore());
+            //}
 
             yield return new WaitForEndOfFrame();
         }
