@@ -14,20 +14,24 @@ public class NT_DialogueText : MonoBehaviour
     public string[] whoMessage;
     public string[] whatMessage;
     public string[] whyMessage;
+    public string[] whyAmIHere;
+    public string[] continueMessage;
 
     public float letterDelay;
     int messageCounter;
     [SerializeField] float messageCount;
     public bool HasDisplayed = false;
-    public bool canTalk;
+    public bool canTalk = false;
     public GameObject dialogueBox;
     public GameObject playerChar;
 
     //Variables for buttons  
-    public Button healingButton;
-    public Button whoButton;
-    public Button whatButton;
-    public Button whyButton;
+    public GameObject healingButton;
+    public GameObject whoButton;
+    public GameObject whatButton;
+    public GameObject whyButton;
+    public GameObject whyAmIHereButton;
+    public GameObject endButton;
 
     // Update is called once per frame
     void Update()
@@ -39,32 +43,33 @@ public class NT_DialogueText : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && HasDisplayed == false)
             {
                 messageCount++;
+                StopAllCoroutines();
                 StartCoroutine(TypeWriterIntro());
                 dialogueBox.gameObject.SetActive(true);
+                healingButton.gameObject.SetActive(false);
+                whatButton.gameObject.SetActive(false);
+                whoButton.gameObject.SetActive(false);
+                whyButton.gameObject.SetActive(false);
+                endButton.gameObject.SetActive(false);
+                whyAmIHereButton.gameObject.SetActive(false);
             }
 
-            if (messageCount > 0)
+            if(Input.GetKeyDown(KeyCode.E) && HasDisplayed == true)
             {
-                HasDisplayed = true;
-            }
-
-            if (messageCount >= 2)
-            {
-                messageCount = 1;
+                StopAllCoroutines();
+                StartCoroutine(TypeWriterLore());
+                dialogueBox.gameObject.SetActive(true);
             }
         }
 
-        if (Input.GetMouseButton(0) && messageCounter < introMessages.Length - 1 && messageCount == 0)
+        if (messageCount > 0)
         {
-            messageCounter += 1;
-            StopAllCoroutines();
-            StartCoroutine(TypeWriterIntro());
+            HasDisplayed = true;
         }
-        else if(Input.GetMouseButton(0) && messageCounter < introMessages.Length - 1 && messageCount >= 1)
+
+        if (messageCount >= 2)
         {
-            messageCounter += 1;
-            StopAllCoroutines();
-            StartCoroutine(TypeWriterLore());
+            messageCount = 1;
         }
     }
 
@@ -83,12 +88,8 @@ public class NT_DialogueText : MonoBehaviour
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
             textUI.text = "";
         }
+        dialogueBox.gameObject.SetActive(false);
         yield return null;
-
-        healingButton.enabled = true;
-        whatButton.enabled = true;
-        whoButton.enabled = true;
-        whyButton.enabled = true;
 
         yield return new WaitForEndOfFrame();
     }
@@ -111,15 +112,17 @@ public class NT_DialogueText : MonoBehaviour
         }
         yield return null;
 
-        healingButton.enabled = true;
-        whatButton.enabled = true;
-        whoButton.enabled = true;
-        whyButton.enabled = true;
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
 
         yield return new WaitForEndOfFrame();
     }
 
-    public IEnumerator NoHealingText()
+    public IEnumerator NoHealingText()//Not showing the dialogue when full health 
     {
         textUI.text = "";
 
@@ -136,6 +139,15 @@ public class NT_DialogueText : MonoBehaviour
             textUI.text = "";
         }
         yield return null;
+
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
+
+        yield return new WaitForEndOfFrame();
     }
 
     public IEnumerator Healing()
@@ -169,6 +181,16 @@ public class NT_DialogueText : MonoBehaviour
             textUI.text = "";
         }
         yield return null;
+
+        StartCoroutine(ContinueDialogue());
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
+
+        yield return new WaitForEndOfFrame();
     }
 
     public IEnumerator WhatDialogue()
@@ -188,6 +210,16 @@ public class NT_DialogueText : MonoBehaviour
             textUI.text = "";
         }
         yield return null;
+
+        StartCoroutine(ContinueDialogue());
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
+
+        yield return new WaitForEndOfFrame();
     }
 
     public IEnumerator WhyDialogue()
@@ -207,5 +239,106 @@ public class NT_DialogueText : MonoBehaviour
             textUI.text = "";
         }
         yield return null;
+
+        StartCoroutine(ContinueDialogue());
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
+
+        yield return new WaitForEndOfFrame();
     }
+
+    public IEnumerator WhyAmIHereQues()
+    {
+        textUI.text = "";
+
+        for (int i = 0; i < whyAmIHere.Length; i++)
+        {
+            char[] chars = whyAmIHere[i].ToCharArray();
+
+            for (int j = 0; j < chars.Length; j++)
+            {
+                textUI.text += chars[j].ToString();
+                yield return new WaitForSeconds(letterDelay);
+            }
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+            textUI.text = "";
+        }
+        yield return null;
+
+        StartCoroutine(ContinueDialogue());
+        healingButton.gameObject.SetActive(true);
+        whatButton.gameObject.SetActive(true);
+        whoButton.gameObject.SetActive(true);
+        whyButton.gameObject.SetActive(true);
+        endButton.gameObject.SetActive(true);
+        whyAmIHereButton.gameObject.SetActive(true);
+
+        yield return new WaitForEndOfFrame();
+    }
+
+    public IEnumerator ContinueDialogue()
+    {
+        textUI.text = "";
+
+        for (int i = 0; i < continueMessage.Length; i++)
+        {
+            char[] chars = continueMessage[i].ToCharArray();
+
+            for (int j = 0; j < chars.Length; j++)
+            {
+                textUI.text += chars[j].ToString();
+                yield return new WaitForSeconds(letterDelay);
+            }
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+            textUI.text = "";
+        }
+        yield return null;
+    }
+
+    #region Functions for onclickevent
+    public void EndDialogue()
+    {
+        dialogueBox.gameObject.SetActive(false);
+        healingButton.gameObject.SetActive(false);
+        whatButton.gameObject.SetActive(false);
+        whoButton.gameObject.SetActive(false);
+        whyButton.gameObject.SetActive(false);
+        endButton.gameObject.SetActive(false);
+        whyAmIHereButton.gameObject.SetActive(false);
+    }
+    
+    public void CanGetHeal()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Healing());
+    }
+
+    public void WhyDialogueChoice()
+    {
+        StopAllCoroutines();
+        StartCoroutine(WhyDialogue());
+    }
+
+    public void WhatDialogueOption()
+    {
+        StopAllCoroutines();
+        StartCoroutine(WhatDialogue());
+    }
+
+    public void WhoDialogueOption()
+    {
+        StopAllCoroutines();
+        StartCoroutine(WhoDialogue());
+    }
+
+    public void WhyAmIHereQ()
+    {
+        StopAllCoroutines();
+        StartCoroutine(WhyAmIHereQues());
+    }
+    #endregion
 }

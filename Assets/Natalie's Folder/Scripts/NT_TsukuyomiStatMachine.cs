@@ -56,6 +56,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     {
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
+        dialogueText = GetComponent<NT_DialogueText>();
         //anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(TsukuyomiFSM());
@@ -168,9 +169,14 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         //Dialogue system with player 
         //Displays UI instruction for player to follow 
         //Plays talking function from different script 
-        while(currentState == States.TALKING)
+        agent.SetDestination(transform.position);
+        while (currentState == States.TALKING)
         {
-            dialogueText.canTalk = true;
+            if (IsInRange(talkRange))
+            {
+                dialogueText.canTalk = true;
+            }
+            
             //if (Input.GetKeyDown(KeyCode.E) && dialogueText.HasDisplayed == false)
             //{
                 //StartCoroutine(dialogueText.TypeWriterIntro());

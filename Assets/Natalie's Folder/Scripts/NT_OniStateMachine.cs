@@ -57,6 +57,7 @@ public class NT_OniStateMachine : MonoBehaviour
         //anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(OniFSM());
+        stat.OnDamaged.Invoke();
     }
     #endregion
 
