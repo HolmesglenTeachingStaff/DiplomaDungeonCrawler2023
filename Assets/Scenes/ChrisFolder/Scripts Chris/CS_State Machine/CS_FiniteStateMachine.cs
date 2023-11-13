@@ -85,53 +85,27 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here i want to run at the start of the behaviour
         Debug.Log("Ok, no one here, lets chill");
 
+        float timer = 0;
+
         //add IDLE anim
         while(currentState == States.IDLE)
         {   
 
-             if(Vector3.Distance(transform.position, player.position) < sightRange)
+            //checking if we need to chase the player
+            if(Vector3.Distance(transform.position, player.position) < sightRange)
             {
                 currentState = States.CHASING;
-            }
-            
-            for(int i = 0; i < idleTimer.Length; i ++) //trying to create idle loop
+            }  
+            else if (timer >4) //check if we should patrol
             {
-                yield return new WaitForEndOfFrame();
-
-                if(i >= 4)
-                {
-
-                    yield return new WaitForEndOfFrame();
-
-                    if(Vector3.Distance(transform.position, player.position) < sightRange)
-                     {
-                        currentState = States.CHASING;
-                     }
-                    else if(Vector3.Distance(transform.position, player.position) > sightRange)
-                     {
-                        idleDone = true;
-                        currentState = States.PATROLLING;
-                     }                   
-                                                            
-                }
-                else if (i < 4)
-                {
-                    if(Vector3.Distance(transform.position, player.position) < sightRange)
-                    {
-                        currentState = States.CHASING;
-                    }
-                    else if(Vector3.Distance(transform.position, player.position) > sightRange)
-                    {
-                        idleDone = false;
-                        yield return new WaitForSeconds(1);
-                        currentState = States.IDLE;
-                    }                   
-
-                }
-
-                yield return new WaitForEndOfFrame();
-                
+                currentState = States.PATROLLING;
             }
+
+            //if niether is true, we are still in IDLE and the while loop will continue, so we increase our timer and repeat
+            timer += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+            
             
 
            /* for(int i = 0; i < roamTime.Length; i ++) //trying to create roaming loop
