@@ -37,11 +37,6 @@ public class IB_DamageReactions : MonoBehaviour
         
     }
 
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, damageRange);

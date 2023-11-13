@@ -107,7 +107,7 @@ public class IB_StateMachine : MonoBehaviour
         Weapon.GetComponent<BoxCollider>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         Weapon.GetComponent<BoxCollider>().enabled = false;
-
+        currentState = States.CHASING;
     }
     IEnumerator SPAWNING()
     {
@@ -122,6 +122,7 @@ public class IB_StateMachine : MonoBehaviour
             Instantiate(tenguM, spawnPoint3.position, spawnPoint3.rotation);
 
             yield return new WaitForEndOfFrame();
+            currentState = States.CHASING;
         }
     }
     IEnumerator DEATH()
