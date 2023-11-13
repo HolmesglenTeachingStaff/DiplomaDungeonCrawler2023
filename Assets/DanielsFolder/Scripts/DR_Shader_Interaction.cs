@@ -36,9 +36,9 @@ public class DR_Shader_Interaction : MonoBehaviour
     }
     public IEnumerator AlphaLerp()
     {
-        Debug.Log("coroutine started");
+        //Debug.Log("coroutine started");
         if (isAlphaChanging) yield return null;
-        Debug.Log("not stopped");
+        //Debug.Log("not stopped");
         isAlphaChanging = true;
 
         float timeStep = 0;
@@ -47,7 +47,7 @@ public class DR_Shader_Interaction : MonoBehaviour
 
         while(timeStep <= duration)
         {
-            Debug.Log(alphaFloat);
+          //  Debug.Log(alphaFloat);
             alphaFloat = Mathf.Lerp(0, 1, timeStep / duration);
             mat.SetFloat("_AlphaValue", alphaFloat);
             yield return new WaitForEndOfFrame();
@@ -59,9 +59,9 @@ public class DR_Shader_Interaction : MonoBehaviour
     }
     public IEnumerator ColorLerp()
     {
-        Debug.Log("coroutine started");
+       // Debug.Log("coroutine started");
         if (isColorChanging) yield return null;
-        Debug.Log("not stopped");
+        //Debug.Log("not stopped");
         isColorChanging = true;
 
         float timeStep = 0;
