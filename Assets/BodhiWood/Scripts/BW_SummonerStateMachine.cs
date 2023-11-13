@@ -12,6 +12,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region Variables
     private NavMeshAgent agent;
     private Animator anim;
+    private OrbitTarget orbitTarget;
+    private Stats stats;
 
     public Transform player;
     public Transform summonLocation;
@@ -21,10 +23,9 @@ public class BW_SummonerStateMachine : MonoBehaviour
     public bool checkingForPlayer = true;
 
     [Header("Reaction Range Values")]
-    private float sightRange = 12;
-    private float summonRange = 9;
-    private float meleeRange = 2;
-    private float bufferRange = -0.6f;
+    public float sightRange = 12;
+    public float summonRange = 9;
+    public float meleeRange = 2;
 
     //Nodes to indicate where to patrol.
     [SerializeField] Transform[] nodes;
@@ -48,6 +49,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        orbitTarget = GetComponent<OrbitTarget>();
+        orbitTarget.orbitTarget = player.gameObject;
+        stats = GetComponent<Stats>();
 
         StartCoroutine(SummonerFSM());
     }
@@ -139,7 +144,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     IEnumerator COMBAT()
     {
         checkingForPlayer = false;
-        Vector3 distance = player.position - transform.position;
 
         int maxSummons = 0;
         float summonTimer = 0;
@@ -158,7 +162,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
             }
 
             //Follows the player while maintaining distance
-            agent.SetDestination(player.position + distance * bufferRange);
+            agent.SetDestination(orbitTarget.orbitPosition);
 
             yield return new WaitForEndOfFrame();
         }
