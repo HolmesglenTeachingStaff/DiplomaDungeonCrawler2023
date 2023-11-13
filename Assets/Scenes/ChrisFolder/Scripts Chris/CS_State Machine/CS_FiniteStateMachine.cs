@@ -96,8 +96,13 @@ public class CS_FiniteStateMachine : MonoBehaviour
             
             for(int i = 0; i < idleTimer.Length; i ++) //trying to create idle loop
             {
+                
+
                 if(i >= 4)
                 {
+
+                    yield return new WaitForEndOfFrame();
+
                     if(Vector3.Distance(transform.position, player.position) < sightRange)
                      {
                         currentState = States.CHASING;
@@ -109,7 +114,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
                      }                   
                                                             
                 }
-                else if (i <= 4)
+                else if (i < 4)
                 {
                     if(Vector3.Distance(transform.position, player.position) < sightRange)
                     {
@@ -123,6 +128,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
                     }                   
 
                 }
+
+                yield return new WaitForEndOfFrame();
                 
             }
             
