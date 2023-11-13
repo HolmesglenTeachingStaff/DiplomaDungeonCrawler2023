@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MJ_FiniteStates : MonoBehaviour
+public class MJ_CorruptPriestBehavior : MonoBehaviour
 {
     /// <summary>
     /// FiniteStateMachine for NPCs
     /// </summary>
 
+    // 0=idle, 1=chasing, 2=attack, 3=death
     #region variables
     public float sightRange;
     public float attackRange;
@@ -16,10 +17,12 @@ public class MJ_FiniteStates : MonoBehaviour
     private NavMeshAgent agent;
 
     [HideInInspector] public Color sightColor;
+
+    [SerializeField] GameObject projectile;
     #endregion
 
     #region States
-    public enum States {IDLE, CHASING, ATTACKING };
+    public enum States {IDLE, CHASING, ATTACKING};
     public States currentState;
 
     private void Awake()
@@ -28,6 +31,7 @@ public class MJ_FiniteStates : MonoBehaviour
     }
     void Start()
     {
+        projectile = GetComponent<GameObject>();
         agent = GetComponent<NavMeshAgent>();
         //start the StateMachine
         StartCoroutine(EnemyFSM());
@@ -54,7 +58,12 @@ public class MJ_FiniteStates : MonoBehaviour
 
         while (currentState == States.IDLE)
         {
-            yield return new WaitForSeconds(1);
+            if (Vector3.Distance(transform.position, player.transform.position) < sightRange)
+            {
+                currentState = States.CHASING;
+                yield return StartCoroutine("CHASING");
+            }
+            yield return new WaitForEndOfFrame();
         }
 
         //EXIT IDLE STATE >
@@ -73,7 +82,11 @@ public class MJ_FiniteStates : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
+            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+            {
+                currentState = States.ATTACKING;
 
+            }
             yield return new WaitForEndOfFrame();
         }
 
@@ -87,8 +100,8 @@ public class MJ_FiniteStates : MonoBehaviour
     {
 
         //ENTER THE ATTACKING STATE >
-        //put any code here that you want to run at the start of the behaviour
-
+        //play animation
+        //summon (instantiate) projectiles with delay
 
 
         //UPDATE ATTACKING STATE >
@@ -96,7 +109,7 @@ public class MJ_FiniteStates : MonoBehaviour
         while (currentState == States.CHASING)
         {
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(.5f);
         }
 
         //EXIT ATTACKING STATE >
