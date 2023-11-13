@@ -96,7 +96,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             
             for(int i = 0; i < idleTimer.Length; i ++) //trying to create idle loop
             {
-                
+                yield return new WaitForEndOfFrame();
 
                 if(i >= 4)
                 {
