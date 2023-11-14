@@ -69,6 +69,7 @@ public class IB_StateMachine : MonoBehaviour
         //Update IDLE STATE > put any code here to repeat during the state being active
         while (currentState == States.IDLE)
         {
+            anim.Play("Idle");
             //Check player distance
             if (Vector3.Distance(transform.position, player.position) < sightRange)
             {
@@ -91,6 +92,7 @@ public class IB_StateMachine : MonoBehaviour
         while (currentState == States.CHASING)
         {
             agent.SetDestination(player.position);
+            anim.Play("Walking");
 
             if (Vector3.Distance(transform.position, player.position) > sightRange)
             {
@@ -110,7 +112,7 @@ public class IB_StateMachine : MonoBehaviour
     }
     IEnumerator ATTACKING()
     {
-        anim.Play("Attack");
+        anim.Play("Smash");
         Weapon.GetComponent<BoxCollider>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         Weapon.GetComponent<BoxCollider>().enabled = false;
