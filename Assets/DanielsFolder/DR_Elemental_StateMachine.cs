@@ -46,6 +46,7 @@ public class DR_Elemental_StateMachine : MonoBehaviour
     }
     private void Start()
     {
+        GetComponent<Stats>().OnDamaged.Invoke();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         tracker = GetComponentInChildren<DR_ElementalPlayerTracker>();
