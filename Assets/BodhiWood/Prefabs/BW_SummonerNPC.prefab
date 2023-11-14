@@ -480,10 +480,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8540008747433850048, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1449199242322709794, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d4aca3130181144e89679ba0eb7f9c8, type: 2}
+    - target: {fileID: 472740261713600217, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8863db58ea4607c4d895f1510bfbea8b, type: 2}
+    - target: {fileID: 472740261713600217, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c830d0648d4ba4248a99812a403294ba, type: 2}
     - target: {fileID: 919132149155446097, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
       propertyPath: m_Name
       value: SummonerRiggedTest
       objectReference: {fileID: 0}
+    - target: {fileID: 1925632499332022006, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c830d0648d4ba4248a99812a403294ba, type: 2}
+    - target: {fileID: 5363312654018345410, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c830d0648d4ba4248a99812a403294ba, type: 2}
+    - target: {fileID: 5613460577623883633, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072516702476707597, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8863db58ea4607c4d895f1510bfbea8b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
 --- !u!4 &2384473003128504113 stripped
@@ -491,22 +523,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
   m_PrefabInstance: {fileID: 2782627455062956250}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3052465540611958155 stripped
+--- !u!1 &7036583188645702705 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5132722371818468587, guid: fee854cbbdc788147bcf296e38c9f687, type: 3}
   m_PrefabInstance: {fileID: 2782627455062956250}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &475776155
+--- !u!114 &1468404672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052465540611958155}
+  m_GameObject: {fileID: 7036583188645702705}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f98eef77fd3472479a5b49bf557b45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagedMat: {fileID: 0}
-  defaultMat: {fileID: 0}

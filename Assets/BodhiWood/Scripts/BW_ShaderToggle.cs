@@ -8,16 +8,30 @@ using UnityEngine;
 
 public class BW_ShaderToggle : MonoBehaviour
 {
-    public Material damagedMat;
-    public Material defaultMat;
+    SkinnedMeshRenderer meshRenderer;
+    Color originalColor;
+    float flashTime = 0.15f;
 
     void Start()
     {
-        
+        meshRenderer = GetComponent<SkinnedMeshRenderer>();
+        originalColor = meshRenderer.material.color;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            DamageReceivedStart();
+        }
     }
 
-    public void Damaged()
+    public void DamageReceivedStart()
     {
-        
+        meshRenderer.material.color = Color.red;
+        Invoke("DamageReceivedStop", flashTime);
+    }
+    public void DamageReceivedStop()
+    {
+        meshRenderer.material.color = originalColor;
     }
 }
