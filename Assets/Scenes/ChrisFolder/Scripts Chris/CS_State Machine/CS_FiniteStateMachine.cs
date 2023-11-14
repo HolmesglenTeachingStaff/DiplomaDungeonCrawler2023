@@ -10,6 +10,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     public float sightRange;
     public float meleeRange;
+    public float chargeRange;
     public bool idleDone;
     public float[] idleTimer;
 
@@ -383,6 +384,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, meleeRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, chargeRange);
     }
 
 
