@@ -36,8 +36,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject[] spiritImages;
     
     [SerializeField] ParticleSystem spiritCollection;
+    [SerializeField] ParticleSystem spiritPowerCollection;
     [SerializeField] ParticleSystem spiritRelease;
     [SerializeField] ParticleSystem spiritRespawn;
+    [SerializeField] LightFader spiritLight;
 
     [SerializeField] GameObject restartScreen, gameOverScreen, levelCompleteScreen;
     [SerializeField] CanvasGroup[] gamerOverScreenFaders;
@@ -130,6 +132,8 @@ public class LevelManager : MonoBehaviour
     public void UpdateSpirit(float spiritIncrease)
     {
         spiritPower += spiritIncrease;
+        spiritLight.transform.position = player.transform.position + (Vector3.up * 2);
+        spiritLight.StartCoroutine("FadeLight");
         //increase the spirits
         if(spiritPower >= 100)
         {
@@ -138,9 +142,15 @@ public class LevelManager : MonoBehaviour
             spiritCollection.transform.position = player.transform.position + Vector3.up * 0.1f;
             spiritCollection.Play();
         }
+        else
+        {
+            spiritPowerCollection.transform.position = player.transform.position + Vector3.up * 0.1f;
+            spiritPowerCollection.Play();
+        }
         UpdateUI();
         
     }
+    
     public void KillPlayer()
     {
         // Debug.Log("KillPlayer");
