@@ -211,17 +211,28 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
+        if (attackParticle != null) attackParticle.Stop();
+        if (attack2Particle != null) attack2Particle.Stop();
+        if (attack3Particle != null) attack3Particle.Stop();
+        weapon1.enabled = false;
+        weapon2.enabled = false;
+        weapon3.enabled = false;
         agent.speed = 0;
         agent.SetDestination(transform.position);
         anim.SetTrigger("Death");
-        yield return new WaitForSeconds(1f); //wait for the animation to end
+        yield return new WaitForSeconds(2f); //wait for the animation to end
         
-        MeshRenderer[] models = GetComponentsInChildren<MeshRenderer>();
-        foreach(MeshRenderer model in models)
+        SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach(SkinnedMeshRenderer model in models)
         {
             model.enabled = false;
         }
-        
+        MeshRenderer[] meshs = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer mesh in meshs)
+        {
+            mesh.enabled = false;
+        }
+
         if (deathParticel != null) deathParticel.Play(); //play a particle if possible;
         Destroy(gameObject, 2);
 
@@ -241,7 +252,10 @@ public class DR_SkeletonStateMachine : MonoBehaviour
     }
     public void DIE()
     {
+        StopAllCoroutines();
+        agent.updateRotation = false;
         currentState = States.DEATH;
+        StartCoroutine(DEATH());
     }
     void OnDrawGizmosSelected()
     {
