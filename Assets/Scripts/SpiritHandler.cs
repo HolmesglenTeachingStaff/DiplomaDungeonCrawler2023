@@ -12,7 +12,8 @@ public class SpiritHandler : MonoBehaviour
     public void ReleaseSpirit()
     {
         if (isDepleted) return;
-        spiritParticle.Play();
+        ParticleSystem particle = Instantiate(spiritParticle.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+        particle.Play();
         LevelManager.instance.UpdateSpirit(spiritPower);
         isDepleted = true;
     }
