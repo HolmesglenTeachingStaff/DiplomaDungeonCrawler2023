@@ -67,11 +67,20 @@ public class DB_Nekomata : MonoBehaviour
         agent.updatePosition = true;
         agent.updatePosition = false;
 
-        lastAttack = Time.time;
         agent.speed = 3.5f;
         agent.speed *= 0.25f;
+
+        while (currentState == States.CHASING)
+        {
+            if (healthSliders.alpha < 1)
+            {
+                healthSliders.alpha += Time.deltaTime;
+            }
+        }
     }
 
+
+    #endregion
 
     private void OnDrawGizmosSelected()
     {
