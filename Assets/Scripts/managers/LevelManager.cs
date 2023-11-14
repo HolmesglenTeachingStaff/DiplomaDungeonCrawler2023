@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-
+using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
 #region variables
@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
     //Object References
     //[SerializeField] GameObject[] keyImages;
     [SerializeField] GameObject[] spiritImages;
-    
+    [SerializeField] Image spiritSlider;
     [SerializeField] ParticleSystem spiritCollection;
     [SerializeField] ParticleSystem spiritPowerCollection;
     [SerializeField] ParticleSystem spiritRelease;
@@ -71,6 +71,8 @@ public class LevelManager : MonoBehaviour
     {
         ResetValues();
         CollectEnemiesInLevel();
+        //spiritSlider.maxValue = 100f;
+        spiritSlider.fillAmount = spiritPower / 100;
         UpdateUI();
         respawnPosition = player.transform.position;
         // InvokeRepeating("AttemptRespawnUpdate", 1, 10f);
@@ -117,7 +119,7 @@ public class LevelManager : MonoBehaviour
         }
         //update score
         //scoreText.text = points.ToString();
-
+        spiritSlider.fillAmount = spiritPower / 100;
         //update enemies killed
         enemyText.text = enemiesKilled + " / " + totalEnemiesInLevel;
     }
