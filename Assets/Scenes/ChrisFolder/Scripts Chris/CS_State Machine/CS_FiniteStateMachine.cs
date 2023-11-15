@@ -23,7 +23,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public LayerMask attackableLayers;
 
     //public bool idleOvertime;
-    //public float roamTime = 5f; //trying to create ROAMING loop ^^
+    
 
     public bool chargePointer;
 
@@ -44,7 +44,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     #region States
 
     //declare states, add states where needed on the enum so it's accissible by the character
-    public enum States {IDLE, ROAMING, ATTACKING, CHASING, PATROLLING, CHARGING, STUNNED}
+    public enum States {IDLE, ATTACKING, CHASING, PATROLLING, CHARGING, STUNNED}
     public States currentState;
 
     #endregion
@@ -59,7 +59,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //Stats stats = enemy.GetComponent<Stats>();
 
         idleDone = false;
-        //idleOvertime = false; trying to create ROAMING loop after so many IDLE states
+        
         currentState = States.IDLE;
     }
 
@@ -96,7 +96,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //enter the IDLE state
         //put any code here i want to run at the start of the behaviour
         Debug.Log("Ok, no one here, lets chill");
-
+        agent.speed = 3;
         float timer = 0;
 
         //add IDLE anim
@@ -117,25 +117,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             timer += Time.deltaTime;
 
             yield return new WaitForEndOfFrame();
-            
-            
-
-           /* for(int i = 0; i < roamTime.Length; i ++) //trying to create roaming loop
-            {
-                if(i =>4)
-                {
-                    idleOvertime = true;
-
-                    if(idleOvertime = true)
-                    {
-                        currentState = States.ROAMING;
-                    }
-                    
-                }
-            }*/
-
-           
-            //roamTime += 1 (); //trying to create ROAMING loop            
+                 
         }
 
         //exit IDLE state
@@ -149,9 +131,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //ENTER THE PATROLLING STATE >
         //put any code here that you want to run while patrolling
 
-       Debug.Log("I'll find you");
-
-       agent.SetDestination(nodes[currentNode].position);
+        Debug.Log("I'll find you");
+        agent.speed = 3;
+        agent.SetDestination(nodes[currentNode].position);
 
         //UPDATE PATROLLING STATE >
         //put any code here you want to repeat during patrolling state being active
@@ -160,7 +142,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
 
-             if(Vector3.Distance(player.position, transform.position) <sightRange) 
+             if(Vector3.Distance(transform.position, player.position) <sightRange) 
              {
                 currentState = States.CHASING;
              }
@@ -168,7 +150,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)//pathPending is when the agent is still in the process of picking a path
             {
                 yield return new WaitForSeconds(Random.Range(0, 5)); //randomizes the time character waits between nodes
-                agent.speed = Random.Range(3, 8); //randomizes the speed the character moves between nodes
+                agent.speed = Random.Range(1, 4); //randomizes the speed the character moves between nodes
 
                 //currentNode = Random.Range(0, nodes.Length); //this would randomize the nodes the npc goes between
 
@@ -193,7 +175,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //enter the CHASING state
         //put any code here i want to run at the start of the behaviour
         Debug.Log("GIT EM!");
-
+        agent.speed = 3;
         //UPDATE CHASING state
         //put any code here you want to repeat during the state being active
         while(currentState == States.CHASING)
@@ -234,6 +216,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //enter the ATTACKING state
         //put any code here i want to run at the start of the behaviour
         Debug.Log("GOT YA!");
+        agent.speed = 3;
         agent.SetDestination(player.position);
 
         //CS_DamageReactions.DamageBurst (damageBurst); //accessing CS_DamageReactions script, then applying DamageBurst function
@@ -310,16 +293,17 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //ENTER THE CHARGING STATE >
         //put any code here that you want to run while CHARGING
 
-       Debug.Log("HERE I COME!");
-       //CHARGING anim here
-        //charge here
-        //do damage on hit?
+         Debug.Log("HERE I COME!");
+         agent.speed = 3;
+         //CHARGING anim here
+         //charge here
+         //do damage on hit?
 
-        //if charging misses check for on trigger enter wall, then enter STUNNED state
+         //if charging misses check for on trigger enter wall, then enter STUNNED state
 
-        //UPDATE CHARGING STATE
+         //UPDATE CHARGING STATE
 
-        //put any code here you want to repeat during CHARGING state being active
+         //put any code here you want to repeat during CHARGING state being active
         while (currentState == States.CHARGING)
         {
 

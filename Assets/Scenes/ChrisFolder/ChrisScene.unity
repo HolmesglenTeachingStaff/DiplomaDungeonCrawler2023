@@ -1098,9 +1098,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sightRange: 13
   meleeRange: 1
-  chargeRange: 11.5
+  chargeRange: 10
   idleDone: 0
   idleTimer: []
+  damageRange: 0
   chargePointer: 0
   player: {fileID: 86890452}
   sightColour: {r: 0, g: 0, b: 0, a: 0}
@@ -1866,6 +1867,38 @@ PrefabInstance:
     - target: {fileID: 1883548445948914103, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.77795
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.346004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -36.777954
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184580608785474308, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: field of view
+      value: 19.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.77795
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.346004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -36.777954
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888190513354660414, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 19.8
       objectReference: {fileID: 0}
     - target: {fileID: 5668521407825111634, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_AnchorMax.y
