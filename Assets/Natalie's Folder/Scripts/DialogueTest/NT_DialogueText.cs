@@ -16,6 +16,7 @@ public class NT_DialogueText : MonoBehaviour
     public string[] whyMessage;
     public string[] whyAmIHere;
     public string[] continueMessage;
+    public string[] healingMessage;
 
     public float letterDelay;
     int messageCounter;
@@ -152,12 +153,35 @@ public class NT_DialogueText : MonoBehaviour
 
     public IEnumerator Healing()
     {
-        if (playerChar.GetComponent<Stats>().currentHealth <= 100)
+        if (playerChar.GetComponent<Stats>().currentHealth < playerChar.GetComponent<Stats>().maxHealth)
         {
             //Plays healing animation with shader
-            playerChar.GetComponent<Stats>().currentHealth = 100;
+            playerChar.GetComponent<Stats>().currentHealth = playerChar.GetComponent<Stats>().maxHealth;
+
+            textUI.text = "";
+
+            for (int i = 0; i < healingMessage.Length; i++)
+            {
+                char[] chars = healingMessage[i].ToCharArray();
+
+                for (int j = 0; j < chars.Length; j++)
+                {
+                    textUI.text += chars[j].ToString();
+                    yield return new WaitForSeconds(letterDelay);
+                }
+                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+                textUI.text = "";
+            }
+            yield return null;
+
+            healingButton.gameObject.SetActive(true);
+            whatButton.gameObject.SetActive(true);
+            whoButton.gameObject.SetActive(true);
+            whyButton.gameObject.SetActive(true);
+            endButton.gameObject.SetActive(true);
+            whyAmIHereButton.gameObject.SetActive(true);
         }
-        else if (playerChar.GetComponent<Stats>().currentHealth >= 100)
+        else 
         {
             StartCoroutine(NoHealingText());
         }

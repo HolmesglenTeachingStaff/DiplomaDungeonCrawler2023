@@ -78,7 +78,7 @@ public class NT_OniStateMachine : MonoBehaviour
         while (currentState == States.IDLE)
         {
             //Enter Idle state
-            Debug.Log("Entered Idle state");
+            Debug.Log("Entered Oni Idle state");
             //Wait for a few seconds 
             yield return new WaitForSeconds(Random.Range(1, 5));
 
@@ -104,7 +104,7 @@ public class NT_OniStateMachine : MonoBehaviour
     IEnumerator CHASING()
     {
         //Enter chasing state 
-        Debug.Log("Chasing mode activated");
+        Debug.Log("Oni Chasing mode activated");
 
         //Chasing state behaviour 
         while (currentState == States.CHASING)
@@ -130,7 +130,7 @@ public class NT_OniStateMachine : MonoBehaviour
     IEnumerator ROAMING()
     {
         //Enter roaming state 
-        Debug.Log("Roaming state activated");
+        Debug.Log("Oni Roaming state activated");
 
         agent.SetDestination(nodes[currentNode].position);
 

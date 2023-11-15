@@ -80,7 +80,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         while (currentState == States.IDLE)
         {
             //Enter Idle state
-            Debug.Log("Entered Idle state");
+            Debug.Log("Entered Tsukuyomi Idle state");
             //Wait for a few seconds 
             yield return new WaitForSeconds(Random.Range(1, 5));
 
@@ -97,7 +97,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             {
                 //Stop current animations
                 agent.SetDestination(transform.position);
-                Invoke("TurnToPlayer", 0.5f);
+                //Invoke("TurnToPlayer", 0.5f);
             }
 
             if (IsInRange(talkRange))
@@ -110,7 +110,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     IEnumerator ROAMING()
     {
         //Enter roaming state 
-        Debug.Log("Roaming state activated");
+        Debug.Log("Tsukuyomi Roaming state activated");
 
         agent.SetDestination(nodes[currentNode].position);
 
@@ -132,7 +132,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             {
                 //Stop current animations
                 agent.SetDestination(transform.position);
-                Invoke("TurnToPlayer", 0.5f);
+                //Invoke("TurnToPlayer", 0.5f);
             }
 
             if (IsInRange(talkRange))
@@ -151,18 +151,18 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         }
     }
 
-    IEnumerator HEAL()
-    {
-        Debug.Log("Healing player");
-        agent.SetDestination(transform.position);
+    //IEnumerator HEAL()
+    //{
+        //Debug.Log("Healing player");
+        //agent.SetDestination(transform.position);
 
-        while(currentState == States.HEAL)
+        //while(currentState == States.HEAL)
             //Play helaing animation with aura shader 
-        {
-            StartCoroutine(dialogueText.Healing());
-            yield return new WaitForEndOfFrame();
-        }
-    }
+        //{
+            //StartCoroutine(dialogueText.Healing());
+            //yield return new WaitForEndOfFrame();
+        //}
+    //}
 
     IEnumerator TALKING()
     {
@@ -176,16 +176,11 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             {
                 dialogueText.canTalk = true;
             }
-            
-            //if (Input.GetKeyDown(KeyCode.E) && dialogueText.HasDisplayed == false)
-            //{
-                //StartCoroutine(dialogueText.TypeWriterIntro());
-                //dialogueText.dialogueBox.gameObject.SetActive(true);
-            //}
-            //else if(dialogueText.HasDisplayed == true)
-            //{
-                //StartCoroutine(dialogueText.TypeWriterLore());
-            //}
+
+            if(!IsInRange(talkRange) || !IsInRange(sightRange))
+            {
+                currentState = States.ROAMING;
+            }
 
             yield return new WaitForEndOfFrame();
         }
