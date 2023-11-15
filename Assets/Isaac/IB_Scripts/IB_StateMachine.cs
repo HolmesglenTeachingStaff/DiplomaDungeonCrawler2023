@@ -42,9 +42,9 @@ public class IB_StateMachine : MonoBehaviour
         statScript = GetComponent<Stats>();
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
-        player = GameObject.FindGameObjectWithTag("player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         //start the fsm
         StartCoroutine(EnemyFSM());
     }
@@ -114,7 +114,7 @@ public class IB_StateMachine : MonoBehaviour
     {
         anim.Play("Smash");
         Weapon.GetComponent<BoxCollider>().enabled = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Weapon.GetComponent<BoxCollider>().enabled = false;
         currentState = States.CHASING;
     }
@@ -139,7 +139,7 @@ public class IB_StateMachine : MonoBehaviour
         while (currentState == States.DEATH)
         {
             anim.Play("Death");
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(10f);
         }
     }
     #endregion
@@ -155,7 +155,9 @@ public class IB_StateMachine : MonoBehaviour
 
     public void Death()
     {
+        StopAllCoroutines();
         currentState = States.DEATH;
+        StartCoroutine(DEATH());
     }
 
     public void CurrentHealth()
