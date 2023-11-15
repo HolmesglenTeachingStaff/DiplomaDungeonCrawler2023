@@ -14,6 +14,10 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     public float sightRange;
     public float attackRange;
     public Transform player;
+
+    public Transform spawnPoint;
+    public float chaseRange; //the area this object can follow player
+
     private NavMeshAgent agent;
 
     [HideInInspector] public Color sightColor;
@@ -51,10 +55,7 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     IEnumerator IDLE()
     {
         //ENTER THE IDLE STATE >
-        //put any code here that you want to run at the start of the behaviour
-
-        //UPDATE IDLE STATE >
-        //put any code here you want to repeat during the state being active
+        //if position is not in spawnpos, set movetarget to spawnpos
 
         while (currentState == States.IDLE)
         {
@@ -82,18 +83,26 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+            if (Vector3.Distance(transform.position, player.transform.position) > sightRange) //out of sight
+            {
+                currentState = States.IDLE;
+                Debug.Log("Lost the player");
+                yield return StartCoroutine("IDLE");
+            }
+            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange) //can attack
             {
                 currentState = States.ATTACKING;
+                yield return StartCoroutine("ATTACKING");
+            }
+            else if (Vector3.Distance(transform.position, spawnPoint.position) > chaseRange) //far from spawn
+            {
+                currentState = States.IDLE;
+                Debug.Log(this.gameObject.name + ": Too far from my spot!");
+                yield return StartCoroutine("IDLE");
 
             }
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT CHASING STATE >
-        //write any code here you want to run when the state is left
-
-        Debug.Log("Lost the player");
     }
 
     IEnumerator ATTACKING()
