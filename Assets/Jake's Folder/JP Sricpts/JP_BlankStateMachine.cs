@@ -17,6 +17,7 @@ public class JP_BlankStateMachine : MonoBehaviour
     private Animator ani;
     private bool areaAni=false;
     private bool isdead=false;
+    private bool amAttacking=false;
 
     [HideInInspector]
     public Color sightColor;
@@ -49,6 +50,7 @@ public class JP_BlankStateMachine : MonoBehaviour
     {
         ani.SetBool("isinarea",areaAni);
         ani.SetBool("amdead",isdead);
+        ani.SetBool("isatacking",amAttacking);
     }
     #endregion
 
@@ -125,7 +127,7 @@ public class JP_BlankStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        
+        amAttacking=true;
         agent.speed=50;
         agent.SetDestination(target);
         agent.updateRotation=false;
@@ -146,6 +148,7 @@ public class JP_BlankStateMachine : MonoBehaviour
 
         //EXIT IDLE STATE >
         //write any code here you want to run when the state is left
+        amAttacking=false;
     }
     IEnumerator DIYING()
     {
