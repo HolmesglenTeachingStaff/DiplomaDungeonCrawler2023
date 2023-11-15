@@ -16,7 +16,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public float damageAmount;
     public float damageRange;
 
-    //public CS_DamageReactions.DamageBurst damageBurst;
+    public CS_DamageReactions damageBurst;
     //public Stats stats;
     //public CS_DamageReactions.Die die;
     //public StatSystem.DamageType damageType;
@@ -55,8 +55,10 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //set default state
     private void Awake()
     {
-        meleeRange = damageRange;
+        
         //Stats stats = enemy.GetComponent<Stats>();
+
+        damageBurst = GetComponent<CS_DamageReactions>();
 
         idleDone = false;
         
@@ -66,6 +68,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+
+        damageBurst.damageRange = meleeRange;
 
         agent = GetComponent<NavMeshAgent>();
         //start the FSM (Finite State Machine)
@@ -189,14 +193,16 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 currentState = States.CHARGING;
             }
 
-            agent.SetDestination(player.position);
-
             if(Vector3.Distance(transform.position, player.position)> sightRange)
             {
                 currentState = States.IDLE;
                 Debug.Log("Where'd they go?");
             }
-            else if(Vector3.Distance(transform.position, player.position) < meleeRange)
+
+            agent.SetDestination(player.position);
+
+            
+            if(Vector3.Distance(transform.position, player.position) < meleeRange)
             {
                 currentState = States.ATTACKING;
             }
@@ -219,7 +225,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         agent.speed = 3;
         agent.SetDestination(player.position);
 
-        //CS_DamageReactions.DamageBurst (damageBurst); //accessing CS_DamageReactions script, then applying DamageBurst function
+        damageBurst.DamageBurst(); //accessing CS_DamageReactions script, then applying DamageBurst function
         
         //UPDATE ATTACKING state
         //put any code here you want to repeat during the state being active
