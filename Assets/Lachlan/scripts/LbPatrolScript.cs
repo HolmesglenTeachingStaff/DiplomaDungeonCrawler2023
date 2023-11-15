@@ -7,6 +7,8 @@ public class LbPatrolScript : MonoBehaviour
 
 
 {
+    private Animator anim;
+
     public NavMeshAgent agent;
 
     public Transform Player;
@@ -14,6 +16,7 @@ public class LbPatrolScript : MonoBehaviour
     public LayerMask whatIsEnvironment, whatIsPlayer;
 
     public enum States { PATROLLING, CHASING, ATTACKING, DEATH }
+
 
     public States currentState;
 
@@ -35,10 +38,9 @@ public class LbPatrolScript : MonoBehaviour
     {
         Player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-
+        anim = GetComponent<Animator>();
     }
-
-   
+ 
     private void Update()
     {
         //Check For sight and attack range 
@@ -75,29 +77,26 @@ public class LbPatrolScript : MonoBehaviour
     }
    private void CHASING()
     {
-        //ENTER THE CHASING STATE >
-        //put any code here that you want to run at the start of the behaviour
         agent.updateRotation = true;
         agent.SetDestination(Player.position);
-
-
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
-        //while (currentState == States.CHASING) ;
-        //{
-           // if ((attackRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
-           // else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
-            //agent.SetDestination(Player.position);
-          //  yield return new WaitForEndOfFrame();
-        //}
-
-        //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
-
     }
     private void AttackPlayer()
     {
 
+    }
+
+      private void DEATH()
+    {
+        agent.speed = 0;
+        agent.SetDestination(transform.position);
+        anim.SetTrigger("DEATH");
+       
+        Debug.Log("oh no i didnt die");
+    }
+
+    public void DIE()
+    {
+        currentState = States.DEATH;
     }
     void OnDrawGizmosSelected()
     {
