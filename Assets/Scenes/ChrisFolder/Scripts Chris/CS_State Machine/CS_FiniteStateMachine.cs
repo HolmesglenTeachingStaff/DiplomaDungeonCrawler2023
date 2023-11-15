@@ -13,6 +13,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
     public float chargeRange;
     public bool idleDone;
     public float[] idleTimer;
+    //public float damageAmount;
+    public float damageRange;
+
+    //public CS_DamageReactions.DamageBurst damageBurst;
+    //public Stats stats;
+    //public CS_DamageReactions.Die die;
+    //public StatSystem.DamageType damageType;
+    //public LayerMask attackableLayers;
 
     //public bool idleOvertime;
     //public float roamTime = 5f; //trying to create ROAMING loop ^^
@@ -47,6 +55,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //set default state
     private void Awake()
     {
+        meleeRange = damageRange;
+        //Stats stats = enemy.GetComponent<Stats>();
+
         idleDone = false;
         //idleOvertime = false; trying to create ROAMING loop after so many IDLE states
         currentState = States.IDLE;
@@ -191,6 +202,11 @@ public class CS_FiniteStateMachine : MonoBehaviour
             if(!IsInRange(sightRange)) currentState = States.IDLE;
             else if (IsInRange(meleeRange)) currentState = States.ATTACKING;
 
+            if(Vector3.Distance(transform.position, player.position) == chargeRange)
+            {
+                currentState = States.CHARGING;
+            }
+
             agent.SetDestination(player.position);
 
             if(Vector3.Distance(transform.position, player.position)> sightRange)
@@ -219,6 +235,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here i want to run at the start of the behaviour
         Debug.Log("GOT YA!");
         agent.SetDestination(player.position);
+
+        //CS_DamageReactions.DamageBurst (damageBurst); //accessing CS_DamageReactions script, then applying DamageBurst function
         
         //UPDATE ATTACKING state
         //put any code here you want to repeat during the state being active
@@ -263,14 +281,18 @@ public class CS_FiniteStateMachine : MonoBehaviour
             {
                 currentState = States.ATTACKING;
             }
+             else if(Vector3.Distance(transform.position, player.position) == chargeRange)
+            {
+                currentState = States.CHARGING;
+            }
+            else if(Vector3.Distance(transform.position, player.position) < sightRange)
+            {
+                currentState = States.CHASING;
+            }           
             else if(Vector3.Distance(transform.position, player.position)> sightRange)
             {
                 currentState = States.IDLE;
                 Debug.Log("Where'd they go?");
-            }
-            else if(Vector3.Distance(transform.position, player.position) < sightRange)
-            {
-                currentState = States.CHARGING;
             }
             
             yield return new WaitForEndOfFrame();
@@ -288,10 +310,13 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //ENTER THE CHARGING STATE >
         //put any code here that you want to run while CHARGING
 
-       Debug.Log("HER I COME!");
+       Debug.Log("HERE I COME!");
        //CHARGING anim here
+        //charge here
+        //do damage on hit?
 
-        
+        //if charging misses check for on trigger enter wall, then enter STUNNED state
+
         //UPDATE CHARGING STATE
 
         //put any code here you want to repeat during CHARGING state being active
@@ -300,7 +325,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
 
-             if(Vector3.Distance(player.position, transform.position) <sightRange) 
+             if(Vector3.Distance(transform.position, player.position) <sightRange) 
              {
                 currentState = States.CHASING;
              }
@@ -336,6 +361,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         //UPDATE STUNNED state
         //put any code here you want to repeat during the state being active
+        //make damge vulnerable
 
         //add stunned animation here
 
@@ -358,6 +384,11 @@ public class CS_FiniteStateMachine : MonoBehaviour
             else if(Vector3.Distance(transform.position, player.position) < meleeRange)
             {
                 currentState = States.ATTACKING;
+            }
+            if(Vector3.Distance(transform.position, player.position)< sightRange)
+            {
+                currentState = States.CHASING;
+            
             }
 
             yield return new WaitForEndOfFrame();
