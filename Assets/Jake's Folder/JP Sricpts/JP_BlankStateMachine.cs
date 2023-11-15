@@ -14,6 +14,9 @@ public class JP_BlankStateMachine : MonoBehaviour
     private float timer=0;
     private Vector3 target;
     private Vector3 home;
+    private Animator ani;
+    private bool areaAni=false;
+    private bool isdead=false;
 
     [HideInInspector]
     public Color sightColor;
@@ -23,7 +26,7 @@ public class JP_BlankStateMachine : MonoBehaviour
     #region States
     /// Declare states. If you add a new state to your character,
     /// remember to add a new States enum for it.
-    public enum States { IDLE, PATROLLING, CHASING, ATTACKING }
+    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, DIYING}
 
     public States currentState;
     #endregion
@@ -37,9 +40,15 @@ public class JP_BlankStateMachine : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        ani = GetComponentInChildren<Animator>();
         //start the fsm
         StartCoroutine(EnemyFSM());
         home=transform.position;
+    }
+    void Update()
+    {
+        ani.SetBool("isinarea",areaAni);
+        ani.SetBool("amdead",isdead);
     }
     #endregion
 
@@ -59,7 +68,8 @@ public class JP_BlankStateMachine : MonoBehaviour
         //ENTER THE IDLE STATE >
         //put any code here that you want to run at the start of the behaviour
 
-       
+        areaAni=false;
+        yield return new WaitForSeconds(ani.speed);
 
         //UPDATE IDLE STATE >
         //put any code here you want to repeat during the state being active
@@ -81,8 +91,9 @@ public class JP_BlankStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-
-
+        
+        areaAni=true;
+        yield return new WaitForSeconds(ani.speed);
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
@@ -135,6 +146,21 @@ public class JP_BlankStateMachine : MonoBehaviour
 
         //EXIT IDLE STATE >
         //write any code here you want to run when the state is left
+    }
+    IEnumerator DIYING()
+    {
+        currentState=States.DIYING;
+        isdead=true;
+        yield return new WaitForEndOfFrame();
+        isdead=false;
+        yield return new WaitForSeconds(4f);
+        Destroy(gameObject);
+        yield return new WaitForEndOfFrame();
+    }
+
+    public void DieActive()
+    {
+      StartCoroutine(DIYING());
     }
     #endregion
 

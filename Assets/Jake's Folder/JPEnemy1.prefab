@@ -2127,7 +2127,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: f43ff0a8edcde459690ee3ea8e81d96e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3220,13 +3220,13 @@ MonoBehaviour:
   isDead: 0
   pushable: 0
   isWet: 0
-  Physical: 1
-  Fire: 1
-  Water: 1
+  Physical: 0
+  Fire: 3
+  Water: 2
   Wind: 1
-  Earth: 1
-  Light: 1
-  Dark: 1
+  Earth: 0
+  Light: 2
+  Dark: 3
   statusEffectStacks: 0
   OnDamaged:
     m_PersistentCalls:
@@ -3320,7 +3320,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -3356,7 +3356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7008529783016976628}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3146b5a4336e48d2a737d668dadd082, type: 3}
   m_Name: 
