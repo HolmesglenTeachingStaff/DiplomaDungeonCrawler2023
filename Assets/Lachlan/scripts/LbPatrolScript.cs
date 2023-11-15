@@ -17,6 +17,7 @@ public class LbPatrolScript : MonoBehaviour
 
     public enum States { PATROLLING, CHASING, ATTACKING, DEATH }
 
+  //public Stats StatScript;
 
     public States currentState;
 
@@ -39,6 +40,7 @@ public class LbPatrolScript : MonoBehaviour
         Player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+     // StatScript = GetComponent<Stats>();
     }
  
     private void Update()
@@ -47,9 +49,14 @@ public class LbPatrolScript : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
+      //if (StatScript.currentHealth <= 0)
+        {
+            DIE();
+        }
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) CHASING();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        
     }
     private void Patroling()
     {
