@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-
+using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
 #region variables
@@ -34,10 +34,12 @@ public class LevelManager : MonoBehaviour
     //Object References
     //[SerializeField] GameObject[] keyImages;
     [SerializeField] GameObject[] spiritImages;
-    
+    [SerializeField] Image spiritSlider;
     [SerializeField] ParticleSystem spiritCollection;
+    [SerializeField] ParticleSystem spiritPowerCollection;
     [SerializeField] ParticleSystem spiritRelease;
     [SerializeField] ParticleSystem spiritRespawn;
+    [SerializeField] LightFader spiritLight;
 
     [SerializeField] GameObject restartScreen, gameOverScreen, levelCompleteScreen;
     [SerializeField] CanvasGroup[] gamerOverScreenFaders;
@@ -69,6 +71,8 @@ public class LevelManager : MonoBehaviour
     {
         ResetValues();
         CollectEnemiesInLevel();
+        //spiritSlider.maxValue = 100f;
+        spiritSlider.fillAmount = spiritPower / 100;
         UpdateUI();
         respawnPosition = player.transform.position;
         // InvokeRepeating("AttemptRespawnUpdate", 1, 10f);
@@ -115,7 +119,7 @@ public class LevelManager : MonoBehaviour
         }
         //update score
         //scoreText.text = points.ToString();
-
+        spiritSlider.fillAmount = spiritPower / 100;
         //update enemies killed
         enemyText.text = enemiesKilled + " / " + totalEnemiesInLevel;
     }
@@ -130,6 +134,8 @@ public class LevelManager : MonoBehaviour
     public void UpdateSpirit(float spiritIncrease)
     {
         spiritPower += spiritIncrease;
+        spiritLight.transform.position = player.transform.position + (Vector3.up * 2);
+        spiritLight.StartCoroutine("FadeLight");
         //increase the spirits
         if(spiritPower >= 100)
         {
@@ -138,9 +144,15 @@ public class LevelManager : MonoBehaviour
             spiritCollection.transform.position = player.transform.position + Vector3.up * 0.1f;
             spiritCollection.Play();
         }
+        else
+        {
+            spiritPowerCollection.transform.position = player.transform.position + Vector3.up * 0.1f;
+            spiritPowerCollection.Play();
+        }
         UpdateUI();
         
     }
+    
     public void KillPlayer()
     {
         // Debug.Log("KillPlayer");
