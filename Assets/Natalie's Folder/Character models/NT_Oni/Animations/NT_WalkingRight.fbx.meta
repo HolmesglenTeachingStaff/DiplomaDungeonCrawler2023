@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81ea343b029097d428377b38a7504eb7
+guid: 9fd478de605ce1d4ab5f2fec678bcab0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -19,14 +19,14 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'Character1_RightHandThumb1'
-      : position error = 9.821936 mm\n\t'Character1_RightHandIndex3' : position error
-      = 4.472654 mm\n\t'Character1_RightHandMiddle3' : position error = 4.004861
-      mm\n\t'Character1_RightHandRing3' : position error = 1.996741 mm\n\t'Character1_RightHandPinky3'
-      : position error = 5.242475 mm\nCopied Avatar Rig Configuration mis-match.
+      : position error = 9.298961 mm\nCopied Avatar Rig Configuration mis-match.
       Inbetween bone rotation in copied configuration does not match rotation in
-      animation file:\n\t'Character1_Neck1' : rotation error = 20.306097 deg\n"
+      animation file:\n\t'Character1_Neck1' : rotation error = 0.597901 deg\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Character1_Neck1' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -40,11 +40,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: NT_OniRunningRight
+      name: NT_OniWalkingRight
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -53,9 +53,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
