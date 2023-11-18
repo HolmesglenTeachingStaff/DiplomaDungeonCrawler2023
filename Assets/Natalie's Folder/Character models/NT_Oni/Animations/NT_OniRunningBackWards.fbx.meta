@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7c689988f3ad70b43bd7ac5eeeaa209e
+guid: 7a0d7860e064ac049bb0b2432e1b4e56
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -18,10 +18,17 @@ ModelImporter:
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'Character1_RightHandPinky3'
-      : position error = 3.154404 mm\nCopied Avatar Rig Configuration mis-match.
+      copied configuration does not match position in animation file:\n\t'Character1_LeftHandIndex3'
+      : position error = 1.635876 mm\n\t'Character1_LeftHandMiddle3' : position error
+      = 1.678196 mm\n\t'Character1_LeftHandRing3' : position error = 1.461825 mm\n\t'Character1_RightHandThumb1'
+      : position error = 8.125699 mm\n\t'Character1_RightHandThumb3' : position error
+      = 1.967587 mm\n\t'Character1_RightHandIndex2' : position error = 1.007591 mm\n\t'Character1_RightHandIndex3'
+      : position error = 1.726970 mm\n\t'Character1_RightHandMiddle2' : position
+      error = 1.084415 mm\n\t'Character1_RightHandMiddle3' : position error = 1.724762
+      mm\n\t'Character1_RightHandRing3' : position error = 2.093831 mm\n\t'Character1_RightHandPinky3'
+      : position error = 1.109392 mm\nCopied Avatar Rig Configuration mis-match.
       Inbetween bone rotation in copied configuration does not match rotation in
-      animation file:\n\t'Character1_Neck1' : rotation error = 0.597902 deg\n"
+      animation file:\n\t'Character1_Neck1' : rotation error = 0.577929 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -40,11 +47,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: NT_OniWalkingLeft
+      name: NT_RunningBackwards
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 29
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -53,7 +60,7 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
