@@ -9,6 +9,7 @@ public class NT_OniStateMachine : MonoBehaviour
     #region Variables
     public Color sightColor;
     public Color meleeColor;
+
     //public Color nodeRangeColor;
     public float sightRange;
     public float meleeRange;
@@ -19,7 +20,7 @@ public class NT_OniStateMachine : MonoBehaviour
     public GameObject oniWeapon;
     private NavMeshAgent agent;
 
-    //private Animator anim;
+    private Animator anim;
 
     //patrol settings 
     [SerializeField] Transform[] nodes;
@@ -54,7 +55,7 @@ public class NT_OniStateMachine : MonoBehaviour
     {
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(OniFSM());
         stat.OnDamaged.Invoke();
@@ -165,8 +166,9 @@ public class NT_OniStateMachine : MonoBehaviour
     }
 
     IEnumerator ATTACKING()
-    { 
+    {
         //Play attacking animations 
+        anim.SetTrigger("Attacks");
         while (currentState == States.ATTACKING)
         {
            //anim.Play("");
@@ -259,8 +261,10 @@ public class NT_OniStateMachine : MonoBehaviour
         {
             if(stat.currentHealth <= 0)
             {
+                anim.SetTrigger("Death");
                 Destroy(gameObject);
                 stat.Die();
+                //play shader
             }
             yield return new WaitForEndOfFrame();
         }
