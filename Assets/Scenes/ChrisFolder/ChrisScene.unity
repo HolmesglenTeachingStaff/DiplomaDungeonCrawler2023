@@ -912,8 +912,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 30
+  chargeDamage: 60
   damageType: 1
-  damageRange: 1
+  damageRange: 4
   attackableLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -1089,8 +1090,12 @@ MonoBehaviour:
   chargeRange: 10
   idleDone: 0
   idleTimer: []
-  damageRange: 0
-  damageBurst: {fileID: 0}
+  damageRange: 4
+  lastCharge: 0
+  timeBetweenCharges: 0
+  chargeTime: 2.5
+  damageBurst: {fileID: 670174902}
+  chargeDamage: {fileID: 670174902}
   chargePointer: 0
   player: {fileID: 86890452}
   sightColour: {r: 0, g: 0, b: 0, a: 0}
@@ -1859,35 +1864,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.77795
+      value: 36.77135
       objectReference: {fileID: 0}
     - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 38.346004
+      value: 38.359333
       objectReference: {fileID: 0}
     - target: {fileID: 2184580608785474307, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.777954
+      value: -36.771355
       objectReference: {fileID: 0}
     - target: {fileID: 2184580608785474308, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: field of view
-      value: 19.8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.77795
+      value: 36.77135
       objectReference: {fileID: 0}
     - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 38.346004
+      value: 38.359333
       objectReference: {fileID: 0}
     - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.777954
+      value: -36.771355
       objectReference: {fileID: 0}
     - target: {fileID: 3888190513354660414, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 19.8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5668521407825111634, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3016,6 +3021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 20
+  chargeDamage: 0
   damageType: 6
   damageRange: 5
   attackableLayers:
