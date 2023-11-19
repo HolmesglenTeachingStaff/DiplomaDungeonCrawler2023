@@ -55,7 +55,7 @@ public class NT_OniStateMachine : MonoBehaviour
     {
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         //Start the statemachine
         StartCoroutine(OniFSM());
         stat.OnDamaged.Invoke();

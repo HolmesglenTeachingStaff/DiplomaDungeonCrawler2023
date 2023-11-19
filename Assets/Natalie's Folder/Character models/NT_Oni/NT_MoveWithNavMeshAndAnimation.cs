@@ -15,7 +15,7 @@ public class NT_MoveWithNavMeshAndAnimation : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInParent<NavMeshAgent>();
 
         agent.updatePosition = false;
     }
@@ -49,6 +49,6 @@ public class NT_MoveWithNavMeshAndAnimation : MonoBehaviour
     }
     void OnAnimatorMove()
     {
-        transform.position = agent.nextPosition;
+        transform.root.position = agent.nextPosition;
     }
 }
