@@ -101,6 +101,7 @@ public struct StatSystem
         }
         else if (targetResistance == Resistance.Resistant) realDamage = amount * 0.5f;
         else if (targetResistance == Resistance.Immune) return;
+        //add obsorbs resistance type
 
         //process armour
         if (targetStats.currentArmour > 0)
