@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2017020377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2017020379}
+  - component: {fileID: 2017020378}
+  m_Layer: 0
+  m_Name: EnemySpiritHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2017020379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017020377}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.13, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5370442350139938775}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2017020378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017020377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e9a7311cd66d74291f1d9343cefa3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiritPower: 20
+  spiritParticle: {fileID: 1640801677885615635, guid: 9763ba25f7d940b4eb47d8448e62a57e, type: 3}
 --- !u!1 &103300956337480078
 GameObject:
   m_ObjectHideFlags: 0
@@ -54941,6 +54987,7 @@ GameObject:
   - component: {fileID: 5370442350139938770}
   - component: {fileID: 5370442350139938771}
   - component: {fileID: 5370442350139938774}
+  - component: {fileID: 1226762440}
   m_Layer: 6
   m_Name: FireSkeleton
   m_TagString: Enemy
@@ -54969,6 +55016,7 @@ Transform:
   - {fileID: 5370442351563425208}
   - {fileID: 5370442351512586413}
   - {fileID: 5370442350769368766}
+  - {fileID: 2017020379}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54986,7 +55034,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -55006,13 +55054,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 30
   currentHealth: 0
   regenRate: 0
   tempRegen: 0
   maxSpeed: 0
   currentSpeed: 0
-  maxArmour: 50
+  maxArmour: 0
   currentArmour: 0
   maxBaseAttackDamage: 0
   currentBaseAttackDamage: 0
@@ -55070,6 +55118,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2017020378}
+        m_TargetAssemblyTypeName: SpiritHandler, Assembly-CSharp
+        m_MethodName: ReleaseSpirit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBuffRecieved:
     m_PersistentCalls:
       m_Calls: []
@@ -55086,7 +55146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRange: 10
-  meleeRange: 3
+  meleeRange: 4.2
   timeBetweenAttacks: 10
   player: {fileID: 0}
   weapon1: {fileID: 5370442351054351595}
@@ -55108,7 +55168,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5370442350139938768}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.66
   m_Height: 2.9226513
   m_Direction: 1
@@ -55127,8 +55187,21 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!65 &1226762440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5370442350139938768}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.30287, z: 1}
+  m_Center: {x: 0, y: 1.151435, z: 0}
 --- !u!1 &5370442350275092030
 GameObject:
   m_ObjectHideFlags: 0
@@ -55418,7 +55491,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7, y: 1, z: 7}
+  m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5370442351278818069
 MonoBehaviour:
@@ -55512,6 +55585,7 @@ GameObject:
   - component: {fileID: 5370442351705362012}
   - component: {fileID: 5370442351705362015}
   - component: {fileID: 5370442351705362014}
+  - component: {fileID: 3280218607920279534}
   m_Layer: 6
   m_Name: Attack3
   m_TagString: Untagged
@@ -55564,6 +55638,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3.1774006, z: 5.382198}
   m_Center: {x: 0.0000035807047, y: -1.0886998, z: 2.191124}
+--- !u!114 &3280218607920279534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5370442351705362013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageIsBasedOnStats: 0
+  statBlock: {fileID: 0}
+  minDamage: 30
+  maxDamage: 40
+  damageType: 1
+  damageTarget: 0
+  particleEffect: {fileID: 0}
 --- !u!1 &5462707858132348524
 GameObject:
   m_ObjectHideFlags: 0
@@ -71004,7 +71097,7 @@ Transform:
 --- !u!198 &3046225437761685616
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8935773000753330125, guid: 0e7058403d598f344a002b154964af01, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7421885177228105097}
