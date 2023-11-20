@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class JP_BlankStateMachine : MonoBehaviour
@@ -18,6 +19,8 @@ public class JP_BlankStateMachine : MonoBehaviour
     private bool areaAni=false;
     private bool isdead=false;
     private bool amAttacking=false;
+    public UnityEvent OnAttack;
+    public UnityEvent OffAttack;
 
     [HideInInspector]
     public Color sightColor;
@@ -129,9 +132,11 @@ public class JP_BlankStateMachine : MonoBehaviour
         //put any code here that you want to run at the start of the behaviour
         amAttacking=true;
         agent.speed=50;
+        OnAttack.Invoke();
         agent.SetDestination(target);
         agent.updateRotation=false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.0f);
+        OffAttack.Invoke();
         agent.SetDestination(home);
 
         //UPDATE Chasing STATE >

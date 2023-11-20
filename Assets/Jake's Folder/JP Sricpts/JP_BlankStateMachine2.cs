@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class JP_BlankStateMachine2 : MonoBehaviour
@@ -11,6 +12,8 @@ public class JP_BlankStateMachine2 : MonoBehaviour
     public float meleeRange;
     public Transform player;
     private NavMeshAgent agent;
+    public UnityEvent OnAttack;
+    public UnityEvent OffAttack;
 
     [HideInInspector]
     public Color sightColor;
@@ -87,8 +90,10 @@ public class JP_BlankStateMachine2 : MonoBehaviour
         {
             agent.SetDestination(player.position);
             agent.speed=4;
+            OnAttack.Invoke();
             yield return new WaitForSeconds(0.75f);
             agent.speed=0;
+            OffAttack.Invoke();
             yield return new WaitForSeconds(0.5f);
             if(sightRange<Vector3.Distance(player.position,transform.position))
              {
