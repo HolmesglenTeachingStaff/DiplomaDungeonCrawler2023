@@ -229,10 +229,9 @@ public class NT_OniStateMachine : MonoBehaviour
                 {
                     hasWaypoint = false;
                 }
-
             }
 
-            if(stat.currentHealth <= 0)
+            if(stat.currentHealth == 0)
             {
                 currentState = States.DEATH;
             }
@@ -259,6 +258,7 @@ public class NT_OniStateMachine : MonoBehaviour
         //Use shader for death 
         oniWeapon.enabled = false;
         anim.SetTrigger("Death");
+        yield return new WaitForSeconds(2);
 
         while (currentState == States.DEATH)
         {
