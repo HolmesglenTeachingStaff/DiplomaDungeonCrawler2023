@@ -95,6 +95,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //Rotate to face the player while in sightRange
         if (WithinRange(sightRange))
         {
+            //CAUSE OF JITTERING
             transform.LookAt(player);
         }
         #endregion
@@ -232,7 +233,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         StartCoroutine(DEATH());
     }
-
 
     //Used to help visualize the range values in scene.
     #region Gizmos
