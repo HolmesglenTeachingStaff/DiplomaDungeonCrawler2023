@@ -1090,14 +1090,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db4270d99cba1f45ba8092d89feb9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 13
+  sightRange: 10
   meleeRange: 4
-  chargeRange: 10
+  chargeRange: 13
   idleDone: 0
   idleTimer: []
   damageRange: 4
   chargeTime: 2
-  attackSpeed: 0
+  attackSpeed: 1
+  activeDamage: {fileID: 670174902}
   damageBurst: {fileID: 670174902}
   chargeDamage: {fileID: 670174902}
   chargePointer: {fileID: 1671671978}
