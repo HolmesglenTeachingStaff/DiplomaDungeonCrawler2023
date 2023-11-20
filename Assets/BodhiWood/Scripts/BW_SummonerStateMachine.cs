@@ -15,6 +15,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
     private OrbitTarget orbitTarget;
     private Stats stats;
 
+    private StatSlider statSlider;
+
     public Transform player;
     public Transform summonLocation;
 
@@ -54,6 +56,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
         stats = GetComponent<Stats>();
 
         StartCoroutine(SummonerFSM());
+
+        //statSlider.UpdateSlider();
     }
     #endregion
 
