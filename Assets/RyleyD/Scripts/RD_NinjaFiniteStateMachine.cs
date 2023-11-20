@@ -128,5 +128,8 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, meleeRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, rangedRange);
     }
 }
