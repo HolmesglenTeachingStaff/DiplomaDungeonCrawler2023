@@ -16,7 +16,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public float damageAmount;
     public float damageRange;
 
-    public float chargeTime;
+    public float chargeTime, attackSpeed;
 
     public CS_DamageReactions damageBurst;
     public CS_DamageReactions chargeDamage;
@@ -387,7 +387,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             fireFeet.SetActive(false);
             currentState = States.STUNNED;
          }
-         if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 2f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Environment tagged objects then do this
+         if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 2f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Player tagged objects then do this
          {
             //do damage on hit?
             chargeDamage.ChargeBurst(); //accessing CS_DamageReactions script, then applying ChargeBurst function
