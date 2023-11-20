@@ -53,7 +53,7 @@ public class LbPatrolScript : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange && !isDead) Patroling();
         if (playerInSightRange && !playerInAttackRange && !isDead) CHASING();
-        if (playerInSightRange && playerInAttackRange && !isDead) AttackPlayer();
+        if (playerInAttackRange && !isDead) AttackPlayer();
         
     }
     private void Patroling()
@@ -90,7 +90,8 @@ public class LbPatrolScript : MonoBehaviour
         Debug.Log("No Player?");
         agent.SetDestination(transform.position);
         agent.updateRotation = false;
-        anim.SetTrigger("Sword And Shield Slash");
+        if (playerInAttackRange) anim.SetTrigger("Attack");
+       // else if (!playerInAttackRange && !playerInSightRange) ;// anim.SetTrigger("Attack") = false;
     }
 
       public void DEATH()
