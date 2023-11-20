@@ -18,7 +18,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     public float chargeTime, attackSpeed;
 
-    public CS_DamageReactions activeDamage; //using this to turn DamageReactions on/off as it's damaging whilst in area of player
+    //public CS_DamageReactions activeDamage; //using this to turn DamageReactions on/off as it's damaging whilst in area of player
     public CS_DamageReactions damageBurst;
     public CS_DamageReactions chargeDamage;
     //public Stats stats;    
@@ -65,7 +65,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         
         //Stats stats = enemy.GetComponent<Stats>();
 
-        activeDamage = GetComponent<CS_DamageReactions>();
+        //activeDamage = GetComponent<CS_DamageReactions>();
 
         damageBurst = GetComponent<CS_DamageReactions>();
 
@@ -82,7 +82,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         damageBurst.damageRange = meleeRange;
 
-        activeDamage.enabled =false;
+        //activeDamage.enabled =false;
 
         chargePointer.SetActive(false);
         fireFeet.SetActive(false);
@@ -129,7 +129,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             //checking if we need to chase the player
             if(Vector3.Distance(transform.position, player.position) < sightRange)
             {                
-                Debug.Log("CHARGING");
+                Debug.Log("entering CHASING");
                 currentState = States.CHASING;
             }  
             if(Vector3.Distance(transform.position, player.position) < chargeRange)
@@ -172,10 +172,11 @@ public class CS_FiniteStateMachine : MonoBehaviour
         while (currentState == States.PATROLLING)
         {
 
-            if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
+            //if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
 
              if(Vector3.Distance(transform.position, player.position) <sightRange) 
              {
+                Debug.Log("entering CHASING");
                 currentState = States.CHASING;
              }
              if(Vector3.Distance(transform.position, player.position) <chargeRange) 
@@ -209,14 +210,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
    
     IEnumerator CHASING()
     {
-        activeDamage.enabled = false;
+        //activeDamage.enabled = false;
         agent.updatePosition = true;
         agent.updateRotation = true;
         //enter the CHASING state
         //put any code here i want to run at the start of the behaviour
         Debug.Log("GIT EM!");
         agent.speed = 3;
-
+        agent.SetDestination(player.position);
         //lastCharge = Time.time; //this is couning up on time outside the while loop making it larger than within the while loop (TRYING YO CREATE TIMER BETWEEN CHARGES)
 
         //UPDATE CHASING state
@@ -232,26 +233,24 @@ public class CS_FiniteStateMachine : MonoBehaviour
                         
             if(Vector3.Distance(transform.position, player.position) < meleeRange)
             {
+                Debug.Log("entering ATTACKING from CHASING");
                 currentState = States.ATTACKING;
             }
             if(Vector3.Distance(transform.position, player.position) < sightRange)
             {
-                currentState = States.CHASING;
-                Debug.Log("Where'd they go?");
+                Debug.Log("entering CHASING from CHASING");
+                currentState = States.CHASING;                
             }            
             if(Vector3.Distance(transform.position, player.position) < chargeRange)
             {                
-                Debug.Log("Aim");         
+                Debug.Log("entering AIMING from CHASING");         
                 currentState = States.AIMING;                
             }
             if(Vector3.Distance(transform.position, player.position)> chargeRange)
             {
-                currentState = States.IDLE;
-                Debug.Log("Where'd they go?");
+                Debug.Log("entering IDLE from CHASING");
+                currentState = States.IDLE;                
             }
-
-            agent.SetDestination(player.position);
-                          
 
             yield return new WaitForEndOfFrame();
         }
@@ -265,7 +264,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator ATTACKING()
     {
-        activeDamage.enabled = true;
+        //activeDamage.enabled = true;
 
         agent.updatePosition = true;
         agent.updateRotation = true;
@@ -322,23 +321,24 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             if(Vector3.Distance(transform.position, player.position) < meleeRange)
             {
-                activeDamage.enabled = false;
+                //activeDamage.enabled = false;
                 currentState = States.ATTACKING;
             }            
             if(Vector3.Distance(transform.position, player.position) < sightRange)
             {
-                activeDamage.enabled = false;
+                Debug.Log("entering CHASING from ATTACKING");
+                //activeDamage.enabled = false;
                 currentState = States.CHASING;
             }
             if(Vector3.Distance(transform.position, player.position) < chargeRange)
             {
-                activeDamage.enabled = false;
+                //activeDamage.enabled = false;
                 Debug.Log("Aim");
                 currentState = States.AIMING;
             }
             if(Vector3.Distance(transform.position, player.position)> chargeRange)
             {
-                activeDamage.enabled = false;
+                //activeDamage.enabled = false;
                 Debug.Log("Where'd they go?");
                 currentState = States.IDLE;
                 
@@ -390,6 +390,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     {
         //ENTER THE CHARGING STATE >
         //put any code here that you want to run while CHARGING
+         //activeDamage.enabled = true;
 
          Debug.Log("HERE I COME!");
          agent.speed = 8;
@@ -420,13 +421,12 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 3f, LayerMask.NameToLayer("Environment"))) //if i get within 3 units of Environment tagged objects then do this
                 {
                     fireFeet.SetActive(false);
-                    Debug.Log("CHASING after CHARGING");
+                    Debug.Log("STUNNED after CHARGING");
                     currentState = States.STUNNED;
                 }
-                if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 2f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Player tagged objects then do this
+                if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 3f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Player tagged objects then do this
                 {
-                    //do damage on hit?
-                    activeDamage.enabled = true;
+                    //do damage on hit?                    
                     chargeDamage.ChargeBurst(); //accessing CS_DamageReactions script, then applying ChargeBurst function
                     fireFeet.SetActive(false);
                     Debug.Log("CHASING after CHARGING");
@@ -471,6 +471,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator STUNNED()
     {
+
+        //activeDamage.enabled = false;
         //enter the STUNNED state
         //put any code here i want to run at the start of the behaviour
         Debug.Log("OOUUFF");
