@@ -17,7 +17,7 @@ public class NT_OniStateMachine : MonoBehaviour
     public float setTime;
 
     public Transform player;
-    public GameObject oniWeapon;
+    public Collider oniWeapon;
     private NavMeshAgent agent;
 
     private Animator anim;
@@ -168,16 +168,19 @@ public class NT_OniStateMachine : MonoBehaviour
     IEnumerator ATTACKING()
     {
         //Play attacking animations 
-        anim.SetTrigger("Attacks");
         while (currentState == States.ATTACKING)
         {
-           //anim.Play("");
-           //Toggles off collider on weapon 
-           //activates the damage on touch 
-           if(!IsInRange(meleeRange))
-           {
-               currentState = States.CHASING;
-           }
+            anim.SetTrigger("Attack");
+            oniWeapon.enabled = true;
+            yield return new WaitForSeconds(0.5f);
+            //Toggles off collider on weapon 
+            //activates the damage on touch 
+            if (!IsInRange(meleeRange))
+            {
+                currentState = States.CHASING;
+                oniWeapon.enabled = false;
+            }
+            
 
            if(stat.currentHealth <= 15)
            {
@@ -259,9 +262,11 @@ public class NT_OniStateMachine : MonoBehaviour
 
         while (currentState == States.DEATH)
         {
-            if(stat.currentHealth <= 0)
+            oniWeapon.enabled = false;
+            anim.SetTrigger("Death");
+            yield return new WaitForSeconds(1.5f);
+            if (stat.currentHealth <= 0)
             {
-                anim.SetTrigger("Death");
                 Destroy(gameObject);
                 stat.Die();
                 //play shader
