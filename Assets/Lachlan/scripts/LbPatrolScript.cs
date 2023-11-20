@@ -17,6 +17,8 @@ public class LbPatrolScript : MonoBehaviour
 
     public enum States { PATROLLING, CHASING, ATTACKING, DEATH }
 
+    public bool isDead = false;
+
   //public Stats StatScript;
 
     public States currentState;
@@ -37,7 +39,7 @@ public class LbPatrolScript : MonoBehaviour
     void Start()
 
     {
-        Player = GameObject.Find("Player").transform;
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
      // StatScript = GetComponent<Stats>();
@@ -49,13 +51,9 @@ public class LbPatrolScript : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-      //if (StatScript.currentHealth <= 0)
-        {
-            DIE();
-        }
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) CHASING();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if (!playerInSightRange && !playerInAttackRange && !isDead) Patroling();
+        if (playerInSightRange && !playerInAttackRange && !isDead) CHASING();
+        if (playerInSightRange && playerInAttackRange && !isDead) AttackPlayer();
         
     }
     private void Patroling()
@@ -89,27 +87,31 @@ public class LbPatrolScript : MonoBehaviour
     }
     private void AttackPlayer()
     {
-
+        Debug.Log("No Player?");
+        agent.SetDestination(transform.position);
+        agent.updateRotation = false;
+        anim.SetTrigger("Sword And Shield Slash");
     }
 
-      private void DEATH()
+      public void DEATH()
     {
         agent.speed = 0;
         agent.SetDestination(transform.position);
         anim.SetTrigger("DEATH");
-       
+        isDead = true;
         Debug.Log("oh no i didnt die");
     }
 
-    public void DIE()
-    {
-        currentState = States.DEATH;
-    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
-    
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
 }
 
