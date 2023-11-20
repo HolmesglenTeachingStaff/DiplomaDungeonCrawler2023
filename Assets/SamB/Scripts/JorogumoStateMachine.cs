@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class YureiStateMachine : MonoBehaviour
+public class JorogumoStateMachine : MonoBehaviour
 {
     #region variables
-    private bool isRoaming = true;
-    private float roamRadius = 5f;
-    private float roamInterval = 5f;
+    private bool isPatrolling = true;
+    public Transform[] patrolPoints;
+    public Transform currentPatrol;
+    public float idleTimeMin = 2f;
+    public float idleTimeMax = 5f;
+    private int currentPatrolIndex = 0;
 
     public float sightRange = 25;
     public float meleeRange = 5f; // Adjust the melee attack range
@@ -31,15 +34,14 @@ public class YureiStateMachine : MonoBehaviour
     private Animator anim;
     //public ParticleSystem deathParticel, attackParticle, attack2Particle, attack3Particle;
 
-    public Transform currentPatrol;
-
-    YureiAttacks yureiAttacks; //getting attack script reference
+    SpiderlingManager spiderlingManager;
+    JorogumoAttacks jorogumoAttacks; //getting attack script reference
     #endregion
 
     #region States
     /// Declare states. If you add a new state remember to add a new States enum for it. 
     /// These states are what we use to change the finiate state machine (FSM) coroutine between its different states.
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, CASTING, DEATH}
+    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, CAST, DEATH }
 
     //this variable holds ONE of the states, as it can only be one at once. Switches between them as this variable changes.
     public States currentState;
@@ -51,19 +53,21 @@ public class YureiStateMachine : MonoBehaviour
     {
         //starts in idle. It has conditions to switch to the others.
         currentState = States.IDLE;
-        
+
     }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        spiderlingManager = GetComponent<SpiderlingManager>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
 
         lastAttack = 0;
 
         //start the fsm, it's never turned off. Initiates the changes between the corroutiens. 
         StartCoroutine(EnemyFSM());
+
+        StartCoroutine(CastHealingSpell());
     }
     #endregion
 
@@ -88,7 +92,7 @@ public class YureiStateMachine : MonoBehaviour
         //put any code here that you want to run at the start of the behaviour. EG: turning on/off any bools to cause any initial animations/effects/sounds to play, that should only be played once.
 
         float timer = 0; //creat a number to count from to track if idle should transition;
-        Debug.Log("*Ghostly moans*");
+        Debug.Log("*spiders chittering*");
 
         //UPDATE IDLE STATE >
         //put any code here you want to repeat in idle. This while loop repeats for as long as the state stays on idle. 
@@ -98,7 +102,7 @@ public class YureiStateMachine : MonoBehaviour
             if (IsInRange(meleeRange)) currentState = States.ATTACKING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
             else timer += Time.deltaTime;
-            if (timer > 5) currentState = States.ROAMING;
+            if (timer > 5) currentState = States.PATROLLING;
             yield return new WaitForEndOfFrame();
 
             //check player distance
@@ -118,28 +122,25 @@ public class YureiStateMachine : MonoBehaviour
 
     }
 
-    IEnumerator ROAMING()
+    IEnumerator PATROLLING()
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        Debug.Log("I'ma Get Ya!");
+        Debug.Log("*huffs*");
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.ROAMING)
+        while (currentState == States.PATROLLING)
         {
             if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
 
-            // Select a random destination within the roamRadius
-            Vector3 randomDestination = transform.position + UnityEngine.Random.insideUnitSphere * roamRadius;
-            randomDestination.y = transform.position.y; // Keep the y-coordinate constant
-
-            // Move towards the random destination
-            agent.SetDestination(randomDestination);
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+            
 
             // Wait for the specified interval before the next roam
-            yield return new WaitForSeconds(roamInterval);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(idleTimeMin, idleTimeMax));
 
             yield return new WaitForEndOfFrame();
         }
@@ -149,7 +150,7 @@ public class YureiStateMachine : MonoBehaviour
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        Debug.Log("A fresh Soul!");
+        Debug.Log("Fresh food!");
 
         agent.updateRotation = true;
         agent.SetDestination(playerPosition.position);
@@ -159,7 +160,7 @@ public class YureiStateMachine : MonoBehaviour
         while (currentState == States.CHASING)
         {
             if (IsInRange(rangedRange)) /* && Time.time - lastAttack > timeBetweenAttacks) */ currentState = States.ATTACKING;
-            else if (!IsInRange(sightRange)) currentState = States.ROAMING;
+            else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
             else agent.SetDestination(playerPosition.position);
             yield return new WaitForEndOfFrame();
 
@@ -183,7 +184,7 @@ public class YureiStateMachine : MonoBehaviour
 
         if (distanceToPlayer <= meleeRange && isMeleeCooledDown)
         {
-            yureiAttacks.PerformMeleeAttack(playerPosition);
+            jorogumoAttacks.PerformMeleeAttack(playerPosition);
 
             // Start cooldown
             StartCoroutine(MeleeCooldown());
@@ -194,19 +195,19 @@ public class YureiStateMachine : MonoBehaviour
 
         if (distanceToPlayer > meleeRange && distanceToPlayer <= rangedRange && isRangedCooledDown)
         {
-            yureiAttacks.PerformRangedAttack(playerPosition);
+            jorogumoAttacks.PerformRangedAttack(playerPosition);
 
             StartCoroutine(RangedCooldown());
+
 
         }
 
 
         if (distanceToPlayer <= spellRange && isSpellCooledDown)
         {
-            yureiAttacks.StartSpellCast(playerPosition);
+            jorogumoAttacks.StartSpellCast(playerPosition);
 
             StartCoroutine(SpellCooldown());
-
 
         }
 
@@ -216,8 +217,8 @@ public class YureiStateMachine : MonoBehaviour
         //UPDATE Chasing STATE 
         //put any code here you want to repeat during the state being active
         while (currentState == States.ATTACKING)
-        {   
-           
+        {
+
 
             if (Vector3.Distance(transform.position, playerPosition.position) > sightRange)
             {
@@ -276,6 +277,60 @@ public class YureiStateMachine : MonoBehaviour
     /// use those lines to 'cut out' a cone from your vision radius. Then when a target is detected in vision radius, just check if it's angle from the enemy is 
     /// larger than right degree away or less than left degrees away. 
     // THERE IS A SAMPLE ONE IN LAST YEARS DUNGEON CRAWLER. Think maybe in resources SESSION 7? Use it for Jorogumo. 
+    
+
+    IEnumerator CastHealingSpell()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(spellCooldown);
+            if (spiderlingManager != null)
+            {
+                // Choose a minion to heal (customize as needed)
+                Spiderling minionToHeal = FindDamagedSpiderling();
+
+                if (minionToHeal != null)
+                {
+                    
+                    //cast healing spell targeting said spiderling
+                }
+            }
+        }
+    }
+
+    Spiderling FindDamagedSpiderling()
+    {
+        List<Spiderling> spiderlingsList = spiderlingManager.GetSpiderlings();
+
+        if (spiderlingsList.Count > 0)
+        {
+            // Find the spiderling with the lowest health
+            Spiderling lowestHealthspiderling = spiderlingsList[0];
+
+            foreach (var spiderling in spiderlingsList)
+            {
+                // Access the 'Stats' component (customize as needed)
+                Stats spiderlingStats = spiderling.GetComponent<Stats>();
+
+                if (spiderlingStats != null)
+                {
+                    // Compare health and update the lowestHealthspiderling if needed
+                    if (spiderlingStats.currentHealth() < lowestHealthspiderling.GetComponent<Stats>().currentHealth())
+                    {
+                        lowestHealthspiderling = lowestHealthgSpiderling;
+                    }
+                }
+            }
+
+            return lowestHealthspiderling;
+        }
+
+        return null;
+    }
+
+
+    
+
 
 
     IEnumerator MeleeCooldown()
@@ -302,3 +357,4 @@ public class YureiStateMachine : MonoBehaviour
     }
 
 }
+

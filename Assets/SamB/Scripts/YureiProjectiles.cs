@@ -6,7 +6,6 @@ public class YureiProjectiles : MonoBehaviour
 {
     public bool isRanged; //if this projectile is a ranged attack
     public bool isSpell; //if this projectile is a spell attack
-    public Stats statBlock;
 
     public float minRangedDamage;
     public float maxRangedDamage;
@@ -16,7 +15,6 @@ public class YureiProjectiles : MonoBehaviour
 
     private float rangedSpeed = 10f; // Adjust the projectile speed
     private float spellSpeed = 10f; // Adjust the projectile speed
-
 
     public float reduceArmour = 15;
     public float reduceSpeed = 15;
@@ -28,8 +26,8 @@ public class YureiProjectiles : MonoBehaviour
     public StatSystem.DamageType spellDamageType; //think this needs to be dark cause debuff
 
 
-    Transform playerPosition;
-    Stats playerStats;
+    private Transform playerPosition;
+    private Stats playerStats;
 
 
     /* public enum DamageTargets { player, enemy, general }
@@ -40,29 +38,38 @@ public class YureiProjectiles : MonoBehaviour
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
 
-
-
     }
 
     private void Start()
     {
-        Vector3 direction = playerPosition.transform.position - transform.position;
+        // Calculate the direction towards the target
+        Vector3 direction = (playerPosition.transform.position - transform.position).normalized;
 
-        // Set the projectile's velocity
-        GetComponent<Rigidbody>().velocity = direction * rangedSpeed;
+        if (isRanged)
+        {
+            // Set the projectile's velocity
+            GetComponent<Rigidbody>().velocity = direction * rangedSpeed;
+        }
+        else if (isSpell)
+        {
+            // Set the projectile's velocity
+            GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+        }
     }
-
+    
 
     void OnTriggerEnter(Collider other)
     {
 
         // Check if the projectile hits an object with a health system + get that reference
         var targetStats = other.GetComponent<Stats>();
+
         //if stats is empty, try getting it from the parent object or child
         if (targetStats == null) targetStats = other.GetComponentInParent<Stats>();
         if (targetStats == null) targetStats = other.GetComponentInChildren<Stats>();
         if (targetStats == null) return;
         Debug.Log("Hit");
+
 
         if (isRanged)
         {
@@ -85,10 +92,12 @@ public class YureiProjectiles : MonoBehaviour
 
             if (targetStats != null)
             {
+
+
                 // Deal damage to the target
                 StatSystem.DealDamage(targetStats, rangedDamageType, Random.Range(minSpellDamage, maxSpellDamage));
 
-                StartCoroutine(DrainSoul(statBlock, spellDamageType));
+                StartCoroutine(DrainSoul(targetStats, spellDamageType));
 
                 // Destroy the projectile
                 Destroy(gameObject);
