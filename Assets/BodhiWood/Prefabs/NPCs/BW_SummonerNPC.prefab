@@ -1726,6 +1726,7 @@ MonoBehaviour:
   player: {fileID: 0}
   summonLocation: {fileID: 1286952752}
   objectToSummon: {fileID: 8433131247237564058, guid: f26607574c67f2644b903ec007f4253c, type: 3}
+  weaponCollider: {fileID: 585387259}
   checkingForPlayer: 1
   sightRange: 10
   meleeRange: 2
@@ -1835,7 +1836,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3052465540554087181}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 0c382385711d6ef409da8a68172b67e5, type: 3}
   m_Controller: {fileID: 9100000, guid: dd413569936db5946b5213f5aa46bb29, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -3039,6 +3040,8 @@ GameObject:
   - component: {fileID: 8421294699894510026}
   - component: {fileID: 8729101271976513170}
   - component: {fileID: 5584050236680246402}
+  - component: {fileID: 585387259}
+  - component: {fileID: 585387260}
   m_Layer: 0
   m_Name: sword
   m_TagString: Untagged
@@ -3111,6 +3114,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &585387259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178584672486654345}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.07336767, y: 0.111180626, z: 1.2406129}
+  m_Center: {x: 0.0000005003647, y: -0.00000021053408, z: 0.46782434}
+--- !u!114 &585387260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178584672486654345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageIsBasedOnStats: 0
+  statBlock: {fileID: 0}
+  minDamage: 5
+  maxDamage: 15
+  damageType: 6
+  damageTarget: 0
+  particleEffect: {fileID: 0}
 --- !u!1 &5196938706056080399
 GameObject:
   m_ObjectHideFlags: 0
@@ -5762,6 +5797,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 2782627454707088628}
+    - target: {fileID: 708163230, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
+      propertyPath: isWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2834380864746840930, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -5769,6 +5808,10 @@ PrefabInstance:
     - target: {fileID: 2834380864859567979, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834380864859567981, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2834380865604379440, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Name

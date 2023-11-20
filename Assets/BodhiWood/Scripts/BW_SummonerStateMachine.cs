@@ -13,7 +13,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private OrbitTarget orbitTarget;
-    private Stats stats;
 
     private StatSlider statSlider;
 
@@ -21,6 +20,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     public Transform summonLocation;
 
     public GameObject objectToSummon;
+    public Collider weaponCollider;
 
     public bool checkingForPlayer = true;
 
@@ -31,11 +31,14 @@ public class BW_SummonerStateMachine : MonoBehaviour
     //Nodes to indicate where to patrol.
     [SerializeField] Transform[] nodes;
     int currentNode;
+
+    Vector2 velocity = Vector2.zero;
+    Vector2 smoothDeltaPosition = Vector2.zero;
     #endregion
 
     //The behaviour states available for a Summoner to switch between.
     #region States
-    public enum States {IDLE, PATROLLING, MELEE, COMBAT}
+    public enum States {IDLE, PATROLLING, MELEE, COMBAT, DEATH}
 
     public States currentState;
     #endregion
@@ -48,12 +51,13 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         orbitTarget = GetComponent<OrbitTarget>();
         orbitTarget.orbitTarget = player.gameObject;
-        stats = GetComponent<Stats>();
+
+        weaponCollider.enabled = false;
 
         StartCoroutine(SummonerFSM());
 
@@ -75,6 +79,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region Update
     void Update()
     {
+        #region Checking
         //Chase the player, if seen from any state
         if (checkingForPlayer == true && WithinRange(sightRange))
         {
@@ -92,8 +97,14 @@ public class BW_SummonerStateMachine : MonoBehaviour
         {
             transform.LookAt(player);
         }
+        #endregion
     }
     #endregion
+
+    private void OnAnimatorMove()
+    {
+        transform.position = agent.nextPosition;
+    }
 
     //Contents of the states, and how to change between them.
     #region Behaviour Coroutines
@@ -159,7 +170,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         {
             if (!WithinRange(sightRange)) currentState = States.IDLE;
 
-            //play movement animation
+            //play animation
 
             summonTimer += Time.deltaTime;
             //Spawn a new summon every 10 seconds (With a max of 3 summons at one time)
@@ -186,12 +197,16 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         agent.SetDestination(agent.transform.position);
 
+        anim.Play("Summoner_Attack");
+        weaponCollider.enabled = true;
+        yield return new WaitForSeconds(2);
+        weaponCollider.enabled = false;
+        currentState = States.COMBAT;
+
         //put any code here you want to repeat during the state being active
         while (currentState == States.MELEE)
         {
             if (!WithinRange(meleeRange)) currentState = States.COMBAT;
-            //play animation
-            //set active the damage collider
 
             yield return new WaitForEndOfFrame();
         }
@@ -199,15 +214,23 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     #endregion
 
+    IEnumerator DEATH()
+    {
+        anim.Play("Summoner_Dead");
+        weaponCollider.enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+        StopAllCoroutines();
+
+        yield return null;
+    }
 
     #endregion
 
     //Function called from the inspector using the OnDeath Event in the Stats script
     public void Dead()
     {
-        //play death animation
-        //wait until it's finished
-        Destroy(gameObject);
+        StartCoroutine(DEATH());
     }
 
 
