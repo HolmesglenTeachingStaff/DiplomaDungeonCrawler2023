@@ -16,7 +16,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public float damageAmount;
     public float damageRange;
 
-    public float lastCharge, timeBetweenCharges, chargeTime;
+    public float chargeTime;
 
     public CS_DamageReactions damageBurst;
     public CS_DamageReactions chargeDamage;
@@ -26,7 +26,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     //public bool idleOvertime;
     
-
+    //charge mesh
     public GameObject chargePointer;
 
     
@@ -35,8 +35,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     public Color sightColour; //i could add my own destint colour this way. To do so, below code would be "Gizmos.color = sightColour"
 
-    //charge mesh
-    public GameObject chargeMesh;
+        
+    //shader graph addition
+    public GameObject fireFeet;
 
     //patrol settings
     [SerializeField] Transform[] nodes;
@@ -79,6 +80,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         damageBurst.damageRange = meleeRange;
 
         chargePointer.SetActive(false);
+        fireFeet.SetActive(false);
 
         agent = GetComponent<NavMeshAgent>();
         //start the FSM (Finite State Machine)
@@ -209,7 +211,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             //checking if state should change based off distance of player using the below function (IsInRange())
             if(!IsInRange(sightRange)) currentState = States.IDLE;
-            else if (IsInRange(meleeRange)) currentState = States.ATTACKING;
+            if (IsInRange(meleeRange)) currentState = States.ATTACKING;
 
             if(Vector3.Distance(transform.position, player.position) == chargeRange)
             {
@@ -220,17 +222,18 @@ public class CS_FiniteStateMachine : MonoBehaviour
              //}
                 
             }
+            
+            if(Vector3.Distance(transform.position, player.position) < meleeRange)
+            {
+                currentState = States.ATTACKING;
+            }
 
             if(Vector3.Distance(transform.position, player.position)> sightRange)
             {
                 currentState = States.IDLE;
                 Debug.Log("Where'd they go?");
             }
-
-            if(Vector3.Distance(transform.position, player.position) < meleeRange)
-            {
-                currentState = States.ATTACKING;
-            }
+            
             
 
             agent.SetDestination(player.position);
@@ -327,7 +330,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         //exit ATTACKING state
         //write any code here you want to run when the state is left
-        Debug.Log("Ah, must have been the wind.");
+        Debug.Log("restarting attack state");
 
     }
 
@@ -335,30 +338,32 @@ public class CS_FiniteStateMachine : MonoBehaviour
     {
         //put any code here that you want to run at the start of the behaviour
         chargePointer.SetActive(true);
+        fireFeet.SetActive(true);
 
         Debug.Log("I'ma CHARGIN MA LAZER");        
         agent.SetDestination(transform.position);
         agent.updateRotation = false;
-        float timer = 0;
+        float aimTimer = 0;
        
         //put any code here you want to repeat during the state being active
         while (currentState == States.AIMING)
         {
-            timer += Time.deltaTime;
-            if(timer >= chargeTime)
+            
+            if(aimTimer >= chargeTime)
             {
                 chargePointer.SetActive(false);
                 currentState = States.CHARGING;
             }
 
+            aimTimer += Time.deltaTime;
             //rotate to face player
-            transform.rotation = RotateToPlayer(); //keeps rotating to player until we're over the timer
+            transform.rotation = RotateToPlayer(); //keeps rotating to player until we're over the aimTimer
             yield return new WaitForEndOfFrame();
         }
 
         //write any code here you want to run when the state is left
 
-        Debug.Log("Oh no I see the player!");
+        Debug.Log("AIM AIM AIM");
     }
 
 
@@ -379,12 +384,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
          //charge here
          if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 3f, LayerMask.NameToLayer("Environment"))) //if i get within 3 units of Environment tagged objects then do this
          {
+            fireFeet.SetActive(false);
             currentState = States.STUNNED;
          }
          if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 2f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Environment tagged objects then do this
          {
             //do damage on hit?
-            chargeDamage.ChargeBurst(); //accessing CS_DamageReactions script, then applying ChargeBurst function            
+            chargeDamage.ChargeBurst(); //accessing CS_DamageReactions script, then applying ChargeBurst function
+            fireFeet.SetActive(false);    
             currentState = States.CHASING;
          }
 
@@ -403,20 +410,24 @@ public class CS_FiniteStateMachine : MonoBehaviour
                   while (currentState == States.CHARGING)
          {
             if(Vector3.Distance(transform.position, player.position) < meleeRange)
-            {               
+            {              
+                fireFeet.SetActive(false); 
                 currentState = States.ATTACKING;
             }
             if(Vector3.Distance(transform.position, player.position) == chargeRange)
-            {           
+            {       
+                fireFeet.SetActive(false);    
                 Debug.Log("Aim");   
                 currentState = States.AIMING;
             }
             if(Vector3.Distance(transform.position, player.position) < sightRange)
-            {              
+            {       
+                fireFeet.SetActive(false);       
                 currentState = States.CHASING;
             }           
             if(Vector3.Distance(transform.position, player.position)> sightRange)
-            {               
+            {       
+                fireFeet.SetActive(false);        
                 Debug.Log("Where'd they go?");
                 currentState = States.IDLE;
                 
@@ -442,7 +453,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             
          }
             yield return new WaitForEndOfFrame();
-        }
+    }
       
 
 
