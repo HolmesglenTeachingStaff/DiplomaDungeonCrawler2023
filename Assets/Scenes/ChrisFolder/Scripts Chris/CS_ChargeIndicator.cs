@@ -24,4 +24,5 @@ public class CS_ChargeIndicator : MonoBehaviour
         Vector3 targetPostition = new Vector3(target.position.x, this.transform.position.y, target.position.z);
         this.transform.LookAt(targetPostition);
     }
+    
 }

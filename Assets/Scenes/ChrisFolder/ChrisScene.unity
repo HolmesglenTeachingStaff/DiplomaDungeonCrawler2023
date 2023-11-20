@@ -641,6 +641,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c4db7ce72cfb2da41ac32cdef544c8ae, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4db7ce72cfb2da41ac32cdef544c8ae, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e9f54642907da4143a4b1a9d0fe6136e, type: 2}
@@ -1096,9 +1100,10 @@ MonoBehaviour:
   chargeTime: 2.5
   damageBurst: {fileID: 670174902}
   chargeDamage: {fileID: 670174902}
-  chargePointer: 0
+  chargePointer: {fileID: 1671671978}
   player: {fileID: 86890452}
   sightColour: {r: 0, g: 0, b: 0, a: 0}
+  chargeMesh: {fileID: 1671671978}
   nodes:
   - {fileID: 1241526272}
   - {fileID: 8078259}

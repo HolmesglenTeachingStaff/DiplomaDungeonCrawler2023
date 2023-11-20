@@ -27,13 +27,16 @@ public class CS_FiniteStateMachine : MonoBehaviour
     //public bool idleOvertime;
     
 
-    public bool chargePointer;
+    public GameObject chargePointer;
 
     
     public Transform player;
     private NavMeshAgent agent;
 
     public Color sightColour; //i could add my own destint colour this way. To do so, below code would be "Gizmos.color = sightColour"
+
+    //charge mesh
+    public GameObject chargeMesh;
 
     //patrol settings
     [SerializeField] Transform[] nodes;
@@ -74,6 +77,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
         anim = GetComponent<Animator>();
 
         damageBurst.damageRange = meleeRange;
+
+        chargePointer.SetActive(false);
 
         agent = GetComponent<NavMeshAgent>();
         //start the FSM (Finite State Machine)
@@ -329,6 +334,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
     IEnumerator AIMING()
     {
         //put any code here that you want to run at the start of the behaviour
+        chargePointer.SetActive(true);
 
         Debug.Log("I'ma CHARGIN MA LAZER");        
         agent.SetDestination(transform.position);
@@ -341,6 +347,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             timer += Time.deltaTime;
             if(timer >= chargeTime)
             {
+                chargePointer.SetActive(false);
                 currentState = States.CHARGING;
             }
 
@@ -546,6 +553,6 @@ public class CS_FiniteStateMachine : MonoBehaviour
         }
     }
 
-
+    
 
 }
