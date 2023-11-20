@@ -170,7 +170,7 @@ public class NT_OniStateMachine : MonoBehaviour
         //Play attacking animations 
         while (currentState == States.ATTACKING)
         {
-            anim.SetTrigger("Attack");
+            anim.Play("Attacks");
             oniWeapon.enabled = true;
             yield return new WaitForSeconds(0.5f);
             //Toggles off collider on weapon 
@@ -180,12 +180,10 @@ public class NT_OniStateMachine : MonoBehaviour
                 currentState = States.CHASING;
                 oniWeapon.enabled = false;
             }
-            
-
-           if(stat.currentHealth <= 15)
-           {
-               currentState = States.RETREAT;
-           }
+            if(stat.currentHealth <= 15)
+            {
+                currentState = States.RETREAT;
+            }
 
             if (stat.currentHealth <= 0)
             {
@@ -259,17 +257,16 @@ public class NT_OniStateMachine : MonoBehaviour
         //Once in this state, NPC will destroy itself and play shader
         //Invoke die function from stat script 
         //Use shader for death 
+        oniWeapon.enabled = false;
+        anim.SetTrigger("Death");
 
         while (currentState == States.DEATH)
         {
-            oniWeapon.enabled = false;
-            anim.SetTrigger("Death");
             yield return new WaitForSeconds(1.5f);
             if (stat.currentHealth <= 0)
             {
                 Destroy(gameObject);
                 stat.Die();
-                //play shader
             }
             yield return new WaitForEndOfFrame();
         }

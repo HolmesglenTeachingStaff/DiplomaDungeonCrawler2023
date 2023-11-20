@@ -1610,6 +1610,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 40923651}
+--- !u!1 &865055256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865055257}
+  - component: {fileID: 865055259}
+  - component: {fileID: 865055258}
+  m_Layer: 0
+  m_Name: DamageOnTouchSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865055257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865055256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1282059067}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865055258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865055256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageIsBasedOnStats: 0
+  statBlock: {fileID: 1273104754}
+  minDamage: 0
+  maxDamage: 0
+  damageType: 0
+  damageTarget: 0
+  particleEffect: {fileID: 0}
+--- !u!65 &865055259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865055256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26495674, y: 1.3592242, z: 0.24270824}
+  m_Center: {x: -0.002043315, y: 0.31668624, z: 0.005002917}
 --- !u!1 &939248306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,7 +1841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 75b49d5e7d0ab0142bcb77323914ce14, type: 3}
       propertyPath: m_Name
-      value: MODEL
+      value: NT_SamuraiOni
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 75b49d5e7d0ab0142bcb77323914ce14, type: 3}
       propertyPath: m_TagString
@@ -2463,8 +2528,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273104750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 7.6899986}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 9.8}
+  m_LocalScale: {x: 0.7754128, y: 0.7754128, z: 0.7754128}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1070818259}
@@ -2485,7 +2550,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!195 &1273104753
 NavMeshAgent:
@@ -2603,11 +2668,11 @@ MonoBehaviour:
   sightColor: {r: 0, g: 0.16342616, b: 1, a: 1}
   meleeColor: {r: 1, g: 0.15690294, b: 0, a: 1}
   sightRange: 7.5
-  meleeRange: 4.5
+  meleeRange: 2
   elapsedTime: 0
   setTime: 29
   player: {fileID: 1188905576}
-  oniWeapon: {fileID: 0}
+  oniWeapon: {fileID: 865055259}
   nodes:
   - {fileID: 595720766}
   - {fileID: 2066916481}
@@ -2964,43 +3029,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
---- !u!1 &1282059066 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
+--- !u!4 &1282059067 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
   m_PrefabInstance: {fileID: 1282059064}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1282059068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282059066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageIsBasedOnStats: 1
-  statBlock: {fileID: 0}
-  minDamage: 0
-  maxDamage: 0
-  damageType: 0
-  damageTarget: 0
-  particleEffect: {fileID: 0}
---- !u!65 &1282059071
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282059066}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1214549, y: 1.2024039, z: 0.06644912}
-  m_Center: {x: 0.004135001, y: 0.23827949, z: -0.00091883045}
 --- !u!1 &1308842834
 GameObject:
   m_ObjectHideFlags: 0
