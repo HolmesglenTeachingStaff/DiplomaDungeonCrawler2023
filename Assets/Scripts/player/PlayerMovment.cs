@@ -62,8 +62,17 @@ public class PlayerMovment : MonoBehaviour
         if (canMove) ProcessMovement();
         ProcessGravity();
         var speed = currentState == state.Dashing ? dashSpeed : moveSpeed;
-        
-         cc.Move(moveDirection.normalized * speed * Time.deltaTime);
+
+        Debug.DrawRay(transform.position + Vector3.up, moveDirection.normalized,Color.green, 2);
+        if(Physics.Raycast(transform.position + Vector3.up, moveDirection.normalized, 4, LayerMask.NameToLayer("Enemy")))
+        {
+            Debug.Log("enemy In Front");
+        }
+        else
+        {
+            cc.Move(moveDirection.normalized * speed * Time.deltaTime);
+        }
+         
 
         if (Input.GetButtonUp("Jump")) StartDash();
 
