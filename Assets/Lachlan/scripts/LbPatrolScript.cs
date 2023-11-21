@@ -35,6 +35,7 @@ public class LbPatrolScript : MonoBehaviour
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    float lastAttack;
 
     void Start()
 
@@ -91,7 +92,8 @@ public class LbPatrolScript : MonoBehaviour
         agent.SetDestination(transform.position);
         agent.updateRotation = false;
         if (playerInAttackRange) anim.SetTrigger("Attack");
-       // else if (!playerInAttackRange && !playerInSightRange) ;// anim.SetTrigger("Attack") = false;
+        lastAttack = Time.time;
+        //if(anim.SetTrigger("Attack")) = true  yield return new WaitForSeconds (3);
     }
 
       public void DEATH()
