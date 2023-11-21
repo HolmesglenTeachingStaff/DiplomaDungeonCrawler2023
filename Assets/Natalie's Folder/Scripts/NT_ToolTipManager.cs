@@ -8,6 +8,7 @@ public class NT_ToolTipManager : MonoBehaviour
     public static NT_ToolTipManager _instance;
 
     public TextMeshProUGUI textComponent;
+    public Transform target;
 
     // Start is called before the first frame update
 
@@ -30,7 +31,7 @@ public class NT_ToolTipManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.LookAt(target, Vector3.up);
     }
 
     public void SetAndShowToolTip(string message)

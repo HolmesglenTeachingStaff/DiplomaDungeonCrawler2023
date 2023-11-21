@@ -257,7 +257,7 @@ public class NT_OniStateMachine : MonoBehaviour
         //Invoke die function from stat script 
         //Use shader for death 
         oniWeapon.enabled = false;
-        anim.SetTrigger("Death");
+        anim.Play("Death");
         yield return new WaitForSeconds(2);
 
         while (currentState == States.DEATH)
