@@ -15,7 +15,7 @@ public class StatSlider : MonoBehaviour
     private Image image;
     private bool isImage;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         image = GetComponent<Image>();
         if (image != null)
