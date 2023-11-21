@@ -15,6 +15,7 @@ public class BW_ElementalStateMachine : MonoBehaviour
 
     public Transform player;
     public bool checkingForPlayer = false;
+    public Collider weaponCollider;
 
     [Header("Reaction Range Values")]
     public float sightRange = 6;
@@ -22,7 +23,7 @@ public class BW_ElementalStateMachine : MonoBehaviour
     #endregion
 
     #region States
-    public enum States {IDLE, COMBAT, MELEE}
+    public enum States {IDLE, COMBAT, MELEE, DEATH}
 
     public States currentState;
     #endregion
@@ -34,10 +35,12 @@ public class BW_ElementalStateMachine : MonoBehaviour
     }
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        weaponCollider.enabled = false;
 
         StartCoroutine(ElementalFSM());
     }
@@ -130,15 +133,34 @@ public class BW_ElementalStateMachine : MonoBehaviour
 
         agent.SetDestination(agent.transform.position);
 
+        anim.Play("Elemental_Melee");
+        yield return new WaitForSeconds(0.5f);
+        weaponCollider.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        weaponCollider.enabled = false;
+        yield return new WaitForSeconds(2);
+        currentState = States.COMBAT;
+
         //put any code here you want to repeat during the state being active
         while (currentState == States.MELEE)
         {
             if (!WithinRange(meleeRange)) currentState = States.COMBAT;
-            //play animation
-            //set active the damage collider
 
             yield return new WaitForEndOfFrame();
         }
+        yield return null;
+    }
+    #endregion
+
+    #region DEATH
+    IEnumerator DEATH()
+    {
+        anim.Play("Elemental_Dead");
+        weaponCollider.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        Destroy(gameObject);
+        StopAllCoroutines();
+
         yield return null;
     }
     #endregion
@@ -149,9 +171,7 @@ public class BW_ElementalStateMachine : MonoBehaviour
     //Function called from the inspector using the OnDeath Event in the Stats script
     public void Dead()
     {
-        //play death animation
-        //wait until it's finished
-        Destroy(gameObject);
+        StartCoroutine(DEATH());
     }
 
     #region Gizmos

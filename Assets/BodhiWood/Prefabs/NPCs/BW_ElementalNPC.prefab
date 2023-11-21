@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   checkingForPlayer: 0
+  weaponCollider: {fileID: 3211693769214746359}
   sightRange: 8
   meleeRange: 1.4
   currentState: 0
@@ -298,6 +299,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2406431694899873676, guid: 0f9f7f567e15a8e4b8b3d7c6e4f77e81, type: 3}
   m_PrefabInstance: {fileID: 4869427410190717242}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &3211693769214746359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131153752983623350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0628576, y: 1.6487899, z: 1.4937243}
+  m_Center: {x: -0.03448677, y: 1.1296864, z: 0.7572038}
 --- !u!114 &4514431115152548809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +325,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: ff0bce57394d31047ab7244c6c4be8f1, type: 2}
+--- !u!114 &3503892153121529760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131153752983623350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageIsBasedOnStats: 0
+  statBlock: {fileID: 0}
+  minDamage: 5
+  maxDamage: 10
+  damageType: 6
+  damageTarget: 0
+  particleEffect: {fileID: 0}
 --- !u!1001 &5934968403251029977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,21 +355,9 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 8433131247237564062}
-    - target: {fileID: 2834380864746840930, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2834380864859567979, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2834380865604379440, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Name
       value: NPC_UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2834380865604379440, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2834380865604379441, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Pivot.x
@@ -422,20 +443,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2834380866310494621, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2834380866310494622, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2834380866310494622, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2834380866432881511, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -13,7 +13,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private OrbitTarget orbitTarget;
-
     private StatSlider statSlider;
 
     public Transform player;
@@ -31,9 +30,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     //Nodes to indicate where to patrol.
     [SerializeField] Transform[] nodes;
     int currentNode;
-
-    Vector2 velocity = Vector2.zero;
-    Vector2 smoothDeltaPosition = Vector2.zero;
     #endregion
 
     //The behaviour states available for a Summoner to switch between.
@@ -60,8 +56,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
         weaponCollider.enabled = false;
 
         StartCoroutine(SummonerFSM());
-
-        //statSlider.UpdateSlider();
     }
     #endregion
 
@@ -79,7 +73,6 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region Update
     void Update()
     {
-        #region Checking
         //Chase the player, if seen from any state
         if (checkingForPlayer == true && WithinRange(sightRange))
         {
@@ -95,17 +88,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
         //Rotate to face the player while in sightRange
         if (WithinRange(sightRange))
         {
-            //CAUSE OF JITTERING
             transform.LookAt(player);
         }
-        #endregion
     }
     #endregion
-
-    private void OnAnimatorMove()
-    {
-        transform.position = agent.nextPosition;
-    }
 
     //Contents of the states, and how to change between them.
     #region Behaviour Coroutines
@@ -215,6 +201,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     #endregion
 
+    #region DEATH
     IEnumerator DEATH()
     {
         anim.Play("Summoner_Dead");
@@ -225,6 +212,8 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         yield return null;
     }
+    #endregion
+
 
     #endregion
 
