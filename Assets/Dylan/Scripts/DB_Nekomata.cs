@@ -11,8 +11,8 @@ public class DB_Nekomata : MonoBehaviour
     private Animator anim;
     public float lastAttack, timeBetweenAttacks;
 
-    public int hitCounter, maxHits;
-    public float hitRecovery;
+    private int hitCounter, maxHits;
+    private float hitRecovery;
     private float lastHit;
     private Stats stats;
     
