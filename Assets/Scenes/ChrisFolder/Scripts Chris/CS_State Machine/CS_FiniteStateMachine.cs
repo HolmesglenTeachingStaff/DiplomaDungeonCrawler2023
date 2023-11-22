@@ -237,11 +237,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 Debug.Log("entering ATTACKING from CHASING");
                 currentState = States.ATTACKING;
             }
-            if(Vector3.Distance(transform.position, player.position) < sightRange)
+            if(Vector3.Distance(transform.position, player.position) > meleeRange)
             {
-                Debug.Log("entering CHASING from CHASING");
-                currentState = States.CHASING;                
-            }            
+                if(Vector3.Distance(transform.position, player.position) < sightRange)
+                {
+                    Debug.Log("entering CHASING from CHASING");
+                    currentState = States.CHASING;
+                }
+            }
             if(Vector3.Distance(transform.position, player.position) > sightRange)
                 {
                     if(Vector3.Distance(transform.position, player.position) < chargeRange)
@@ -260,8 +263,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         }
 
         //exit CHASING state
-        //write any code here you want to run when the state is left
-        yield return new WaitForEndOfFrame();
+        //write any code here you want to run when the state is left        
         Debug.Log("end of CHASING state");
 
     }
@@ -269,26 +271,31 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator ATTACKING()
     {
-        //activeDamage.enabled = true;        
+
+        Debug.Log("GOT YA!");
+        //activeDamage.enabled = true;
+
+        agent.speed = 3;
+        agent.SetDestination(player.position);
 
         //enter the ATTACKING state
         //put any code here i want to run at the start of the behaviour
-        Debug.Log("GOT YA!");
-        agent.speed = 3;
-        agent.SetDestination(player.position);        
-
-        damageBurst.DamageBurst(); //accessing CS_DamageReactions script, then applying DamageBurst function
-
-        //add ATTACK anim here
-        // anim.Play("Standing_Attack");
-        yield return new WaitForSeconds(2f); //the number is the time length of the animation
+        
         
         //UPDATE ATTACKING state
         //put any code here you want to repeat during the state being active
         while(currentState == States.ATTACKING)
         {
-                    
             
+            agent.speed = 3;
+            agent.SetDestination(player.position);
+
+            damageBurst.DamageBurst(); //accessing CS_DamageReactions script, then applying DamageBurst function
+
+            //add ATTACK anim here
+            // anim.Play("Standing_Attack");
+            yield return new WaitForSeconds(2f); //the number is the time length of the animation
+
             Debug.Log("entered ATTACKING again");            
 
             //currentState = States.CHASING;
@@ -326,11 +333,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 Debug.Log("entering ATTACKING from ATTACKING");
                 currentState = States.ATTACKING;
             }            
-            if(Vector3.Distance(transform.position, player.position) < sightRange)
+            if(Vector3.Distance(transform.position, player.position) > meleeRange)
             {
-                Debug.Log("entering CHASING from ATTACKING");
-                //activeDamage.enabled = false;
-                currentState = States.CHASING;
+                if(Vector3.Distance(transform.position, player.position) < sightRange)
+                {
+                    Debug.Log("entering CHASING from ATTACKING");
+                    //activeDamage.enabled = false;
+                    currentState = States.CHASING;
+                }
             }
             if(Vector3.Distance(transform.position, player.position) > sightRange)
                 {
@@ -371,14 +381,14 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.AIMING)
         {
+            aimTimer += Time.deltaTime;
             
             if(aimTimer >= chargeTime)
             {
                 chargePointer.SetActive(false);
                 currentState = States.CHARGING;
             }
-
-            aimTimer += Time.deltaTime;
+            
             //rotate to face player
             transform.rotation = RotateToPlayer(); //keeps rotating to player until we're over the aimTimer
             yield return new WaitForEndOfFrame();
@@ -392,8 +402,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
  IEnumerator CHARGING()
     {
-        //ENTER THE CHARGING STATE >
-        //put any code here that you want to run while CHARGING
+         //ENTER THE CHARGING STATE >
+         //put any code here that you want to run while CHARGING
          //activeDamage.enabled = true;
 
          Debug.Log("beginning CHARGING state");
@@ -405,18 +415,17 @@ public class CS_FiniteStateMachine : MonoBehaviour
          //attack.attackActive = true;
          RaycastHit hit;
          
-          float pos = 0; //number for going between position lerp (0 is start of pos 1 is end of pos)
+         float pos = 0; //number for going between position lerp (0 is start of pos 1 is end of pos)
 
-        Vector3 start = transform.position; //beginning of the lerp (our agent start point)
+         Vector3 start = transform.position; //beginning of the lerp (our agent start point)
 
-        float duration = attackSpeed; //how fast we want to charge from 0-1 (start to finish positions, the lower the number the quicker)
+         float duration = attackSpeed; //how fast we want to charge from 0-1 (start to finish positions, the lower the number the quicker)
 
-        //UPDATE Chasing CHARGING
-        //put any code here you want to repeat during the state being active
+         //UPDATE Chasing CHARGING
+         //put any code here you want to repeat during the state being active
         while (currentState == States.CHARGING)
         {
-            Vector3 newPos = transform.position;
-            
+                        
             if(pos < duration) //checking if lerp is complete (is the path complete)
             {
                 pos += Time.deltaTime; //moving through the lerp positions with time
@@ -426,10 +435,10 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 3f, LayerMask.NameToLayer("Environment"))) //if i get within 3 units of Environment tagged objects then do this
                 {
                     fireFeet.SetActive(false);
-                    Debug.Log("entering STUNNED after CHARGING into environment");
-                    agent.transform.position = newPos;
+                    Debug.Log("entering STUNNED after CHARGING into environment");                    
                     agent.updatePosition = true;
                     agent.updateRotation = true;
+                    agent.SetDestination(start += moveTarget);
                     currentState = States.STUNNED;
                 }
                 if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 3f, LayerMask.NameToLayer("Player"))) //if i get within 3 units of Player tagged objects then do this
@@ -437,10 +446,10 @@ public class CS_FiniteStateMachine : MonoBehaviour
                     //do damage on hit?
                     chargeDamage.ChargeBurst(); //accessing CS_DamageReactions script, then applying ChargeBurst function
                     fireFeet.SetActive(false);
-                    Debug.Log("entering CHASING after CHARGING hit player");
-                    agent.transform.position = newPos;
+                    Debug.Log("entering CHASING after CHARGING hit player");                    
                     agent.updatePosition = true;
                     agent.updateRotation = true;
+                    agent.SetDestination(transform.position += moveTarget);
                     currentState = States.CHASING;
                 }
                 /*if(Vector3.Distance(transform.position, player.position) < meleeRange)
@@ -470,19 +479,19 @@ public class CS_FiniteStateMachine : MonoBehaviour
             else
             {
                 if(Vector3.Distance(transform.position, player.position) < meleeRange)
-                {
-                    agent.transform.position = newPos;
+                {                    
                     agent.updatePosition = true;
                     agent.updateRotation = true;
+                    agent.SetDestination(transform.position += moveTarget);
                     fireFeet.SetActive(false);                    
                     Debug.Log("entering ATTACKING from CHARGING");
                     currentState = States.ATTACKING;
                 }            
                 if(Vector3.Distance(transform.position, player.position) < sightRange)
                 {
-                    agent.transform.position = newPos;
                     agent.updatePosition = true;
                     agent.updateRotation = true;
+                    agent.SetDestination(transform.position += moveTarget);
                     fireFeet.SetActive(false);                    
                     Debug.Log("entering CHASING from CHARGING");
                     currentState = States.CHASING;
@@ -491,9 +500,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 {
                     if(Vector3.Distance(transform.position, player.position) < chargeRange)
                     {
-                        agent.transform.position = newPos;
                         agent.updatePosition = true;
                         agent.updateRotation = true;
+                        agent.SetDestination(transform.position += moveTarget);
                         fireFeet.SetActive(false);                        
                         Debug.Log("entering AIMING from CHARGING");
                         currentState = States.AIMING;
@@ -501,9 +510,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
                 }                
                 if (Vector3.Distance(transform.position, player.position)> chargeRange)
                 {
-                    agent.transform.position = newPos;
                     agent.updatePosition = true;
                     agent.updateRotation = true;
+                    agent.SetDestination(transform.position += moveTarget);
                     fireFeet.SetActive(false);  
                     Debug.Log("entering IDLE from CHARGING");
                     currentState = States.IDLE;
