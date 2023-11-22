@@ -177,6 +177,7 @@ public class NT_DialogueText : MonoBehaviour
             //Plays healing animation
             //anim.Play("NT_TsukuyomiHealingAnimation");
             playerChar.GetComponent<Stats>().currentHealth = playerChar.GetComponent<Stats>().maxHealth;
+            playerChar.GetComponent<Stats>().OnBuffRecieved.Invoke();
 
             textUI.text = "";
 
