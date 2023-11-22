@@ -17,8 +17,6 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
     public Transform player;
     private NavMeshAgent agent;
 
-    //private Animator anim;
-
     //patrol settings 
     [SerializeField] Transform[] nodes;
     int currentNode;
@@ -57,7 +55,6 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
         stat = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
         dialogueText = GetComponent<NT_DialogueText>();
-        //anim = GetComponent<Animator>();
         //Start the statemachine
         StartCoroutine(TsukuyomiFSM());
     }
@@ -93,16 +90,10 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             //transitions to roaming state 
             currentState = States.ROAMING;
 
-            if (IsInRange(sightRange) || IsInRange(talkRange))
-            {
-                //Stop current animations
-                agent.SetDestination(transform.position);
-                //Invoke("TurnToPlayer", 0.5f);
-            }
-
             if (IsInRange(talkRange))
             {
                 currentState = States.TALKING;
+                agent.SetDestination(transform.position);
             }
         }
     }
@@ -132,7 +123,6 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             {
                 //Stop current animations
                 agent.SetDestination(transform.position);
-                //Invoke("TurnToPlayer", 0.5f);
             }
 
             if (IsInRange(talkRange))
@@ -207,14 +197,6 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
 
         Gizmos.color = talkColor;
         Gizmos.DrawWireSphere(transform.position, talkRange);
-    }
-
-    public void TurnToPlayer()
-    {
-        //Npc will turn towards player
-        Vector3 direction = player.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = rotation;
     }
     #endregion
 }

@@ -35,6 +35,11 @@ public class NT_DialogueText : MonoBehaviour
     public GameObject whyAmIHereButton;
     public GameObject endButton;
 
+
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -77,7 +82,7 @@ public class NT_DialogueText : MonoBehaviour
 
     public IEnumerator TypeWriterIntro()
     {
-        anim.SetTrigger("isTalking");
+        anim.Play("NT_TsukuyomiWavingAnimation");
         for (int i = 0; i < introMessages.Length; i++)
         {
             char[] chars = introMessages[i].ToCharArray();
@@ -99,7 +104,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator TypeWriterLore()
     {
         textUI.text = "";
-        anim.SetTrigger("isTalking");
+        anim.Play("NT_TsukuyomiWavingAnimation");
 
         for (int i = 0; i < loreMessages.Length; i++)
         {
@@ -159,7 +164,7 @@ public class NT_DialogueText : MonoBehaviour
         if (playerChar.GetComponent<Stats>().currentHealth < playerChar.GetComponent<Stats>().maxHealth)
         {
             //Plays healing animation
-            anim.Play("NT_TsukuyomiHealingAnimation");
+            //anim.Play("NT_TsukuyomiHealingAnimation");
             playerChar.GetComponent<Stats>().currentHealth = playerChar.GetComponent<Stats>().maxHealth;
 
             textUI.text = "";
