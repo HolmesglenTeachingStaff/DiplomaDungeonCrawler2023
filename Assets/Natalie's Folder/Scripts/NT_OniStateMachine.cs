@@ -170,17 +170,13 @@ public class NT_OniStateMachine : MonoBehaviour
         //Play attacking animations 
         while (currentState == States.ATTACKING)
         {
-
             if (IsInRange(meleeRange))
             {
                 anim.Play("Attacks");
                 oniWeapon.enabled = true;
                 yield return new WaitForSeconds(0.5f);
             }
-            
-            //Toggles off collider on weapon 
-            //activates the damage on touch 
-            if (!IsInRange(meleeRange))
+            else
             {
                 currentState = States.CHASING;
                 oniWeapon.enabled = false;

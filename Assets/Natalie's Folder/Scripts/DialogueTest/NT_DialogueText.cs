@@ -68,6 +68,17 @@ public class NT_DialogueText : MonoBehaviour
                 dialogueBox.gameObject.SetActive(true);
             }
         }
+        else
+        {
+            StopAllCoroutines();
+            dialogueBox.gameObject.SetActive(false);
+            healingButton.gameObject.SetActive(false);
+            whatButton.gameObject.SetActive(false);
+            whoButton.gameObject.SetActive(false);
+            whyButton.gameObject.SetActive(false);
+            endButton.gameObject.SetActive(false);
+            whyAmIHereButton.gameObject.SetActive(false);
+        }
 
         if (messageCount > 0)
         {
