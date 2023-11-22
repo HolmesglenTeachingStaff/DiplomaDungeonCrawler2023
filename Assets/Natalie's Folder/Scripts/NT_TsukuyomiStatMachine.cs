@@ -170,6 +170,7 @@ public class NT_TsukuyomiStatMachine : MonoBehaviour
             if(!IsInRange(talkRange) || !IsInRange(sightRange))
             {
                 currentState = States.ROAMING;
+                dialogueText.canTalk = false;
             }
 
             yield return new WaitForEndOfFrame();
