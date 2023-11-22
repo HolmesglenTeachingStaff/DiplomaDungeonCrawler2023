@@ -8,6 +8,7 @@ public class IB_StateMachine : MonoBehaviour
     #region variables
     public float sightRange;
     public float meleeRange;
+    public float buffer;
     public Stats statScript;
     public Transform player;
     public NavMeshAgent agent;
@@ -25,7 +26,7 @@ public class IB_StateMachine : MonoBehaviour
 
     #region States
     //Declare states. If you add a new sate to your character, remember to add a new States enum for it.
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, SPAWNING, DEATH }
+    public enum States { IDLE, CHASING, ATTACKING, SPAWNING, DEATH }
     public States currentState;
     #endregion
 
@@ -45,7 +46,7 @@ public class IB_StateMachine : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        //start the fsm
+        //start of fsm
         StartCoroutine(EnemyFSM());
     }
 
@@ -63,10 +64,6 @@ public class IB_StateMachine : MonoBehaviour
     #region Behavior Coroutines
     IEnumerator IDLE()
     {
-        //ENTER THE IDLE STATE > put any code here that you want to run at the start of the behavior
-        Debug.Log("Alright, seems no evil Player is around, I can chill!");
-
-        //Update IDLE STATE > put any code here to repeat during the state being active
         while (currentState == States.IDLE)
         {
             anim.Play("Idle");
@@ -78,20 +75,12 @@ public class IB_StateMachine : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE > write any code here you want to run when the state is left
-
-        Debug.Log("oh no I see the player!");
     }
     IEnumerator CHASING()
     {
-        //ENTER THE CHASING STATE > put any code here that you want to run at the start of the behavior
-        Debug.Log("I'ma Get Ya!");
-
-        //Update IDLE STATE > put any code here to repeat during the state being active
         while (currentState == States.CHASING)
         {
-            agent.SetDestination(player.position);
+            agent.SetDestination(player.position + player.transform.right * buffer);
             anim.Play("Walking");
 
             if (Vector3.Distance(transform.position, player.position) > sightRange)
@@ -105,10 +94,6 @@ public class IB_StateMachine : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE > write any code here you want to run when the state is left
-
-        Debug.Log("oh no I see the player!");
     }
     IEnumerator ATTACKING()
     {

@@ -8,23 +8,17 @@ public class IB_FSM2 : MonoBehaviour
     #region variables
     public float sightRange;
     public float meleeRange;
+    public float buffer;
     public Transform player;
     public NavMeshAgent agent;
     public Color sightColor;
-
-    public IB_DamageReactions KnockBack;
-    public GameObject tenguM;
-    public Transform spawnPoint1;
-    public Transform spawnPoint2;
-    public Transform spawnPoint3;
     public GameObject Weapon;
-
     private Animator anim;
     #endregion
 
     #region States
     //Declare states. If you add a new sate to your character, remember to add a new States enum for it.
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, DEATH }
+    public enum States { IDLE, CHASING, ATTACKING, DEATH }
     public States currentState;
     #endregion
 
@@ -38,7 +32,6 @@ public class IB_FSM2 : MonoBehaviour
 
     void Start()
     {
-        KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
@@ -60,10 +53,6 @@ public class IB_FSM2 : MonoBehaviour
     #region Behavior Coroutines
     IEnumerator IDLE()
     {
-        //ENTER THE IDLE STATE > put any code here that you want to run at the start of the behavior
-        Debug.Log("Alright, seems no evil Player is around, I can chill!");
-
-        //Update IDLE STATE > put any code here to repeat during the state being active
         while (currentState == States.IDLE)
         {
             //Check player distance
@@ -74,20 +63,12 @@ public class IB_FSM2 : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE > write any code here you want to run when the state is left
-
-        Debug.Log("oh no I see the player!");
     }
     IEnumerator CHASING()
     {
-        //ENTER THE CHASING STATE > put any code here that you want to run at the start of the behavior
-        Debug.Log("I'ma Get Ya!");
-
-        //Update IDLE STATE > put any code here to repeat during the state being active
         while (currentState == States.CHASING)
         {
-            agent.SetDestination(player.position);
+            agent.SetDestination(player.position + player.transform.right * buffer);
 
             if (Vector3.Distance(transform.position, player.position) < meleeRange)
             {
@@ -102,16 +83,12 @@ public class IB_FSM2 : MonoBehaviour
            
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE > write any code here you want to run when the state is left
-
-        Debug.Log("oh no I see the player!");
     }
     IEnumerator ATTACKING()
     {
         anim.Play("Attack");
         Weapon.GetComponent<BoxCollider>().enabled = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
         Weapon.GetComponent<BoxCollider>().enabled = false;
         currentState = States.CHASING;
     }
