@@ -312,19 +312,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0628576, y: 1.6487899, z: 1.4937243}
   m_Center: {x: -0.03448677, y: 1.1296864, z: 0.7572038}
---- !u!114 &4514431115152548809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7131153752983623350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f98eef77fd3472479a5b49bf557b45d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: ff0bce57394d31047ab7244c6c4be8f1, type: 2}
 --- !u!114 &3503892153121529760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +331,19 @@ MonoBehaviour:
   damageType: 6
   damageTarget: 0
   particleEffect: {fileID: 0}
+--- !u!114 &4514431115152548809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131153752983623350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f98eef77fd3472479a5b49bf557b45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: ff0bce57394d31047ab7244c6c4be8f1, type: 2}
 --- !u!1001 &5934968403251029977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -355,6 +355,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 8433131247237564062}
+    - target: {fileID: 2834380864746840930, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2834380865604379440, guid: e8d2e0d3ae312c54e9aae430fa1b8de0, type: 3}
       propertyPath: m_Name
       value: NPC_UI

@@ -696,11 +696,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 2109879638}
   spawnTime: 2
   isActive: 1
---- !u!4 &161944149 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6224115787055095601, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
-  m_PrefabInstance: {fileID: 1002761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &316908924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,10 +1075,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1992086434, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2782627453459170349, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1139,14 +1130,6 @@ PrefabInstance:
     - target: {fileID: 2782627454707088631, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 161944149}
-    - target: {fileID: 6468632359186036381, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01814bfd92e94964d9ae8b15fa49af9b, type: 3}
