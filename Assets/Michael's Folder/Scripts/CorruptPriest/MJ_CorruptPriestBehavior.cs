@@ -26,21 +26,24 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     #endregion
 
     #region States
-    public enum States {IDLE, CHASING, ATTACKING};
+    public enum States {IDLE, CHASING, ATTACKING, RETURN};
     public States currentState;
 
     private void Awake()
     {
         currentState = States.IDLE;
+
     }
     void Start()
     {
+        this.transform.position = spawnPoint.position;
         projectile = GetComponent<GameObject>();
         agent = GetComponent<NavMeshAgent>();
         //start the StateMachine
         StartCoroutine(EnemyFSM());
     }
     #endregion
+
     #region Finite StateMachine
     IEnumerator EnemyFSM()
     {
