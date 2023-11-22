@@ -178,6 +178,7 @@ public class NT_OniStateMachine : MonoBehaviour
             }
             else
             {
+                oniWeapon.enabled = false;
                 currentState = States.CHASING;
                 oniWeapon.enabled = false;
             }

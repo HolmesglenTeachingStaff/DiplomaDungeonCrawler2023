@@ -12353,7 +12353,7 @@ MonoBehaviour:
   elapsedTime: 0
   setTime: 29
   player: {fileID: 1188905576}
-  oniWeapon: {fileID: 0}
+  oniWeapon: {fileID: 1282059069}
   nodes:
   - {fileID: 595720766}
   - {fileID: 2066916481}
@@ -12661,15 +12661,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7615625
+      value: 0.6642791
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.76156276
+      value: 0.66427934
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.76156276
+      value: 0.66427934
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12681,7 +12681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.47014
+      value: 0.47224
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed7fcf0f8a23264d8f23cf9ab02b9f0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12741,7 +12741,7 @@ MonoBehaviour:
   damageIsBasedOnStats: 0
   statBlock: {fileID: 0}
   minDamage: 7
-  maxDamage: 14
+  maxDamage: 10
   damageType: 0
   damageTarget: 0
   particleEffect: {fileID: 0}
@@ -12756,8 +12756,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.38096935, y: 1.4590596, z: 0.24270822}
-  m_Center: {x: -0.016082251, y: 0.36659384, z: 0.005002914}
+  m_Size: {x: 0.18173572, y: 1.2457088, z: 0.14068882}
+  m_Center: {x: -0.008660088, y: 0.25991678, z: -0.004444769}
 --- !u!1 &1308842834
 GameObject:
   m_ObjectHideFlags: 0
