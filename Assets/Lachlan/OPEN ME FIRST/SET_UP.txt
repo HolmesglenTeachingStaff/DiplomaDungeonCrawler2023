@@ -1,0 +1,13 @@
+How to set up Dark Knights
+
+Step 1: drag prefab into scene 
+
+step 2: open up the parent object of the NPC and locate "Lb Patrol Script" in the inspector (note this does not mean the actual script)
+
+Step 3: under "Player" drag the "AnimatedCharacter" into the Player box, (make sure the AnimatedCharacter is under the Player Layer) if you wish to use a diferent layer you can change it in the Lb Patrol script on line 43 
+
+the line is as follows| Player = GameObject.FindGameObjectWithTag("ADD PREFERED LAYER HERE").transform;
+
+Step 4: one of the children of the knights is "Lb_Npc_Ui" in this go to the inspector and locate the look at constraint, under sources put what ever camera you want the UI to look at 
+
+Step 5: give yourself a pat on the back, youve just set up a Dark knight, yaaay!!! 
