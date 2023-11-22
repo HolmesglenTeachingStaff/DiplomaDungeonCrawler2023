@@ -25,6 +25,7 @@ public class NT_DialogueText : MonoBehaviour
     public bool canTalk = false;
     public GameObject dialogueBox;
     public GameObject playerChar;
+    private Animator anim;
 
     //Variables for buttons  
     public GameObject healingButton;
@@ -76,7 +77,7 @@ public class NT_DialogueText : MonoBehaviour
 
     public IEnumerator TypeWriterIntro()
     {
-
+        anim.SetTrigger("isTalking");
         for (int i = 0; i < introMessages.Length; i++)
         {
             char[] chars = introMessages[i].ToCharArray();
@@ -98,6 +99,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator TypeWriterLore()
     {
         textUI.text = "";
+        anim.SetTrigger("isTalking");
 
         for (int i = 0; i < loreMessages.Length; i++)
         {
@@ -126,6 +128,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator NoHealingText()//Not showing the dialogue when full health 
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < noHealMessage.Length; i++)
         {
@@ -155,7 +158,8 @@ public class NT_DialogueText : MonoBehaviour
     {
         if (playerChar.GetComponent<Stats>().currentHealth < playerChar.GetComponent<Stats>().maxHealth)
         {
-            //Plays healing animation with shader
+            //Plays healing animation
+            anim.Play("NT_TsukuyomiHealingAnimation");
             playerChar.GetComponent<Stats>().currentHealth = playerChar.GetComponent<Stats>().maxHealth;
 
             textUI.text = "";
@@ -191,6 +195,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator WhoDialogue()
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < whoMessage.Length; i++)
         {
@@ -220,6 +225,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator WhatDialogue()
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < whatMessage.Length; i++)
         {
@@ -249,6 +255,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator WhyDialogue()
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < whyMessage.Length; i++)
         {
@@ -278,6 +285,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator WhyAmIHereQues()
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < whyAmIHere.Length; i++)
         {
@@ -307,6 +315,7 @@ public class NT_DialogueText : MonoBehaviour
     public IEnumerator ContinueDialogue()
     {
         textUI.text = "";
+        anim.Play("NT_TsukuyomiHandGestureAnimation");
 
         for (int i = 0; i < continueMessage.Length; i++)
         {
