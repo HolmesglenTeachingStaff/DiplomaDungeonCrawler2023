@@ -9,11 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5097420577369194264}
-  - component: {fileID: -2562197253611122862}
-  - component: {fileID: -6254859654753289966}
-  - component: {fileID: 6485798701296037320}
-  - component: {fileID: 3127286934029904832}
-  - component: {fileID: -5609901293842826991}
   m_Layer: 6
   m_Name: RD_Ninja_Reina
   m_TagString: Enemy
@@ -29,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5617815774059767202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.74, y: 0.005000954, z: -13.47}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37,115 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2562197253611122862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617815774059767202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5cb2d630ad093843991f59a979d550d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightRange: 10
-  meleeRange: 3
-  rangedRange: 7
-  player: {fileID: 0}
-  sightColor: {r: 0, g: 0, b: 0, a: 0}
-  currentState: 0
---- !u!114 &-6254859654753289966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617815774059767202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  regenRate: 1
-  tempRegen: 0
-  maxSpeed: 10
-  currentSpeed: 0
-  maxArmour: 5
-  currentArmour: 0
-  maxBaseAttackDamage: 5
-  currentBaseAttackDamage: 0
-  immune: 0
-  isDead: 0
-  pushable: 0
-  isWet: 0
-  Physical: 1
-  Fire: 2
-  Water: 1
-  Wind: 0
-  Earth: 1
-  Light: 2
-  Dark: 0
-  statusEffectStacks: 0
-  OnDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBuffRecieved:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6485798701296037320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617815774059767202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acbde79a0af9047fb8e2b5b86660f884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleSystems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &3127286934029904832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617815774059767202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
---- !u!114 &-5609901293842826991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617815774059767202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efe58df89b5b74a97a123b5ed2b70422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":null,"embed":null}}'
-    _objectReferences: []
 --- !u!1001 &5950828383677517752
 PrefabInstance:
   m_ObjectHideFlags: 0
