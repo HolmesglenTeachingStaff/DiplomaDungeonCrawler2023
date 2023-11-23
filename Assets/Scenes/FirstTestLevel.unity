@@ -9484,19 +9484,19 @@ PrefabInstance:
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: textUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648147}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: endButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648140}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: whoButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648144}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: whyButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648142}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: playerChar
       value: 
@@ -9504,19 +9504,19 @@ PrefabInstance:
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: whatButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648143}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: dialogueBox
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648146}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: healingButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648145}
     - target: {fileID: 2259359745474215945, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: whyAmIHereButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1895648141}
     - target: {fileID: 2259359745474215950, guid: c5456a8a4cc660049b8521166ff451cb, type: 3}
       propertyPath: player
       value: 
@@ -10734,6 +10734,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+--- !u!1 &1895648140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745526115394441, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745527439947355, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745526079572411, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745526076991196, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745527506890124, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840745526232798448, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895648146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2899432262362583013, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1895648147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1840745526033348485, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+  m_PrefabInstance: {fileID: 1895648139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1933359013
 GameObject:
   m_ObjectHideFlags: 0
