@@ -45,7 +45,7 @@ public class IB_StateMachine : MonoBehaviour
         statScript = GetComponent<Stats>();
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
-        mat = GetComponent<SkinnedMeshRenderer>().material;
+        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
         anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;

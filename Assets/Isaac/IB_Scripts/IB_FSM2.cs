@@ -68,6 +68,7 @@ public class IB_FSM2 : MonoBehaviour
     {
         while (currentState == States.CHASING)
         {
+            anim.Play("idle");
             agent.SetDestination(player.position + player.transform.right * buffer);
 
             if (Vector3.Distance(transform.position, player.position) < meleeRange)
