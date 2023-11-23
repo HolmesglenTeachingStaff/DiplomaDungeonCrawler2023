@@ -14,7 +14,11 @@ public class JP_ShaderDamge2 : MonoBehaviour
 
         foreach(SkinnedMeshRenderer rend in renderers)
         {
-            mat1.Add(rend.material);
+            for(int i = 0; i < rend.materials.Length; i ++)
+            {
+              mat1.Add(rend.materials[i]);
+            }
+            
         }
         //mat1=GetComponentsInChildren<SkinnedMeshRenderer>().materials;
     }
