@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.VFX;
 
-public class RD_NinjaFiniteStateMachine : MonoBehaviour
+public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
 {
     #region variables
     public float sightRange;
-    public float meleeRange;
-
+    public float rangedRange;
     //variables for attack timers;
     public float timeBetweenAttacks;
     float lastAttack;
@@ -18,8 +17,7 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
     private NavMeshAgent agent;
 
     private Animator anim;
-    public Collider weapon1, weapon2;
-    public VisualEffect smokeBombParticle;
+    public Collider weapon1;
 
     //patrolling
     public List<Vector3> waypoints = new List<Vector3>();
@@ -33,7 +31,7 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
     #region States
     /// Declare states. If you add a new state to your character,
     /// remember to add a new States enum for it.
-    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, DEATH }
+    public enum States { IDLE, CHASING, PATROLLING, HEALING, TALKING, DEATH }
     public States currentState;
     #endregion
 
@@ -52,8 +50,6 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
 
         //turn hitboxes off by default
         weapon1.enabled = false;
-        weapon2.enabled = false;
-        //weapon3.enabled = false;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -96,7 +92,7 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         while (currentState == States.IDLE)
         {
             //check for player and count up untile idle time has run out
-            if (IsInRange(meleeRange)) currentState = States.ATTACKING;
+            if (IsInRange(rangedRange)) currentState = States.HEALING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
             else timer += Time.deltaTime;
             if (timer > 5) currentState = States.PATROLLING;
@@ -146,7 +142,7 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.PATROLLING)
         {
-            if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
+            if (IsInRange(rangedRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.HEALING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
             else
             {
@@ -178,17 +174,16 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         //roll a number to pick which attack to run
         int attackType = Random.Range(0, 100);
 
-        if (attackType < 60)//70%chance to run the basic attack
+        if (attackType < 70)//70%chance to run the basic attack
         {
-            anim.SetTrigger("BasicAttack");//run the attack animation
+            anim.SetTrigger("meleeAttack");//run the attack animation
             weapon1.enabled = true;//enable the damage collider
             yield return new WaitForSeconds(4); //wait for the animation to end
-            //weapon1.enabled = false;
-            //weapon2.enabled = false;
+            weapon1.enabled = false;
         }
-        else if (attackType > 60)//remaining 40% chance to run the special attack
+        else if (attackType > 70)//remaining 30% chance to run the special attack
         {
-            anim.SetTrigger("KickAttack");//run the attack animation
+            anim.SetTrigger("rangedAttack");//run the attack animation
             yield return new WaitForSeconds(1.5f); //wait for first hitbox
             //weapon2.enabled = true;//enable the damage collider
             yield return new WaitForSeconds(0.1f); //wait for first hitbox
@@ -218,10 +213,9 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
         weapon1.enabled = false;
-        weapon2.enabled = false;
         agent.speed = 0;
         agent.SetDestination(transform.position);
-        anim.SetTrigger("Death");
+        anim.SetTrigger("death");
         yield return new WaitForSeconds(2f); //wait for the animation to end
 
         SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -242,7 +236,6 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
     }
     #endregion
 
-    #region functions
     bool IsInRange(float range)
     {
         if (Vector3.Distance(player.position, transform.position) < range)
@@ -250,25 +243,12 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         else
             return false;
     }
-
-    public void DIE()
-    {
-        StopAllCoroutines();
-        agent.updateRotation = false;
-        currentState = States.DEATH;
-        StartCoroutine(DEATH());
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = sightColor;
         Gizmos.DrawWireSphere(transform.position, sightRange);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, meleeRange);
-
-        //Gizmos.color = Color.green;
-       // Gizmos.DrawWireSphere(transform.position, rangedRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, rangedRange);
     }
-    #endregion
 }

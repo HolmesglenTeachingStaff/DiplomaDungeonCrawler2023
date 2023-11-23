@@ -42,9 +42,9 @@ public class RD_NpcAnimator : MonoBehaviour
         bool shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
 
         // Update animation parameters
-        anim.SetBool("move", shouldMove);
-        anim.SetFloat("velx", velocity.x);
-        anim.SetFloat("vely", velocity.y);
+        anim.SetBool("isMoving", shouldMove);
+        anim.SetFloat("Horizontal", velocity.x);
+        anim.SetFloat("Vertical", velocity.y);
 
         // GetComponent<LookAt>().lookAtTargetPosition = agent.steeringTarget + transform.forward;
     }
