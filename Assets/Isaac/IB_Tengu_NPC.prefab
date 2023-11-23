@@ -462,7 +462,6 @@ GameObject:
   - component: {fileID: 796129011759539267}
   - component: {fileID: 796129011759539266}
   - component: {fileID: 796129012100517312}
-  - component: {fileID: 796129012100517323}
   m_Layer: 6
   m_Name: IB_Tengu_NPC
   m_TagString: Enemy
@@ -699,20 +698,6 @@ MonoBehaviour:
   spawnPoint3: {fileID: 0}
   Weapon: {fileID: 796129012094686263}
   currentState: 0
---- !u!114 &796129012100517323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796129011759539132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 556f93738902e4f3584f8ba4684bb827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 3bb9c5ce5d8781741afbd7932216112e, type: 2}
-  newColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!1 &796129011819443246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,6 +1265,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 70559ce19500546d7a2c862af118209e, type: 3}
   m_PrefabInstance: {fileID: 1745979868573340186}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1511976516374835019 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 70559ce19500546d7a2c862af118209e, type: 3}
+  m_PrefabInstance: {fileID: 1745979868573340186}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7730903814932199085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511976516374835019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556f93738902e4f3584f8ba4684bb827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: fe4f18b04835b40a188fe883c7395ca4, type: 2}
+  newColor: {r: 0, g: 1, b: 0.45532393, a: 0}
 --- !u!1 &1675330179978808336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 70559ce19500546d7a2c862af118209e, type: 3}

@@ -20,6 +20,8 @@ public class IB_StateMachine : MonoBehaviour
     public Transform spawnPoint2;
     public Transform spawnPoint3;
     public GameObject Weapon;
+    public Material mat;
+    public Color newColor;
 
     private Animator anim;
     #endregion
@@ -43,6 +45,7 @@ public class IB_StateMachine : MonoBehaviour
         statScript = GetComponent<Stats>();
         KnockBack = GetComponent<IB_DamageReactions>();
         agent = GetComponent<NavMeshAgent>();
+        mat = GetComponent<SkinnedMeshRenderer>().material;
         anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -107,15 +110,19 @@ public class IB_StateMachine : MonoBehaviour
     {
         while (currentState == States.SPAWNING)
         {
+            //Animation, Knockback and emission
             anim.Play("Spawning");
             KnockBack.DamageBurst();
+            mat.SetFloat("Float", 1);
             yield return new WaitForSeconds(2.5f);
 
+            //spawning Minions
             Instantiate(tenguM, spawnPoint1.position, spawnPoint1.rotation);
             Instantiate(tenguM, spawnPoint2.position, spawnPoint2.rotation);
             Instantiate(tenguM, spawnPoint3.position, spawnPoint3.rotation);
 
             yield return new WaitForEndOfFrame();
+            mat.SetFloat("Float", 0);
             currentState = States.CHASING;
         }
     }
