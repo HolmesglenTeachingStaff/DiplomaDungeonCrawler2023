@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 60
+  maxHealth: 100
   currentHealth: 0
   regenRate: 0
   tempRegen: 0
@@ -2512,7 +2512,7 @@ MonoBehaviour:
   objectToSummon: {fileID: 8433131247237564058, guid: f26607574c67f2644b903ec007f4253c, type: 3}
   weaponCollider: {fileID: 585387259}
   checkingForPlayer: 1
-  sightRange: 10
+  sightRange: 16
   meleeRange: 1.8
   nodes:
   - {fileID: 970303514}

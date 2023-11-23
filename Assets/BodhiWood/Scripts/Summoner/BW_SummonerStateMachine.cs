@@ -10,24 +10,25 @@ using UnityEngine.AI;
 public class BW_SummonerStateMachine : MonoBehaviour
 {
     #region Variables
+    //GetComponent variables.
     private NavMeshAgent agent;
     private Animator anim;
     private OrbitTarget orbitTarget;
-    private StatSlider statSlider;
 
+    //Transforms.
     public Transform player;
     public Transform summonLocation;
 
+    //misc.
     public GameObject objectToSummon;
     public Collider weaponCollider;
-
     public bool checkingForPlayer = true;
 
     [Header("Reaction Range Values")]
     public float sightRange = 12;
     public float meleeRange = 2;
 
-    //Nodes to indicate where to patrol.
+    //Nodes to indicate where to roam.
     [SerializeField] Transform[] nodes;
     int currentNode;
     #endregion
@@ -50,6 +51,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
         orbitTarget = GetComponent<OrbitTarget>();
         orbitTarget.orbitTarget = player.gameObject;
 
@@ -73,19 +75,19 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region Update
     void Update()
     {
-        //Chase the player, if seen from any state
+        //Chase the player, if seen from any state.
         if (checkingForPlayer == true && WithinRange(sightRange))
         {
             currentState = States.COMBAT;
         }
 
-        //Change to MELEE state from any state if the player gets too close
+        //Change to MELEE state from any state if the player gets too close.
         if (WithinRange(meleeRange))
         {
             currentState = States.MELEE;
         }
 
-        //Rotate to face the player while in sightRange
+        //Rotate to face the player while in sightRange.
         if (WithinRange(sightRange))
         {
             transform.LookAt(player);
@@ -107,11 +109,10 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         while (currentState == States.IDLE)
         {
+            //Increase timer by 1 per second.
             timer += Time.deltaTime;
 
-            //play IDLE animation
-
-            //Time spent remaining IDLE
+            //Time spent remaining IDLE.
             if (timer >= 6)
             {
                 currentState = States.PATROLLING;
@@ -128,13 +129,14 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         checkingForPlayer = true;
 
+        //Move to the currently indexed nodes position.
         agent.SetDestination(nodes[currentNode].position);
+        //Change current node.
         currentNode = Random.Range(0, nodes.Length);
 
         while (currentState == States.PATROLLING)
         {
-            //play movement animation
-
+            //Return to IDLE once node has been reached.
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
                 currentState = States.IDLE;
@@ -155,20 +157,21 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
         while (currentState == States.COMBAT)
         {
+            //Return to IDLE if player is lost.
             if (!WithinRange(sightRange)) currentState = States.IDLE;
 
-            //play animation
 
             summonTimer += Time.deltaTime;
-            //Spawn a new summon every 10 seconds (With a max of 3 summons at one time)
-            if (maxSummons < 3 && summonTimer >= 10)
+            //Spawn a new summon every 5 seconds (With a max of 3 summons at one time).
+            if (maxSummons < 3 && summonTimer >= 5)
             {
+                //Spawns a summon. Reset timer.
                 Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
                 summonTimer = 0;
                 maxSummons++;
             }
 
-            //Follows the player while maintaining distance
+            //Follows the player while maintaining distance, and orbiting them.
             agent.SetDestination(orbitTarget.orbitPosition);
 
             yield return new WaitForEndOfFrame();
@@ -182,6 +185,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     {
         checkingForPlayer = false;
 
+        //Stop movement.
         agent.SetDestination(agent.transform.position);
 
         anim.Play("Summoner_Attack");
@@ -190,7 +194,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
         weaponCollider.enabled = false;
         currentState = States.COMBAT;
 
-        //put any code here you want to repeat during the state being active
+        //Return to COMBAT, if player is no longer within melee range.
         while (currentState == States.MELEE)
         {
             if (!WithinRange(meleeRange)) currentState = States.COMBAT;
@@ -204,6 +208,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     #region DEATH
     IEnumerator DEATH()
     {
+        //Destroys this NPC after a short delay, and animation are run.
         anim.Play("Summoner_Dead");
         weaponCollider.enabled = false;
         yield return new WaitForSeconds(0.2f);
@@ -217,7 +222,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
 
     #endregion
 
-    //Function called from the inspector using the OnDeath Event in the Stats script
+    //Function called from the inspector using the OnDeath Event in the Stats script.
     public void Dead()
     {
         StartCoroutine(DEATH());
@@ -235,7 +240,7 @@ public class BW_SummonerStateMachine : MonoBehaviour
     }
     #endregion
 
-    //Determine whether the player is within a certain range
+    //Determine whether the player is within a certain range.
     #region Range
     bool WithinRange(float range)
     {
