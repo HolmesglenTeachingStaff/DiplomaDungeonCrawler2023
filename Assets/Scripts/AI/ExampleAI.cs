@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Permissions;
-using UnityEditorInternal;
+//using System.Security.Permissions;
+//using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.Processors;
