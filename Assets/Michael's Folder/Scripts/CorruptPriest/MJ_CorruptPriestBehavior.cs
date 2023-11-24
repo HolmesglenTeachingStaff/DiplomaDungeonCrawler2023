@@ -11,10 +11,16 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
 
     // 0=idle, 1=chasing, 2=attack, 3=death
     #region variables
+    [Header ("Variables")]
     public float sightRange;
     public float attackRange;
-    public Transform player;
+    public float moveSpeed;
+    public float attackInterval;
 
+    public GameObject player;
+    public Transform[] projectileSpawns; //spawnpoints for projectiles
+
+    [Header ("Territory")]
     public Transform spawnPoint;
     public float chaseRange; //the area this object can follow player
 
@@ -39,8 +45,7 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
         this.transform.position = spawnPoint.position;
         projectile = GetComponent<GameObject>();
         agent = GetComponent<NavMeshAgent>();
-        //start the StateMachine
-        StartCoroutine(EnemyFSM());
+        StartCoroutine(EnemyFSM()); //start the StateMachine
     }
     #endregion
 
@@ -55,78 +60,77 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     #endregion
 
     #region Behavior Coroutines
-    IEnumerator IDLE()
+    IEnumerator IDLE() //transitions to CHASING
     {
-        //ENTER THE IDLE STATE >
-        //if position is not in spawnpos, set movetarget to spawnpos
+        //play IDLE animation
 
         while (currentState == States.IDLE)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < sightRange)
+            //if attacked, chase player
+
+            if (Vector3.Distance(transform.position, player.transform.position) < sightRange) //sees player
             {
                 currentState = States.CHASING;
                 yield return StartCoroutine("CHASING");
             }
             yield return new WaitForEndOfFrame();
         }
-
-        //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
     }
 
-    IEnumerator CHASING()
+    IEnumerator CHASING() //transitions to ATTACK or RETURN
     {
+        Debug.Log(this.gameObject.name + ": Chasing player!");
 
-        //ENTER THE CHASING STATE >
-        //put any code here that you want to run at the start of the behaviour
-
-        Debug.Log("Chasing player");
-
-        //UPDATE CHASING STATE >
-        //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) > sightRange) //out of sight
-            {
-                currentState = States.IDLE;
-                Debug.Log("Lost the player");
-                yield return StartCoroutine("IDLE");
-            }
+            agent.SetDestination(player.transform.position);
+            //walk to destination
+            //play Walking animation
+
             if (Vector3.Distance(transform.position, player.transform.position) <= attackRange) //can attack
             {
                 currentState = States.ATTACKING;
-                yield return StartCoroutine("ATTACKING");
+                yield return StartCoroutine(currentState.ToString());
             }
             else if (Vector3.Distance(transform.position, spawnPoint.position) > chaseRange) //far from spawn
             {
-                currentState = States.IDLE;
                 Debug.Log(this.gameObject.name + ": Too far from my spot!");
-                yield return StartCoroutine("IDLE");
-
+                currentState = States.RETURN;
+                yield return StartCoroutine(currentState.ToString());
             }
-            yield return new WaitForEndOfFrame();
+            else if (Vector3.Distance(transform.position, player.transform.position) > sightRange) //out of sight
+            {
+                Debug.Log(this.gameObject.name + ": Lost the player!");
+                currentState = States.RETURN;
+                yield return StartCoroutine(currentState.ToString());
+            }
         }
+        yield return new WaitForEndOfFrame();
     }
-
+    
     IEnumerator ATTACKING()
     {
+        Debug.Log(this.gameObject.name + ": Dark orbs!");
 
-        //ENTER THE ATTACKING STATE >
-        //play animation
-        //summon (instantiate) projectiles with delay
+        //play attack animation
 
-
-        //UPDATE ATTACKING STATE >
-        //put any code here you want to repeat during the state being active
-        while (currentState == States.CHASING)
+        for (int i = 0; i < projectileSpawns.Length; i++)  //summon projectiles with interval
         {
-
-            yield return new WaitForSeconds(.5f);
+            Instantiate(projectile, projectileSpawns[Random.Range(0, projectileSpawns.Length - 1)]);
+            new WaitForSeconds(attackInterval);
         }
+        yield return new WaitForSeconds(.5f);
+    }
 
-        //EXIT ATTACKING STATE >
-        //write any code here you want to run when the state is left
+    IEnumerator RETURN()
+    {
+        agent.SetDestination(spawnPoint.position);
+        //walk to spawnpoint
+        
+        //heal rapidly to max HP
 
+        currentState = States.IDLE;
+        yield return StartCoroutine(currentState.ToString());
     }
     #endregion
 }

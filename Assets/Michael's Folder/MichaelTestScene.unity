@@ -152,7 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2141695703}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &529718671
 GameObject:
@@ -272,6 +272,37 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &796404579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796404580}
+  m_Layer: 0
+  m_Name: CorruptPriest_Spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &796404580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796404579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.15, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823468151
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +524,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2141695703}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1054062991
 CapsuleCollider:
@@ -800,7 +831,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2141695703}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1432549786
 GameObject:
@@ -815,7 +846,7 @@ GameObject:
   - component: {fileID: 1432549789}
   - component: {fileID: 1432549788}
   m_Layer: 5
-  m_Name: NPC_UI
+  m_Name: PriestUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -835,7 +866,7 @@ RectTransform:
   m_Children:
   - {fileID: 1515702404}
   m_Father: {fileID: 2141695703}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1106,7 +1137,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1780877571
 GameObject:
@@ -1137,7 +1168,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2141695703}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783038467
 GameObject:
@@ -1253,7 +1284,7 @@ Transform:
   m_Children:
   - {fileID: 1461133032}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1803600030
 GameObject:
@@ -1350,7 +1381,57 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1834582180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1834582182}
+  - component: {fileID: 1834582181}
+  m_Layer: 0
+  m_Name: PriestProjectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1834582181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834582180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe8448819cd1024ca2225f4e8799800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  lifetime: 0
+  launchDelay: 1
+  speed: 4
+  damage: 5
+--- !u!4 &1834582182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834582180}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.54, y: 2.51, z: 1.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2056606956}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1944451014
 PrefabInstance:
@@ -1445,8 +1526,9 @@ GameObject:
   - component: {fileID: 2056606955}
   - component: {fileID: 2056606954}
   - component: {fileID: 2056606953}
+  - component: {fileID: 2056606957}
   m_Layer: 0
-  m_Name: CorruptPriest_Projectile
+  m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6347,13 +6429,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056606952}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.48, y: 0.95, z: 0.67}
+  m_LocalPosition: {x: -2.034, y: -1.56, z: -1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1834582182}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!135 &2056606957
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056606952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2141695698
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,8 +6460,8 @@ GameObject:
   - component: {fileID: 2141695703}
   - component: {fileID: 2141695702}
   - component: {fileID: 2141695701}
-  - component: {fileID: 2141695700}
   - component: {fileID: 2141695699}
+  - component: {fileID: 2141695700}
   - component: {fileID: 2141695704}
   m_Layer: 6
   m_Name: MJ_CoruptedPriest
@@ -6446,7 +6541,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2141695704}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MJ_DamageReaction, Assembly-CSharp
         m_MethodName: DamageBurst
         m_Mode: 1
@@ -6473,7 +6568,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2141695704}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MJ_DamageReaction, Assembly-CSharp
         m_MethodName: Die
         m_Mode: 1
@@ -6528,7 +6623,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!4 &2141695703
 Transform:
@@ -6542,13 +6637,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1432549787}
   - {fileID: 1054062990}
   - {fileID: 465364901}
   - {fileID: 1342566306}
   - {fileID: 1780877572}
-  - {fileID: 1432549787}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2141695704
 MonoBehaviour:
@@ -6559,15 +6654,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2141695698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47da531b3483824aa77f38c8c8abdac, type: 3}
+  m_Script: {fileID: 11500000, guid: d2d8551f4abb8dd49bbfde5d31b16199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
-  damageType: 0
-  damageRange: 0
-  attackableLayers:
-    serializedVersion: 2
-    m_Bits: 0
+  sightRange: 15
+  attackRange: 7
+  moveSpeed: 5
+  attackInterval: 0.3
+  player: {fileID: 0}
+  projectileSpawns:
+  - {fileID: 465364901}
+  - {fileID: 1342566306}
+  - {fileID: 1780877572}
+  spawnPoint: {fileID: 0}
+  chaseRange: 0
+  sightColor: {r: 0, g: 0, b: 0, a: 0}
+  projectile: {fileID: 2056606952}
+  currentState: 0
 --- !u!1001 &7385886303076594654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6577,7 +6680,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7385886302312655257, guid: 4f5fe7337a3cf564cb15b88794ba0c21, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7385886302312655257, guid: 4f5fe7337a3cf564cb15b88794ba0c21, type: 3}
       propertyPath: m_LocalPosition.x

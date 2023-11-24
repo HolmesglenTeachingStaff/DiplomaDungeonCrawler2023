@@ -7,6 +7,7 @@ public class MJ_DarkProjectile : MonoBehaviour
     public GameObject player;
     Rigidbody rb;
 
+    public float lifetime;
     public float launchDelay;
     public float speed;
     public float damage;
@@ -15,8 +16,7 @@ public class MJ_DarkProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision other)
     {
         
     }
