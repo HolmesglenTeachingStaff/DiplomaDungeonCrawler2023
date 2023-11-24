@@ -4016,7 +4016,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -4085,6 +4085,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3719745164349080860}
+        m_TargetAssemblyTypeName: RD_NinjaSmoleBomb, Assembly-CSharp
+        m_MethodName: CheckToPlayParticle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -4128,9 +4140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5cb2d630ad093843991f59a979d550d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 10
-  meleeRange: 3
-  timeBetweenAttacks: 5
+  sightRange: 15
+  meleeRange: 2
+  timeBetweenAttacks: 2
   player: {fileID: 0}
   weapon1: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
   weapon2: {fileID: 58084881503021134, guid: 08d2c5bb7d5c9114fa6a5091ececbc2a, type: 3}
@@ -4198,7 +4210,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!114 &3719745164349080860
 MonoBehaviour:
@@ -7288,7 +7300,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.31
+  m_Radius: 1.62
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7108600490880530782
 MonoBehaviour:
@@ -9397,8 +9409,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
+      propertyPath: m_Size.x
+      value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
+      propertyPath: m_Size.y
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
+      propertyPath: m_Size.z
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
+      propertyPath: m_Center.x
+      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: 825482702166521522, guid: f35361268cf93744a87d7d28e0755532, type: 3}
       propertyPath: m_IsTrigger
