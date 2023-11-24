@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class JorogumoStateMachine : MonoBehaviour
 {
     #region variables
-    private bool isPatrolling = true;
     public Transform[] patrolPoints;
     public Transform currentPatrol;
     public float idleTimeMin = 2f;
@@ -15,9 +14,6 @@ public class JorogumoStateMachine : MonoBehaviour
     private int currentPatrolIndex = 0;
 
     public float sightRange = 25;
-    public float meleeRange = 5f; // Adjust the melee attack range
-    public float meleeCooldown = 3f; // Adjust the melee attack cooldown
-    bool isMeleeCooledDown = false;
     public float rangedRange = 15f; // Adjust the ranged attack range
     public float rangedCooldown = 5f; // Adjust the ranged attack cooldown
     bool isRangedCooledDown = false;
@@ -25,9 +21,6 @@ public class JorogumoStateMachine : MonoBehaviour
     public float channelTime = 2f; // Adjust the channeling time
     public float spellCooldown = 10f; // Adjust the spell cooldown
     bool isSpellCooledDown = false;
-
-    public float timeBetweenAttacks;
-    float lastAttack; //How long ago the last attack was. Used for timers.
 
     private Transform playerPosition;
     private NavMeshAgent agent;
@@ -47,6 +40,8 @@ public class JorogumoStateMachine : MonoBehaviour
     public States currentState;
     #endregion
 
+    Stats stats;
+
     #region Initialization
     //set default state
     private void Awake()
@@ -61,13 +56,11 @@ public class JorogumoStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         spiderlingManager = GetComponent<SpiderlingManager>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        stats = GetComponent<Stats>();
+    
 
-        lastAttack = 0;
 
-        //start the fsm, it's never turned off. Initiates the changes between the corroutiens. 
         StartCoroutine(EnemyFSM());
-
-        StartCoroutine(CastHealingSpell());
     }
     #endregion
 
@@ -89,51 +82,41 @@ public class JorogumoStateMachine : MonoBehaviour
     IEnumerator IDLE()
     {
         //ENTER THE IDLE STATE >
-        //put any code here that you want to run at the start of the behaviour. EG: turning on/off any bools to cause any initial animations/effects/sounds to play, that should only be played once.
 
         float timer = 0; //creat a number to count from to track if idle should transition;
         Debug.Log("*spiders chittering*");
+        anim.SetBool("IsMoving", false);
+        anim.SetBool("IsIdle", true);
 
         //UPDATE IDLE STATE >
-        //put any code here you want to repeat in idle. This while loop repeats for as long as the state stays on idle. 
         while (currentState == States.IDLE)
         {
             //check for player and count until idle time has run out
-            if (IsInRange(meleeRange)) currentState = States.ATTACKING;
+            if (IsInRange(rangedRange)) currentState = States.ATTACKING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
             else timer += Time.deltaTime;
             if (timer > 5) currentState = States.PATROLLING;
+
+            //run through above once, then wait
             yield return new WaitForEndOfFrame();
-
-            //check player distance
-            if (Vector3.Distance(transform.position, playerPosition.position) < sightRange)
-            {
-                //change state if (in this case) the distance to player is less than sight range
-                currentState = States.CHASING;
-            }
-
-            //run through above once, then wait for (in this case) 0.5 seconds before running it again.
-            yield return new WaitForSeconds(0.5f);
         }
 
         //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
+        yield return StartCoroutine(currentState.ToString());
         yield return null;
 
     }
 
     IEnumerator PATROLLING()
     {
-        //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
+        //ENTER THE STATE >
+        anim.SetBool("IsMoving", true);
         Debug.Log("*huffs*");
 
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
+        //UPDATE STATE >
         while (currentState == States.PATROLLING)
         {
-            if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
-            else if (IsInRange(sightRange)) currentState = States.CHASING;
+            if (IsInRange(sightRange)) currentState = States.CHASING;
 
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
@@ -144,19 +127,22 @@ public class JorogumoStateMachine : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+
+        //exit state 
+        anim.SetBool("IsMoving", false);
+        yield return StartCoroutine(currentState.ToString());
+
     }
 
     IEnumerator CHASING()
     {
-        //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
+        //ENTER THE  STATE >
         Debug.Log("Fresh food!");
 
         agent.updateRotation = true;
         agent.SetDestination(playerPosition.position);
 
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
+        //UPDATE  STATE >
         while (currentState == States.CHASING)
         {
             if (IsInRange(rangedRange)) /* && Time.time - lastAttack > timeBetweenAttacks) */ currentState = States.ATTACKING;
@@ -167,80 +153,64 @@ public class JorogumoStateMachine : MonoBehaviour
 
         }
 
-        //EXIT IDLE STATE
-        //write any code here you want to run when the state is left
+        //EXIT STATE
+        anim.SetBool("IsMoving", false);
 
+        yield return StartCoroutine(currentState.ToString());
         //Debug.Log("Oh no I see the player!");
     }
 
 
     IEnumerator ATTACKING()
     {
-        //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
-
-        Debug.Log("Die!");
+        //ENTER THE STATE >
+        Debug.Log("Kill them!");
         float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
 
-        if (distanceToPlayer <= meleeRange && isMeleeCooledDown)
+
+        if (IsInRange(rangedRange) && isRangedCooledDown)
         {
-            jorogumoAttacks.PerformMeleeAttack(playerPosition);
+            anim.SetTrigger("RangedAttack");//run the attack animation
 
-            // Start cooldown
-            StartCoroutine(MeleeCooldown());
-
-        }
-
-
-
-        if (distanceToPlayer > meleeRange && distanceToPlayer <= rangedRange && isRangedCooledDown)
-        {
-            jorogumoAttacks.PerformRangedAttack(playerPosition);
-
+            jorogumoAttacks.RangedAttack(playerPosition);
             StartCoroutine(RangedCooldown());
 
-
         }
 
 
-        if (distanceToPlayer <= spellRange && isSpellCooledDown)
+        if (isSpellCooledDown)
         {
-            jorogumoAttacks.StartSpellCast(playerPosition);
-
+            jorogumoAttacks.StartCast(playerPosition);
+            anim.SetTrigger("SpellCast");//run the attack animation
             StartCoroutine(SpellCooldown());
 
         }
 
-
-
-
-        //UPDATE Chasing STATE 
-        //put any code here you want to repeat during the state being active
+        //UPDATE  STATE 
         while (currentState == States.ATTACKING)
         {
 
 
-            if (Vector3.Distance(transform.position, playerPosition.position) > sightRange)
+            if (!IsInRange(sightRange))
             {
                 currentState = States.IDLE;
-                Debug.Log("*confused ghostly groans*");
+                Debug.Log("*confused chittering*");
             }
 
 
             yield return new WaitForEndOfFrame();
         }
 
-        //EXIT IDLE STATE
-        //write any code here you want to run when the state is left
-
-        //Debug.Log("Oh no I see the player!");
+        //EXIT  STATE
+        anim.SetBool("IsMoving", false);
+        //Debug.Log("Oh no I see the player
+        yield return StartCoroutine(currentState.ToString());
     }
 
 
     #endregion
 
 
-    //used to see the "sight range" for debugging, to make sure its not the sight range causing issues
     bool IsInRange(float range)
     {
         if (Vector3.Distance(playerPosition.position, transform.position) < range)
@@ -252,7 +222,9 @@ public class JorogumoStateMachine : MonoBehaviour
 
     public void DIE()
     {
-        currentState = States.DEATH;
+        anim.SetTrigger("SpellCast");//run the attack animation
+        stats.Die();
+
     }
 
 
@@ -260,9 +232,6 @@ public class JorogumoStateMachine : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, meleeRange);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, rangedRange);
@@ -272,74 +241,7 @@ public class JorogumoStateMachine : MonoBehaviour
 
     }
 
-
-    /// For a "cone" of vision: Still have a vision 'raduius', draw two lines using X number for angle 'draw a line -X degrees from where this is facing, and another at +X degrees'. 
-    /// use those lines to 'cut out' a cone from your vision radius. Then when a target is detected in vision radius, just check if it's angle from the enemy is 
-    /// larger than right degree away or less than left degrees away. 
-    // THERE IS A SAMPLE ONE IN LAST YEARS DUNGEON CRAWLER. Think maybe in resources SESSION 7? Use it for Jorogumo. 
     
-
-    IEnumerator CastHealingSpell()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(spellCooldown);
-            if (spiderlingManager != null)
-            {
-                // Choose a minion to heal (customize as needed)
-                Spiderling minionToHeal = FindDamagedSpiderling();
-
-                if (minionToHeal != null)
-                {
-                    
-                    //cast healing spell targeting said spiderling
-                }
-            }
-        }
-    }
-
-    Spiderling FindDamagedSpiderling()
-    {
-        List<Spiderling> spiderlingsList = spiderlingManager.GetSpiderlings();
-
-        if (spiderlingsList.Count > 0)
-        {
-            // Find the spiderling with the lowest health
-            Spiderling lowestHealthspiderling = spiderlingsList[0];
-
-            foreach (var spiderling in spiderlingsList)
-            {
-                // Access the 'Stats' component (customize as needed)
-                Stats spiderlingStats = spiderling.GetComponent<Stats>();
-
-                if (spiderlingStats != null)
-                {
-                    // Compare health and update the lowestHealthspiderling if needed
-                    if (spiderlingStats.currentHealth() < lowestHealthspiderling.GetComponent<Stats>().currentHealth())
-                    {
-                        lowestHealthspiderling = lowestHealthgSpiderling;
-                    }
-                }
-            }
-
-            return lowestHealthspiderling;
-        }
-
-        return null;
-    }
-
-
-    
-
-
-
-    IEnumerator MeleeCooldown()
-    {
-        isMeleeCooledDown = false;
-        yield return new WaitForSeconds(meleeCooldown);
-        isMeleeCooledDown = true;
-    }
-
 
     IEnumerator RangedCooldown()
     {

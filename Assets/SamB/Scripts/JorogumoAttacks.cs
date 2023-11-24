@@ -10,19 +10,18 @@ public class JorogumoAttacks : MonoBehaviour
     //private float meleeConeAngle = 45f; // Adjust the angle of the melee cone
     //private float meleeConeDistance = 3f; // Adjust the distance of the melee cone
 
-    private float channelTime = 0.5f; // Adjust the channeling time
-
     Transform playerPosition;
     Stats stats;
     Stats playerStats;
+    SpiderlingManager spiderlingManager;
+
 
     public StatSystem.DamageType damageType;
+    public int rangedDamage;
 
-    public int meleeDamage;
-
-
+    private float channelTime = 0.5f; // Adjust the channeling time
     public float healAmount;
-
+    public float maxSpellRange;
 
 
     public void Start()
@@ -30,47 +29,12 @@ public class JorogumoAttacks : MonoBehaviour
         stats = GetComponent<Stats>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
-    }
-
-    public void PerformMeleeAttack(Transform target)
-    {
-
-        // Perform melee attack logic here
-        Debug.Log("Melee Attack!");
-
-        // Perform melee attack logic here
-        Debug.Log("Melee Attack!");
-
-        // Detect enemies in the cone
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, meleeConeDistance);
-
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Player"))
-            {
-                // Check if the detected object has a HealthSystem component (customize as needed)
-                Stats playerStats = hitCollider.GetComponent<Stats>();
-
-                if (playerStats != null)
-                {
-                    // Check if the enemy is within the cone angle
-                    Vector3 directionToEnemy = hitCollider.transform.position - transform.position;
-                    float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
-
-                    if (angleToEnemy <= meleeConeAngle * 0.5f)
-                    {
-                        // Apply damage to the enemy (customize as needed)
-                        StatSystem.DealDamage(playerStats, damageType, meleeDamage);
-                    }
-                }
-            }
-
-        }
+        spiderlingManager = GetComponent<SpiderlingManager>();
 
     }
 
 
-    public void PerformRangedAttack(Transform target)
+    public void RangedAttack(Transform target)
     {
         // Instantiate the projectile
         GameObject projectile = Instantiate(rangedProjectile, transform.position, Quaternion.identity);
@@ -89,6 +53,16 @@ public class JorogumoAttacks : MonoBehaviour
         // Wait for channeling time
         StartCoroutine(StartSpellCast(target));
 
+        // Choose a minion to heal (customize as needed)
+        Spiderling spiderlingToHeal = FindDamagedSpiderling();
+
+        if (spiderlingToHeal != null)
+        {
+            Stats spiderlingStats;
+            spiderlingStats = spiderlingToHeal.GetComponent<Stats>();
+            spiderlingStats.currentHealth = spiderlingStats.currentHealth + 30;
+        }
+
 
     }
 
@@ -104,10 +78,40 @@ public class JorogumoAttacks : MonoBehaviour
             if (distanceToTarget <= maxSpellRange)
             {
                 // Instantiate a spell projectile
-                GameObject newSpell = Instantiate(spellProjectile, transform.position, Quaternion.identity);
+                GameObject newSpell = Instantiate(rangedProjectile, transform.position, Quaternion.identity);
 
             }
         }
+    }
+
+  
+    Spiderling FindDamagedSpiderling()
+    {
+        List<Spiderling> spiderlingsList = spiderlingManager.GetSpiderlings();
+
+        if (spiderlingsList.Count > 0)
+        {
+            //Set the first spiderling in the list to be 'lowest health', then we iterate though and find the lowest health
+            Spiderling lowestHealthSpiderling = spiderlingsList[0];
+
+            foreach (var spiderling in spiderlingsList)
+            {
+                Stats spiderlingStats = spiderling.GetComponent<Stats>();
+
+                if (spiderlingStats != null)
+                {
+                    //Compare current lowesthealthspiderlingto next in list, and update the lowestHealthspiderling if needed
+                    if (spiderlingStats.currentHealth < lowestHealthSpiderling.GetComponent<Stats>().currentHealth)
+                    {
+                        lowestHealthSpiderling = spiderling;
+                    }
+                }
+            }
+
+            return lowestHealthSpiderling;
+        }
+
+        return null;
     }
 
 

@@ -14,29 +14,32 @@ public class YureiAttacks : MonoBehaviour
     public float maxSpellRange = 20;
 
     Transform playerPosition;
-    Stats stats;
-    Stats playerStats;
+    //Stats stats;
+    PlayerStats playerStats;
 
     public StatSystem.DamageType damageType;
 
     public int meleeDamage;
-   
+    public Transform projectileSpawn;
+
+    public ParticleSystem meleeParticles;
+
+    public bool isCasting = false;
+
+
 
     public void Start()
     {
-        stats = GetComponent<Stats>();
+        //stats = GetComponent<Stats>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
     }
 
-    public void PerformMeleeAttack(Transform target)
+    public void MeleeAttack()
     {
-
-        // Perform melee attack logic here
         Debug.Log("Melee Attack!");
-
-        // Perform melee attack logic here
-        Debug.Log("Melee Attack!");
+        //spell effect
+        Instantiate(meleeParticles, projectileSpawn.position, Quaternion.identity);
 
         // Detect enemies in the cone
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meleeConeDistance);
@@ -45,8 +48,6 @@ public class YureiAttacks : MonoBehaviour
         {
             if (hitCollider.CompareTag("Player"))
             {
-                // Check if the detected object has a HealthSystem component (customize as needed)
-                Stats playerStats = hitCollider.GetComponent<Stats>();
 
                 if (playerStats != null)
                 {
@@ -67,10 +68,10 @@ public class YureiAttacks : MonoBehaviour
     }
 
 
-    public void PerformRangedAttack(Transform target)
+    public void RangedAttack()
     {
         // Instantiate the projectile
-        GameObject projectile = Instantiate(rangedProjectile, transform.position, Quaternion.identity);
+        GameObject projectile = Instantiate(rangedProjectile, projectileSpawn.position, Quaternion.identity);
 
         // Perform ranged attack logic here
         Debug.Log("Ranged Attack!");
@@ -91,20 +92,19 @@ public class YureiAttacks : MonoBehaviour
 
     public IEnumerator StartSpellCast(Transform target)
     {
+        isCasting = true; 
         yield return new WaitForSeconds(channelTime);
 
         // Perform spell logic after channeling
-        if (target != null)
+        // Check if the target is still in range
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        if (distanceToTarget <= maxSpellRange)
         {
-            // Check if the target is still in range (you can add additional range checks here)
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-            if (distanceToTarget <= maxSpellRange)
-            {
-                // Instantiate a spell projectile
-                GameObject newSpell = Instantiate(spellProjectile, transform.position, Quaternion.identity);
+            // Instantiate a spell projectile
+            GameObject newSpell = Instantiate(spellProjectile, projectileSpawn.position, Quaternion.identity);
 
-            }
         }
+
     }
 
 }

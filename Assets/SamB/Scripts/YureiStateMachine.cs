@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,39 +6,42 @@ using UnityEngine.AI;
 public class YureiStateMachine : MonoBehaviour
 {
     #region variables
-    private bool isRoaming = true;
-    private float roamRadius = 5f;
-    private float roamInterval = 5f;
+
+    public bool isRoaming = true;
+    public float roamRadius = 7f;
+    public float roamInterval = 3f;
+
+    //public bool isAttacking = false;
 
     public float sightRange = 25;
     public float meleeRange = 5f; // Adjust the melee attack range
     public float meleeCooldown = 3f; // Adjust the melee attack cooldown
-    bool isMeleeCooledDown = false;
+    bool isMeleeCooledDown = true;
     public float rangedRange = 15f; // Adjust the ranged attack range
     public float rangedCooldown = 5f; // Adjust the ranged attack cooldown
-    bool isRangedCooledDown = false;
+    bool isRangedCooledDown = true;
     public float spellRange = 10f; // Adjust the spell range
     public float channelTime = 2f; // Adjust the channeling time
     public float spellCooldown = 10f; // Adjust the spell cooldown
-    bool isSpellCooledDown = false;
+    bool isSpellCooledDown = true;
 
     public float timeBetweenAttacks;
-    float lastAttack; //How long ago the last attack was. Used for timers.
 
     private Transform playerPosition;
     private NavMeshAgent agent;
     private Animator anim;
-    //public ParticleSystem deathParticel, attackParticle, attack2Particle, attack3Particle;
+    public ParticleSystem deathParticle;
+    //public Transform currentPatrol;
 
-    public Transform currentPatrol;
-
+    Stats stats;
     YureiAttacks yureiAttacks; //getting attack script reference
+
     #endregion
 
     #region States
     /// Declare states. If you add a new state remember to add a new States enum for it. 
     /// These states are what we use to change the finiate state machine (FSM) coroutine between its different states.
-    public enum States { IDLE, ROAMING, CHASING, ATTACKING, CASTING, DEATH}
+    public enum States { IDLE, ROAMING, CHASING, ATTACKING, CASTING, DEATH }
 
     //this variable holds ONE of the states, as it can only be one at once. Switches between them as this variable changes.
     public States currentState;
@@ -57,10 +59,11 @@ public class YureiStateMachine : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        anim = GetComponentInChildren<Animator>();
+        yureiAttacks = GetComponent<YureiAttacks>();
+        stats = GetComponent<Stats>();
 
-        lastAttack = 0;
 
         //start the fsm, it's never turned off. Initiates the changes between the corroutiens. 
         StartCoroutine(EnemyFSM());
@@ -70,11 +73,11 @@ public class YureiStateMachine : MonoBehaviour
     #region Finite StateMachine
     IEnumerator EnemyFSM()
     {
-        //while the coroutine is running (while im pretty sure it always)
-        while (true)
+        Debug.Log("Yurei FSM has started");
+
+        while (true) //while the coroutine is running
         {
-            //Check what STRING is specifically in the currentState Variable, then find a coroutine with that same name. thats why the variable is literally just holing a string of the enum name
-            // and is why you must be sure TO NAME THE COROUTINES THE EXACT SAME AS THE ENUMS
+            Debug.Log(currentState);
             yield return StartCoroutine(currentState.ToString());
         }
 
@@ -85,153 +88,155 @@ public class YureiStateMachine : MonoBehaviour
     IEnumerator IDLE()
     {
         //ENTER THE IDLE STATE >
-        //put any code here that you want to run at the start of the behaviour. EG: turning on/off any bools to cause any initial animations/effects/sounds to play, that should only be played once.
-
-        float timer = 0; //creat a number to count from to track if idle should transition;
+        anim.SetBool("IsMoving", false);
+        anim.SetBool("IsIdle", true);
+        float idleTimer = 0; //idle timer
         Debug.Log("*Ghostly moans*");
 
         //UPDATE IDLE STATE >
-        //put any code here you want to repeat in idle. This while loop repeats for as long as the state stays on idle. 
         while (currentState == States.IDLE)
         {
-            //check for player and count until idle time has run out
-            if (IsInRange(meleeRange)) currentState = States.ATTACKING;
-            else if (IsInRange(sightRange)) currentState = States.CHASING;
-            else timer += Time.deltaTime;
-            if (timer > 5) currentState = States.ROAMING;
-            yield return new WaitForEndOfFrame();
+            idleTimer += Time.deltaTime;
+            Debug.Log("IDLE TIMER" + idleTimer);
 
-            //check player distance
-            if (Vector3.Distance(transform.position, playerPosition.position) < sightRange)
-            {
-                //change state if (in this case) the distance to player is less than sight range
-                currentState = States.CHASING;
-            }
+            //check for player
+            if (IsInRange(sightRange)) currentState = States.CHASING;
 
-            //run through above once, then wait for (in this case) 0.5 seconds before running it again.
-            yield return new WaitForSeconds(0.5f);
+            if (idleTimer > 5) currentState = States.ROAMING;
+
+            //start the corrountine of the current state if it's not idle
+            //if (currentState != States.IDLE) StartCoroutine(currentState.ToString());
+
+            //run through above once, then wait
+            yield return new WaitForEndOfFrame();        
         }
 
         //EXIT IDLE STATE >
-        //write any code here you want to run when the state is left
+        StartCoroutine(currentState.ToString());
         yield return null;
 
     }
 
     IEnumerator ROAMING()
     {
-        //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
-        Debug.Log("I'ma Get Ya!");
+        //ENTER THE roaming STATE
+        Debug.Log("*Ghostly whooshes*");
+        anim.SetBool("IsMoving", true); //making moving true
+        float roamingTimer = 0; //idle timer
 
-        //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
+
+        //UPDATE roaming STATE >
         while (currentState == States.ROAMING)
         {
-            if (IsInRange(meleeRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
-            else if (IsInRange(sightRange)) currentState = States.CHASING;
+            roamingTimer += Time.deltaTime;
+
+            if (IsInRange(sightRange)) currentState = States.CHASING;
 
             // Select a random destination within the roamRadius
-            Vector3 randomDestination = transform.position + UnityEngine.Random.insideUnitSphere * roamRadius;
+            Vector3 randomDestination = transform.position + Random.insideUnitSphere * roamRadius;
             randomDestination.y = transform.position.y; // Keep the y-coordinate constant
 
             // Move towards the random destination
             agent.SetDestination(randomDestination);
 
-            // Wait for the specified interval before the next roam
-            yield return new WaitForSeconds(roamInterval);
+            if (roamingTimer > 5) currentState = States.IDLE;
 
-            yield return new WaitForEndOfFrame();
+            //if (currentState != States.ROAMING) StartCoroutine(currentState.ToString());
+
+            // Wait for the specified interval before the next roam
+            yield return new WaitForSeconds(roamInterval); 
         }
+
+        //EXIT roaming state
+        StartCoroutine(currentState.ToString());
+        anim.SetBool("IsMoving", false); 
+        yield return null;
+
     }
 
     IEnumerator CHASING()
     {
         //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
         Debug.Log("A fresh Soul!");
+        anim.SetBool("IsMoving", true); //making mvoing true
+
 
         agent.updateRotation = true;
         agent.SetDestination(playerPosition.position);
 
         //UPDATE Chasing STATE >
-        //put any code here you want to repeat during the state being active
         while (currentState == States.CHASING)
         {
+            if (IsInRange(meleeRange)) /*&& Time.time - lastAttack > timeBetweenAttacks) */ currentState = States.ATTACKING;
             if (IsInRange(rangedRange)) /* && Time.time - lastAttack > timeBetweenAttacks) */ currentState = States.ATTACKING;
             else if (!IsInRange(sightRange)) currentState = States.ROAMING;
             else agent.SetDestination(playerPosition.position);
+
             yield return new WaitForEndOfFrame();
-
-
         }
 
-        //EXIT IDLE STATE
-        //write any code here you want to run when the state is left
-
-        //Debug.Log("Oh no I see the player!");
+        //EXIT  STATE
+        StartCoroutine(currentState.ToString());
+        anim.SetBool("IsMoving", false); //making moving true
     }
 
 
     IEnumerator ATTACKING()
     {
-        //ENTER THE Chasing STATE >
-        //put any code here that you want to run at the start of the behaviour
+        bool isCasting = yureiAttacks.isCasting;
+
+        //ENTER THE STATE >
+        agent.isStopped = true;
+        agent.ResetPath();
 
         Debug.Log("Die!");
-        float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
 
-        if (distanceToPlayer <= meleeRange && isMeleeCooledDown)
-        {
-            yureiAttacks.PerformMeleeAttack(playerPosition);
-
-            // Start cooldown
-            StartCoroutine(MeleeCooldown());
-
-        }
-
-
-
-        if (distanceToPlayer > meleeRange && distanceToPlayer <= rangedRange && isRangedCooledDown)
-        {
-            yureiAttacks.PerformRangedAttack(playerPosition);
-
-            StartCoroutine(RangedCooldown());
-
-        }
-
-
-        if (distanceToPlayer <= spellRange && isSpellCooledDown)
-        {
-            yureiAttacks.StartSpellCast(playerPosition);
-
-            StartCoroutine(SpellCooldown());
-
-
-        }
-
-
-
-
-        //UPDATE Chasing STATE 
-        //put any code here you want to repeat during the state being active
+        //UPDATE STATE 
         while (currentState == States.ATTACKING)
-        {   
-           
+        {
 
-            if (Vector3.Distance(transform.position, playerPosition.position) > sightRange)
+            if (IsInRange(spellRange) && isSpellCooledDown && !isCasting)
             {
-                currentState = States.IDLE;
+                anim.SetTrigger("SpellAttack");//run the attack animation
+                yureiAttacks.StartCast(playerPosition);
+
+                StartCoroutine(SpellCooldown());
+
+            }
+            else if (IsInRange(rangedRange) && !IsInRange(meleeRange) && isRangedCooledDown)
+            {
+                anim.SetTrigger("RangedAttack");//run the attack animation
+                yureiAttacks.RangedAttack();
+
+                StartCoroutine(RangedCooldown());
+
+            }
+            else if (IsInRange(meleeRange) && isMeleeCooledDown)
+            {
+                anim.SetTrigger("MeleeAttack");//run the attack animation
+                yureiAttacks.MeleeAttack();
+
+                // Start cooldown
+                StartCoroutine(MeleeCooldown());
+                //isAttacking = true;
+
+            }
+
+            
+            
+            if (IsInRange(sightRange) && !IsInRange(rangedRange))
+            {
+                currentState = States.ROAMING;
                 Debug.Log("*confused ghostly groans*");
             }
+
 
 
             yield return new WaitForEndOfFrame();
         }
 
-        //EXIT IDLE STATE
-        //write any code here you want to run when the state is left
-
+        //EXIT STATE
+        yield return StartCoroutine(currentState.ToString());
         //Debug.Log("Oh no I see the player!");
     }
 
@@ -239,10 +244,10 @@ public class YureiStateMachine : MonoBehaviour
     #endregion
 
 
-    //used to see the "sight range" for debugging, to make sure its not the sight range causing issues
+    //used to check if something is "in range". basically just comparing two things.
     bool IsInRange(float range)
     {
-        if (Vector3.Distance(playerPosition.position, transform.position) < range)
+        if (Vector3.Distance(transform.position, playerPosition.position) < range)
             return true;
         else
             return false;
@@ -251,7 +256,12 @@ public class YureiStateMachine : MonoBehaviour
 
     public void DIE()
     {
+        StopAllCoroutines();
         currentState = States.DEATH;
+        anim.SetTrigger("Death"); //set trigger for death animation
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        stats.Die();
+
     }
 
 
@@ -271,18 +281,14 @@ public class YureiStateMachine : MonoBehaviour
 
     }
 
-
-    /// For a "cone" of vision: Still have a vision 'raduius', draw two lines using X number for angle 'draw a line -X degrees from where this is facing, and another at +X degrees'. 
-    /// use those lines to 'cut out' a cone from your vision radius. Then when a target is detected in vision radius, just check if it's angle from the enemy is 
-    /// larger than right degree away or less than left degrees away. 
-    // THERE IS A SAMPLE ONE IN LAST YEARS DUNGEON CRAWLER. Think maybe in resources SESSION 7? Use it for Jorogumo. 
-
-
     IEnumerator MeleeCooldown()
     {
         isMeleeCooledDown = false;
         yield return new WaitForSeconds(meleeCooldown);
         isMeleeCooledDown = true;
+
+        //isAttacking = false;
+
     }
 
 
@@ -291,14 +297,19 @@ public class YureiStateMachine : MonoBehaviour
         isRangedCooledDown = false;
         yield return new WaitForSeconds(rangedCooldown);
         isRangedCooledDown = true;
+
+        //isAttacking = false;
+
     }
 
 
     IEnumerator SpellCooldown()
     {
+
         isSpellCooledDown = false;
         yield return new WaitForSeconds(spellCooldown);
         isSpellCooledDown = true;
+
     }
 
 }

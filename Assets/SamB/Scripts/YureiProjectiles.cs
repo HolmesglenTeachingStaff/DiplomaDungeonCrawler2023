@@ -62,11 +62,11 @@ public class YureiProjectiles : MonoBehaviour
     {
 
         // Check if the projectile hits an object with a health system + get that reference
-        var targetStats = other.GetComponent<Stats>();
+        var targetStats = other.GetComponent<PlayerStats>();
 
         //if stats is empty, try getting it from the parent object or child
-        if (targetStats == null) targetStats = other.GetComponentInParent<Stats>();
-        if (targetStats == null) targetStats = other.GetComponentInChildren<Stats>();
+        if (targetStats == null) targetStats = other.GetComponentInParent<PlayerStats>();
+        if (targetStats == null) targetStats = other.GetComponentInChildren<PlayerStats>();
         if (targetStats == null) return;
         Debug.Log("Hit");
 
@@ -80,8 +80,7 @@ public class YureiProjectiles : MonoBehaviour
                 // Deal damage to the target
                 StatSystem.DealDamage(targetStats, rangedDamageType, Random.Range(minRangedDamage, maxRangedDamage));
 
-                // Destroy the projectile
-                Destroy(gameObject);
+                
             }
 
         }
@@ -98,13 +97,11 @@ public class YureiProjectiles : MonoBehaviour
                 StatSystem.DealDamage(targetStats, rangedDamageType, Random.Range(minSpellDamage, maxSpellDamage));
 
                 StartCoroutine(DrainSoul(targetStats, spellDamageType));
-
-                // Destroy the projectile
-                Destroy(gameObject);
+                
             }
 
         }
-
+        Destroy(gameObject);
 
     }
 
