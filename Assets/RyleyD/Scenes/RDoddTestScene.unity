@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6052,6 +6052,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1502477477659504293, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1781036464066589281, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6067,6 +6071,42 @@ PrefabInstance:
     - target: {fileID: 2407216988092371812, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1758699796}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CheckToPlayParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: RD_NinjaSmoleBomb, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686464405014928896, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680262025406826456, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: meleeRange
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337052683128355892, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5097420577369194264, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
       propertyPath: m_RootOrder
@@ -6175,6 +6215,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5504c1d50d86854faa9e63f67bafd56, type: 3}
+--- !u!114 &375805393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2943388212645516111, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+  m_PrefabInstance: {fileID: 623646559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb324ec5dacab34bb0bd770958113d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &393996614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6786,6 +6837,34 @@ PrefabInstance:
     - target: {fileID: 7546769098973039247, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 375805393}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CheckToPlayParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: RD_NinjaSmoleBomb, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826016721445292011, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
+      propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8341977310951881376, guid: 346b1601a0d2647499dc76ef69e704f4, type: 3}
       propertyPath: m_DirtyAABB
@@ -9176,6 +9255,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e6d27c571a98574c9efea052eb479e1, type: 3}
+--- !u!114 &1758699796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6992584328469809828, guid: e3866ab9d2a2d79498b5fc0edcea66f5, type: 3}
+  m_PrefabInstance: {fileID: 296382800}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb324ec5dacab34bb0bd770958113d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1790659356
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,6 +52,6 @@ public class RD_NpcAnimator : MonoBehaviour
     void OnAnimatorMove()
     {
         // Update position to agent position
-        transform.root.position = agent.nextPosition;
+        transform.position = agent.nextPosition;
     }
 }

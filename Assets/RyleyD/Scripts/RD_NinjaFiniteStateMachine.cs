@@ -121,6 +121,12 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         {
             agent.SetDestination(player.position);
 
+            //seek attacking the player
+            if (IsInRange(meleeRange))
+            {
+                currentState = States.ATTACKING;
+            }
+
             if (Vector3.Distance(transform.position, player.position) > sightRange)
             {
                 currentState = States.IDLE;

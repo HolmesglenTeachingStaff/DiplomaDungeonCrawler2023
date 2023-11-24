@@ -25,6 +25,22 @@ public class RD_NinjaSmoleBomb : MonoBehaviour
         smokeBombEffect.Play();
     }
     */
+
+    //CHECK IF THE HEALTH IS LOW ENOUGH
+    public void CheckToPlayParticle()
+    {
+        //get a reference to health
+        Stats healthScript = GetComponent<Stats>();
+
+        //check health
+        if(healthScript.currentHealth < (healthScript.maxHealth * 0.25f))
+        {
+            //spawn the particle
+            SpawnParticle();
+
+            //if you want to, you could change the states in your statemachine in this function too
+        }
+    }
     void SpawnParticle()
     {
         //istantiate a new particle
