@@ -162,7 +162,7 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
 
         Debug.Log("Oh no I see the player!");
     }
-    IEnumerator ATTACKING()
+    IEnumerator HEALING()
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
@@ -176,14 +176,14 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
 
         if (attackType < 70)//70%chance to run the basic attack
         {
-            anim.SetTrigger("meleeAttack");//run the attack animation
+            anim.SetTrigger("waving");//run the attack animation
             weapon1.enabled = true;//enable the damage collider
             yield return new WaitForSeconds(4); //wait for the animation to end
             weapon1.enabled = false;
         }
         else if (attackType > 70)//remaining 30% chance to run the special attack
         {
-            anim.SetTrigger("rangedAttack");//run the attack animation
+            anim.SetTrigger("playerHeal");//run the attack animation
             yield return new WaitForSeconds(1.5f); //wait for first hitbox
             //weapon2.enabled = true;//enable the damage collider
             yield return new WaitForSeconds(0.1f); //wait for first hitbox
@@ -236,6 +236,7 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
     }
     #endregion
 
+    #region functions
     bool IsInRange(float range)
     {
         if (Vector3.Distance(player.position, transform.position) < range)
@@ -243,6 +244,15 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
         else
             return false;
     }
+
+    public void DIE()
+    {
+        StopAllCoroutines();
+        agent.updateRotation = false;
+        currentState = States.DEATH;
+        StartCoroutine(DEATH());
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = sightColor;
@@ -251,4 +261,5 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangedRange);
     }
+    #endregion
 }
