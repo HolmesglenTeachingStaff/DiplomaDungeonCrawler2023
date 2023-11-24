@@ -63,12 +63,12 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
         }
         lastAttack = 0;
         //start the fsm
-        StartCoroutine(EnemyFSM());
+        StartCoroutine(FriendlyFSM());
     }
     #endregion
 
     #region Finite StateMachine
-    IEnumerator EnemyFSM()
+    IEnumerator FriendlyFSM()
     {
         while (true)
         {
@@ -116,6 +116,12 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
         while (currentState == States.CHASING)
         {
             agent.SetDestination(player.position);
+
+            //seek attacking the player
+            if (IsInRange(rangedRange))
+            {
+                currentState = States.HEALING;
+            }
 
             if (Vector3.Distance(transform.position, player.position) > sightRange)
             {
@@ -181,19 +187,19 @@ public class RD_AmaterasuFiniteStateMachine : MonoBehaviour
             yield return new WaitForSeconds(4); //wait for the animation to end
             weapon1.enabled = false;
         }
-        else if (attackType > 70)//remaining 30% chance to run the special attack
+        else if (attackType > 70)//remaining 10% chance to run the special attack
         {
-            anim.SetTrigger("playerHeal");//run the attack animation
+            anim.SetTrigger("waving");//run the attack animation
             yield return new WaitForSeconds(1.5f); //wait for first hitbox
             //weapon2.enabled = true;//enable the damage collider
-            yield return new WaitForSeconds(0.1f); //wait for first hitbox
+            //yield return new WaitForSeconds(0.1f); //wait for first hitbox
             //weapon3.enabled = true;
 
-            yield return new WaitForSeconds(0.1f); //wait for first hitbox to finish
+            //yield return new WaitForSeconds(0.1f); //wait for first hitbox to finish
 
             //weapon2.enabled = false;
 
-            yield return new WaitForSeconds(3); //wait for the animation to end
+            //yield return new WaitForSeconds(3); //wait for the animation to end
             //weapon3.enabled = false;
         }
 
