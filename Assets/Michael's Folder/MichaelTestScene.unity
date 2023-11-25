@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: ef401e12d2692284e901e927146e7d99, type: 2}
 --- !u!1 &465364900
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 796404580}
   m_Layer: 0
   m_Name: CorruptPriest_Spawnpoint
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,7 +301,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823468151
 GameObject:
@@ -722,7 +722,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1250591856
 BoxCollider:
@@ -1189,7 +1189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1783038468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6449,6 +6449,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2118241084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3106772122007610259, guid: 1437c7959d9e44721a6dd27d8a24c98f, type: 3}
+  m_PrefabInstance: {fileID: 1944451014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2141695698
 GameObject:
   m_ObjectHideFlags: 0
@@ -6491,7 +6496,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &2141695700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6643,7 +6648,7 @@ Transform:
   - {fileID: 1342566306}
   - {fileID: 1780877572}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2141695704
 MonoBehaviour:
@@ -6658,16 +6663,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRange: 15
-  attackRange: 7
+  attackRange: 10
   moveSpeed: 5
-  attackInterval: 0.3
-  player: {fileID: 0}
+  attackInterval: 0.5
+  player: {fileID: 2118241084}
   projectileSpawns:
   - {fileID: 465364901}
   - {fileID: 1342566306}
   - {fileID: 1780877572}
-  spawnPoint: {fileID: 0}
-  chaseRange: 0
+  spawnPoint: {fileID: 796404580}
+  chaseRange: 10
   sightColor: {r: 0, g: 0, b: 0, a: 0}
   projectile: {fileID: 2056606952}
   currentState: 0

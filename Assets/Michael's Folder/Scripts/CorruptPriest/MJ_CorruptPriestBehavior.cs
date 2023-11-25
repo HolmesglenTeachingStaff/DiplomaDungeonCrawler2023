@@ -6,10 +6,9 @@ using UnityEngine.AI;
 public class MJ_CorruptPriestBehavior : MonoBehaviour
 {
     /// <summary>
-    /// FiniteStateMachine for NPCs
+    /// FiniteStateMachine for CorruptPriest
     /// </summary>
-
-    // 0=idle, 1=chasing, 2=attack, 3=death
+    
     #region variables
     [Header ("Variables")]
     public float sightRange;
@@ -17,6 +16,7 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     public float moveSpeed;
     public float attackInterval;
 
+    [Header ("Objects")]
     public GameObject player;
     public Transform[] projectileSpawns; //spawnpoints for projectiles
 
@@ -42,9 +42,8 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     }
     void Start()
     {
-        this.transform.position = spawnPoint.position;
-        projectile = GetComponent<GameObject>();
         agent = GetComponent<NavMeshAgent>();
+        this.transform.position = spawnPoint.position;
         StartCoroutine(EnemyFSM()); //start the StateMachine
     }
     #endregion
@@ -110,6 +109,7 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
     
     IEnumerator ATTACKING()
     {
+        agent.SetDestination(transform.position);
         Debug.Log(this.gameObject.name + ": Dark orbs!");
 
         //play attack animation
@@ -127,7 +127,8 @@ public class MJ_CorruptPriestBehavior : MonoBehaviour
         agent.SetDestination(spawnPoint.position);
         //walk to spawnpoint
         
-        //heal rapidly to max HP
+        //heal rapidly to max HP while returning
+        
 
         currentState = States.IDLE;
         yield return StartCoroutine(currentState.ToString());

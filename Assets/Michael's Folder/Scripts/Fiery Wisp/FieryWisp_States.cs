@@ -24,7 +24,9 @@ public class FieryWisp_States : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    [HideInInspector] public Color sightColor;
+    [Header ("Gizmos")]
+    public Color sightColor;
+    public Color damageColor;
     #endregion
 
     #region States
@@ -38,6 +40,7 @@ public class FieryWisp_States : MonoBehaviour
     void Start()
     {
         this.transform.position = spawnPoint.position; //spawn on spawnpoint
+        Gizmos.color = sightColor;
     }
     #endregion
 
