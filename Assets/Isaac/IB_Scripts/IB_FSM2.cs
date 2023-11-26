@@ -33,7 +33,7 @@ public class IB_FSM2 : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
         //start the fsm
         StartCoroutine(EnemyFSM());
@@ -66,9 +66,10 @@ public class IB_FSM2 : MonoBehaviour
     }
     IEnumerator CHASING()
     {
+        anim.Play("idle");
         while (currentState == States.CHASING)
         {
-            anim.Play("idle");
+
             agent.SetDestination(player.position + player.transform.right * buffer);
 
             if (Vector3.Distance(transform.position, player.position) < meleeRange)
@@ -113,8 +114,11 @@ public class IB_FSM2 : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
 
-    public void Death()
+     public void Death()
     {
+        StopAllCoroutines();
         currentState = States.DEATH;
+        StartCoroutine(DEATH());
     }
+
 }

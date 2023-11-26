@@ -111,7 +111,7 @@ public class IB_StateMachine : MonoBehaviour
         while (currentState == States.SPAWNING)
         {
             //Animation, Knockback and emission
-            anim.Play("Spawning");
+            anim.Play("Casting");
             KnockBack.DamageBurst();
             mat.SetFloat("Float", 1);
             yield return new WaitForSeconds(2.5f);
