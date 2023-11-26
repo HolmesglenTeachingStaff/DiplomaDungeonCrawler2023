@@ -201,5 +201,12 @@ public class DB_Nekomata : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<DB_BleedStatusEffect>() != null)
+        {
+            other.GetComponent<DB_BleedStatusEffect>().ApplyBleed(4);
+        }
+    }
     #endregion
 }
