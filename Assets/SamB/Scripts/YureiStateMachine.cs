@@ -77,7 +77,7 @@ public class YureiStateMachine : MonoBehaviour
 
         while (true) //while the coroutine is running
         {
-            Debug.Log(currentState);
+            Debug.Log("Starting state =" + currentState);
             yield return StartCoroutine(currentState.ToString());
         }
 

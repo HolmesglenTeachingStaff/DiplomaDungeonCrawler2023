@@ -20,9 +20,14 @@ public class Spiderling : MonoBehaviour
         if (broodMother != null)
         {
             float distanceToMaster = Vector3.Distance(transform.position, broodMother.transform.position);
+
             if (distanceToMaster > followRange)
             {
-                GetComponent<NavMeshAgent>().SetDestination(broodMother.transform.position);
+                // Calculate a random point within a radius around the master
+                Vector3 randomDestination = RandomNavSphere(broodMother.transform.position, followRange);
+
+                // Set the destination to the random point
+                GetComponent<NavMeshAgent>().SetDestination(randomDestination);
             }
         }
 
@@ -42,6 +47,15 @@ public class Spiderling : MonoBehaviour
                 GetComponent<NavMeshAgent>().SetDestination(target.position);
             }
         }
+    }
+
+    Vector3 RandomNavSphere(Vector3 origin, float distance)
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * distance;
+        randomDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
+        return navHit.position;
     }
 
     //establishing reference to the SpiderlingManger that is controlling this spider

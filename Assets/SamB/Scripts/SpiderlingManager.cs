@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpiderlingManager : MonoBehaviour
 {
@@ -37,11 +38,24 @@ public class SpiderlingManager : MonoBehaviour
 
     void SpawnSpiderling()
     {
-        GameObject spiderling = Instantiate(spiderlingPrefab, transform.position, Quaternion.identity); //creating spider
-        Spiderling spiderlingScript = spiderling.GetComponent<Spiderling>(); //getting its 'spiderling' component
-        spiderlingScript.SetBroodMother(this); //making this jorogumo it's "broodmother" (AKA to follow)
-        //spiderlingScript.SetTarget(broodMother.transform);
-        spiderlingsList.Add(spiderlingScript); //adding it to spiderling list 
+        Vector3 spawnPosition = transform.position;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(spawnPosition, out hit, 5f, NavMesh.AllAreas))
+        {
+            // Instantiate spiderling at the valid position
+            GameObject spiderling = Instantiate(spiderlingPrefab, hit.position, Quaternion.identity);
+            Spiderling spiderlingScript = spiderling.GetComponent<Spiderling>(); //getting its 'spiderling' component
+            spiderlingScript.SetBroodMother(this); //making this jorogumo it's "broodmother" (AKA to follow)
+            spiderlingsList.Add(spiderlingScript); //adding it to spiderling list 
+
+        }
+        else
+        {
+            // Handle the case where a valid position couldn't be found (optional)
+            Debug.LogError("Failed to find a valid position on the NavMesh for the spiderling.");
+        }
+
 
     }
 

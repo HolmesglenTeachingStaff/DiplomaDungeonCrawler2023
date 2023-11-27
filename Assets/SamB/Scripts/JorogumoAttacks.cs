@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JorogumoAttacks : MonoBehaviour
 {
-    public GameObject Spiderling;
     public GameObject rangedProjectile;
 
     //private float meleeConeAngle = 45f; // Adjust the angle of the melee cone
@@ -17,11 +16,11 @@ public class JorogumoAttacks : MonoBehaviour
 
 
     public StatSystem.DamageType damageType;
-    public int rangedDamage;
+    public int rangedDamage = 15;
 
     private float channelTime = 0.5f; // Adjust the channeling time
-    public float healAmount;
-    public float maxSpellRange;
+    public float healSpellAmount = 20;
+    public float maxSpellRange = 15;
 
 
     public void Start()

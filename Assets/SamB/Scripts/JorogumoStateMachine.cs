@@ -8,9 +8,10 @@ public class JorogumoStateMachine : MonoBehaviour
 {
     #region variables
     public Transform[] patrolPoints;
-    public Transform currentPatrol;
-    public float idleTimeMin = 2f;
-    public float idleTimeMax = 5f;
+    Transform currentPatrol;
+    public float idleDuration = 5;
+    float idleTimer;
+
     private int currentPatrolIndex = 0;
 
     public float sightRange = 25;
@@ -28,7 +29,7 @@ public class JorogumoStateMachine : MonoBehaviour
     //public ParticleSystem deathParticel, attackParticle, attack2Particle, attack3Particle;
 
     SpiderlingManager spiderlingManager;
-    JorogumoAttacks jorogumoAttacks; //getting attack script reference
+    JorogumoAttacks joroAttacks; //getting attack script reference
     #endregion
 
     #region States
@@ -54,12 +55,13 @@ public class JorogumoStateMachine : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        spiderlingManager = GetComponent<SpiderlingManager>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        anim = GetComponentInChildren<Animator>();
+        joroAttacks = GetComponent<JorogumoAttacks>();
         stats = GetComponent<Stats>();
-    
 
 
+        //start the fsm, it's never turned off. Initiates the changes between the corroutiens. 
         StartCoroutine(EnemyFSM());
     }
     #endregion
@@ -72,6 +74,7 @@ public class JorogumoStateMachine : MonoBehaviour
         {
             //Check what STRING is specifically in the currentState Variable, then find a coroutine with that same name. thats why the variable is literally just holing a string of the enum name
             // and is why you must be sure TO NAME THE COROUTINES THE EXACT SAME AS THE ENUMS
+            Debug.Log("Starting state =" + currentState);
             yield return StartCoroutine(currentState.ToString());
         }
 
@@ -92,10 +95,13 @@ public class JorogumoStateMachine : MonoBehaviour
         while (currentState == States.IDLE)
         {
             //check for player and count until idle time has run out
+            idleTimer += Time.deltaTime;
+
             if (IsInRange(rangedRange)) currentState = States.ATTACKING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
-            else timer += Time.deltaTime;
-            if (timer > 5) currentState = States.PATROLLING;
+
+            if (timer > idleDuration) currentState = States.PATROLLING;
+
 
             //run through above once, then wait
             yield return new WaitForEndOfFrame();
@@ -118,12 +124,12 @@ public class JorogumoStateMachine : MonoBehaviour
         {
             if (IsInRange(sightRange)) currentState = States.CHASING;
 
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length; //do this first as the 'current destination' is initially empty
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
             
 
             // Wait for the specified interval before the next roam
-            yield return new WaitForSeconds(UnityEngine.Random.Range(idleTimeMin, idleTimeMax));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(idleDuration - 1, idleDuration + 1));
 
             yield return new WaitForEndOfFrame();
         }
@@ -172,7 +178,7 @@ public class JorogumoStateMachine : MonoBehaviour
         {
             anim.SetTrigger("RangedAttack");//run the attack animation
 
-            jorogumoAttacks.RangedAttack(playerPosition);
+            joroAttacks.RangedAttack(playerPosition);
             StartCoroutine(RangedCooldown());
 
         }
@@ -180,7 +186,7 @@ public class JorogumoStateMachine : MonoBehaviour
 
         if (isSpellCooledDown)
         {
-            jorogumoAttacks.StartCast(playerPosition);
+            joroAttacks.StartCast(playerPosition);
             anim.SetTrigger("SpellCast");//run the attack animation
             StartCoroutine(SpellCooldown());
 
