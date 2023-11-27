@@ -35,6 +35,7 @@ public class IB_FSM2 : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         Weapon.GetComponent<BoxCollider>().enabled = false;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         //start the fsm
         StartCoroutine(EnemyFSM());
     }
