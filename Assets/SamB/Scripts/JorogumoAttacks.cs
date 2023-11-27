@@ -44,13 +44,13 @@ public class JorogumoAttacks : MonoBehaviour
     }
 
 
-    public void StartCast(Transform target)
+    public void HealSpider()
     {
         // Perform channeling spell logic here
         Debug.Log("Channeling Spell...");
 
         // Wait for channeling time
-        StartCoroutine(StartSpellCast(target));
+        StartCoroutine(StartSpellCast());
 
         // Choose a minion to heal (customize as needed)
         Spiderling spiderlingToHeal = FindDamagedSpiderling();
@@ -65,22 +65,10 @@ public class JorogumoAttacks : MonoBehaviour
 
     }
 
-    public IEnumerator StartSpellCast(Transform target)
+    public IEnumerator StartSpellCast()
     {
         yield return new WaitForSeconds(channelTime);
-
-        // Perform spell logic after channeling
-        if (target != null)
-        {
-            // Check if the target is still in range (you can add additional range checks here)
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-            if (distanceToTarget <= maxSpellRange)
-            {
-                // Instantiate a spell projectile
-                GameObject newSpell = Instantiate(rangedProjectile, transform.position, Quaternion.identity);
-
-            }
-        }
+        HealSpider();
     }
 
   

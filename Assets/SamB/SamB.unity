@@ -259,7 +259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400843719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.01, y: 3.08, z: 3.35}
+  m_LocalPosition: {x: 2.13, y: 3.08, z: 12.700001}
   m_LocalScale: {x: 3.366525, y: 7.128332, z: 3.366525}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -375,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563467735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7823563, y: -0.65, z: 0.63326}
+  m_LocalPosition: {x: -15.32, y: -0.65, z: 0.63326}
   m_LocalScale: {x: 109.06, y: 1, z: 78.193}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 3eb507181465622469f3e008a969d1b6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: cf215fbc9d2e75f4ca1efa7c0ba93897, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &563467741
 MonoBehaviour:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 1eec7e19967802f478ae7e680d11c8f4, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3eb507181465622469f3e008a969d1b6, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &563467742
 MonoBehaviour:
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: cf215fbc9d2e75f4ca1efa7c0ba93897, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1eec7e19967802f478ae7e680d11c8f4, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &823325524
 GameObject:
@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 378222258315167743}
   - component: {fileID: 8311640168708141121}
   - component: {fileID: 8311640168708141120}
+  - component: {fileID: 8311640168708141122}
   m_Layer: 0
   m_Name: Jorogumo
   m_TagString: Untagged
@@ -616,7 +617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947250483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.165376, y: -0.06, z: -27.72292}
+  m_LocalPosition: {x: 6.165376, y: -0.06, z: -11.272919}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -676,7 +677,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 84.639275
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -701,14 +702,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338509552}
-  m_LocalRotation: {x: 0.3987749, y: -0.6115464, z: 0.41548437, w: 0.54255176}
-  m_LocalPosition: {x: 10.38, y: 21.48, z: -6.48}
+  m_LocalRotation: {x: 0.22540356, y: -0.6747333, z: 0.24719661, w: 0.6578922}
+  m_LocalPosition: {x: 20.37, y: 10.35, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 70.201, y: -101.24, z: -6.253}
+  m_LocalEulerAnglesHint: {x: 39.062, y: -90.896, z: 1.556}
 --- !u!114 &1338509556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,7 +1516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2270430013310311394, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.86
+      value: -11.41
       objectReference: {fileID: 0}
     - target: {fileID: 2270430013310311394, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1549,6 +1550,10 @@ PrefabInstance:
       propertyPath: meleeParticles
       value: 
       objectReference: {fileID: 772387390460484283, guid: 32089e5967308b14db09ed03bd463e2a, type: 3}
+    - target: {fileID: 2270430013310311404, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
+      propertyPath: sightRange
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2270430013310311407, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
       propertyPath: m_Name
       value: YureiFinal
@@ -1912,9 +1917,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227634445103794068, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417657341204277608, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742363522722977745, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.29
+      objectReference: {fileID: 0}
     - target: {fileID: 5349536142373466054, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_Name
       value: PatrolPointsJoro
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807153474496137035, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7553010462426097793, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_RootOrder
@@ -1930,7 +1951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553010462426097793, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 16.45
       objectReference: {fileID: 0}
     - target: {fileID: 7553010462426097793, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2845,12 +2866,15 @@ MonoBehaviour:
   - {fileID: 3549218224297995768}
   - {fileID: 3549218224297995767}
   idleDuration: 5
-  sightRange: 25
+  sightRange: 20
   rangedRange: 15
   rangedCooldown: 5
   spellRange: 10
   channelTime: 2
   spellCooldown: 10
+  fleeDuration: 3
+  fleeThreshold: 25
+  fleeDistance: 5
   currentState: 0
 --- !u!1 &6131644275162576091
 GameObject:
@@ -3685,6 +3709,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8311640168708141122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947250483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c93bc001d45cd644a18f9a524f53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRanged: 1
+  minRangedDamage: 8
+  maxRangedDamage: 15
+  rangedDamageType: 0
 --- !u!4 &8340303649718318212
 Transform:
   m_ObjectHideFlags: 0

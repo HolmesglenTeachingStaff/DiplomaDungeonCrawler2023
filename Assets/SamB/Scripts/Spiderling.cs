@@ -11,23 +11,32 @@ public class Spiderling : MonoBehaviour
     public float meleeCooldown = 2f;
     private float lastAttackTime; //tracks when the last attack was
 
-    private SpiderlingManager broodMother; //the jorogumo this spider is following
+    private SpiderlingManager broodmother; //the jorogumo this spider is following
     private Transform target; //what this spiderling is curently targeting. Could be set by the Jorogumo.
+    public float spiderlingLeashDistance = 10f;
+
+    NavMeshAgent navAgent;
+
+    private void Start()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+
+    }
 
     void Update()
     {
         // Follow the jorogumo
-        if (broodMother != null)
+        if (broodmother != null)
         {
-            float distanceToMaster = Vector3.Distance(transform.position, broodMother.transform.position);
+            float distanceToMaster = Vector3.Distance(transform.position, broodmother.transform.position);
 
             if (distanceToMaster > followRange)
             {
                 // Calculate a random point within a radius around the master
-                Vector3 randomDestination = RandomNavSphere(broodMother.transform.position, followRange);
+                Vector3 randomDestination = RandomNavSphere(broodmother.transform.position, followRange);
 
                 // Set the destination to the random point
-                GetComponent<NavMeshAgent>().SetDestination(randomDestination);
+                navAgent.SetDestination(randomDestination);
             }
         }
 
@@ -44,7 +53,7 @@ public class Spiderling : MonoBehaviour
             else
             {
                 // Move towards target
-                GetComponent<NavMeshAgent>().SetDestination(target.position);
+                navAgent.SetDestination(target.position);
             }
         }
     }
@@ -59,20 +68,29 @@ public class Spiderling : MonoBehaviour
     }
 
     //establishing reference to the SpiderlingManger that is controlling this spider
-    public void SetBroodMother(SpiderlingManager broodMother)
+    public void SetBroodmother(SpiderlingManager broodMother)
     {
-        this.broodMother = broodMother;
+        this.broodmother = broodMother;
     }
 
     public SpiderlingManager GetBroodMother()
     {
-        return broodMother;
+        return broodmother;
     }
 
     //Sets a new target for this spiderling to attack
-    public void SetTarget(Transform newTarget)
+    public void SetTarget(Vector3 targetPosition)
     {
-        target = newTarget;
+        if (Vector3.Distance(transform.position, broodmother.transform.position) > spiderlingLeashDistance)
+        {
+            SetTarget(broodmother.transform.position);
+        }
+        else
+        {
+            navAgent.SetDestination(targetPosition);
+
+        }
+        target = null; // Clear the target so it stops following the old target
     }
 
     void DamagePlayer()
@@ -81,7 +99,7 @@ public class Spiderling : MonoBehaviour
 
 
         // Access the 'Stats' component 
-        Stats playerStats = target.GetComponent<Stats>();
+        Stats playerStats = target.GetComponent<PlayerStats>();
 
         if (playerStats != null)
         {

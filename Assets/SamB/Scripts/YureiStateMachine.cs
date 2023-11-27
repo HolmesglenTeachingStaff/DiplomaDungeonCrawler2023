@@ -183,6 +183,7 @@ public class YureiStateMachine : MonoBehaviour
 
     IEnumerator ATTACKING()
     {
+        anim.SetBool("IsIdle", true); 
         bool isCasting = yureiAttacks.isCasting;
 
         //ENTER THE STATE >
@@ -222,13 +223,19 @@ public class YureiStateMachine : MonoBehaviour
 
             }
 
-            
-            
-            if (IsInRange(sightRange) && !IsInRange(rangedRange))
+
+
+
+            if (IsInRange(sightRange))
             {
-                currentState = States.ROAMING;
-                Debug.Log("*confused ghostly groans*");
+                currentState = States.CHASING;
             }
+            else if (!IsInRange(sightRange) && !IsInRange(rangedRange))
+            {
+                currentState = States.IDLE;
+                Debug.Log("*confused ghostly moans*");
+            }
+
 
 
 
@@ -236,6 +243,7 @@ public class YureiStateMachine : MonoBehaviour
         }
 
         //EXIT STATE
+        anim.SetBool("IsIdle", false);
         yield return StartCoroutine(currentState.ToString());
         //Debug.Log("Oh no I see the player!");
     }

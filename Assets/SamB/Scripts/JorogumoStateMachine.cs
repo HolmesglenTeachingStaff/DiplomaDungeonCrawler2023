@@ -9,7 +9,7 @@ public class JorogumoStateMachine : MonoBehaviour
     #region variables
     public Transform[] patrolPoints;
     Transform currentPatrol;
-    public float idleDuration = 5;
+    public float idleDuration = 3;
     float idleTimer;
 
     private int currentPatrolIndex = 0;
@@ -23,6 +23,11 @@ public class JorogumoStateMachine : MonoBehaviour
     public float spellCooldown = 10f; // Adjust the spell cooldown
     bool isSpellCooledDown = false;
 
+    public float fleeDuration = 3;
+    public float fleeThreshold = 25;
+    public float fleeDistance = 5;
+
+
     private Transform playerPosition;
     private NavMeshAgent agent;
     private Animator anim;
@@ -35,7 +40,7 @@ public class JorogumoStateMachine : MonoBehaviour
     #region States
     /// Declare states. If you add a new state remember to add a new States enum for it. 
     /// These states are what we use to change the finiate state machine (FSM) coroutine between its different states.
-    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, CAST, DEATH }
+    public enum States { IDLE, PATROLLING, CHASING, ATTACKING, CAST, DEATH, FLEEING }
 
     //this variable holds ONE of the states, as it can only be one at once. Switches between them as this variable changes.
     public States currentState;
@@ -59,6 +64,7 @@ public class JorogumoStateMachine : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         joroAttacks = GetComponent<JorogumoAttacks>();
         stats = GetComponent<Stats>();
+        spiderlingManager = GetComponent<SpiderlingManager>();
 
 
         //start the fsm, it's never turned off. Initiates the changes between the corroutiens. 
@@ -86,7 +92,6 @@ public class JorogumoStateMachine : MonoBehaviour
     {
         //ENTER THE IDLE STATE >
 
-        float timer = 0; //creat a number to count from to track if idle should transition;
         Debug.Log("*spiders chittering*");
         anim.SetBool("IsMoving", false);
         anim.SetBool("IsIdle", true);
@@ -100,7 +105,7 @@ public class JorogumoStateMachine : MonoBehaviour
             if (IsInRange(rangedRange)) currentState = States.ATTACKING;
             else if (IsInRange(sightRange)) currentState = States.CHASING;
 
-            if (timer > idleDuration) currentState = States.PATROLLING;
+            if (idleTimer > idleDuration) currentState = States.PATROLLING;
 
 
             //run through above once, then wait
@@ -108,6 +113,7 @@ public class JorogumoStateMachine : MonoBehaviour
         }
 
         //EXIT IDLE STATE >
+        anim.SetBool("IsIdle", false);
         yield return StartCoroutine(currentState.ToString());
         yield return null;
 
@@ -122,16 +128,28 @@ public class JorogumoStateMachine : MonoBehaviour
         //UPDATE STATE >
         while (currentState == States.PATROLLING)
         {
-            if (IsInRange(sightRange)) currentState = States.CHASING;
+            if (IsInRange(sightRange))
+            {
+                currentState = States.CHASING;
+                yield break; // Exit the patrol loop and start chasing
+            }
 
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length; //do this first as the 'current destination' is initially empty
+            if (isSpellCooledDown)
+            {
+                anim.SetTrigger("SpellCast");//run the attack animation
+                joroAttacks.StartSpellCast();
+
+                StartCoroutine(SpellCooldown());
+
+            }
+
+            // Continue patrolling
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length; //makes patrol point next one on list, and loops if it exceeds array limit.
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
             
-
-            // Wait for the specified interval before the next roam
+           
             yield return new WaitForSeconds(UnityEngine.Random.Range(idleDuration - 1, idleDuration + 1));
-
-            yield return new WaitForEndOfFrame();
+            
         }
 
         //exit state 
@@ -144,6 +162,7 @@ public class JorogumoStateMachine : MonoBehaviour
     {
         //ENTER THE  STATE >
         Debug.Log("Fresh food!");
+        anim.SetBool("IsMoving", true);
 
         agent.updateRotation = true;
         agent.SetDestination(playerPosition.position);
@@ -151,12 +170,13 @@ public class JorogumoStateMachine : MonoBehaviour
         //UPDATE  STATE >
         while (currentState == States.CHASING)
         {
-            if (IsInRange(rangedRange)) /* && Time.time - lastAttack > timeBetweenAttacks) */ currentState = States.ATTACKING;
-            else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
-            else agent.SetDestination(playerPosition.position);
+            if (IsInRange(rangedRange)) currentState = States.ATTACKING;
+            else if (!IsInRange(sightRange)) currentState = States.IDLE;
+
+            agent.SetDestination(playerPosition.position);
+
+
             yield return new WaitForEndOfFrame();
-
-
         }
 
         //EXIT STATE
@@ -170,51 +190,114 @@ public class JorogumoStateMachine : MonoBehaviour
     IEnumerator ATTACKING()
     {
         //ENTER THE STATE >
+        anim.SetBool("IsIdle", true);
+        agent.isStopped = true;
+        agent.ResetPath();
         Debug.Log("Kill them!");
         float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
-
-
-        if (IsInRange(rangedRange) && isRangedCooledDown)
-        {
-            anim.SetTrigger("RangedAttack");//run the attack animation
-
-            joroAttacks.RangedAttack(playerPosition);
-            StartCoroutine(RangedCooldown());
-
-        }
-
-
-        if (isSpellCooledDown)
-        {
-            joroAttacks.StartCast(playerPosition);
-            anim.SetTrigger("SpellCast");//run the attack animation
-            StartCoroutine(SpellCooldown());
-
-        }
 
         //UPDATE  STATE 
         while (currentState == States.ATTACKING)
         {
+            spiderlingManager.SetSpiderlingsTarget(playerPosition.position);
+
+            if (isSpellCooledDown)
+            {
+                anim.SetTrigger("SpellCast");//run the attack animation
+                joroAttacks.StartSpellCast();
+
+                StartCoroutine(SpellCooldown());
+
+            }
+            else if (IsInRange(rangedRange) && isRangedCooledDown)
+            {
+                anim.SetTrigger("RangedAttack");//run the attack animation
+                joroAttacks.RangedAttack(playerPosition);
+
+                StartCoroutine(RangedCooldown());
+
+            }
 
 
-            if (!IsInRange(sightRange))
+            if (IsInRange(sightRange) && !IsInRange(rangedRange))
+            {
+                currentState = States.CHASING;
+            }
+            else if (!IsInRange(sightRange))
             {
                 currentState = States.IDLE;
                 Debug.Log("*confused chittering*");
             }
 
 
+
             yield return new WaitForEndOfFrame();
         }
 
         //EXIT  STATE
-        anim.SetBool("IsMoving", false);
         //Debug.Log("Oh no I see the player
+        anim.SetBool("IsIdle", false); //COULD INSTEASD BE A 'attacking' ANIMATION NOT IDLE
         yield return StartCoroutine(currentState.ToString());
     }
 
+    IEnumerator FLEEING()
+    {
+        //ENTER THE  STATE >
 
+        anim.SetBool("IsMoving", true);
+        agent.updateRotation = true;
+        Debug.Log("I'm too pretty to die!");
+
+
+
+        //UPDATE  STATE >
+        while (currentState == States.FLEEING)
+        {
+            // Calculate a destination opposite to the player's position
+            Vector3 fleeDestination = transform.position + (transform.position - playerPosition.position).normalized * fleeDistance;
+            agent.SetDestination(fleeDestination);
+
+            if (stats.currentHealth > fleeThreshold) currentState = States.IDLE; 
+
+            yield return new WaitForSeconds(fleeDuration);
+
+        }
+
+        //EXIT STATE
+        anim.SetBool("IsMoving", false);
+
+        yield return StartCoroutine(currentState.ToString());
+        //Debug.Log("Oh no I see the player!");
+    }
     #endregion
+
+
+    public void DIE()
+    {
+        StopAllCoroutines();
+        currentState = States.DEATH;
+        anim.SetTrigger("Death"); //set trigger for death animation
+        //Instantiate(deathParticle, transform.position, Quaternion.identity);
+        stats.Die();
+
+    }
+
+
+    IEnumerator RangedCooldown()
+    {
+        isRangedCooledDown = false;
+        yield return new WaitForSeconds(rangedCooldown);
+        isRangedCooledDown = true;
+    }
+
+
+    IEnumerator SpellCooldown()
+    {
+        isSpellCooledDown = false;
+        yield return new WaitForSeconds(spellCooldown);
+        isSpellCooledDown = true;
+    }
+
 
 
     bool IsInRange(float range)
@@ -223,14 +306,6 @@ public class JorogumoStateMachine : MonoBehaviour
             return true;
         else
             return false;
-    }
-
-
-    public void DIE()
-    {
-        anim.SetTrigger("SpellCast");//run the attack animation
-        stats.Die();
-
     }
 
 
@@ -248,21 +323,6 @@ public class JorogumoStateMachine : MonoBehaviour
     }
 
     
-
-    IEnumerator RangedCooldown()
-    {
-        isRangedCooledDown = false;
-        yield return new WaitForSeconds(rangedCooldown);
-        isRangedCooledDown = true;
-    }
-
-
-    IEnumerator SpellCooldown()
-    {
-        isSpellCooledDown = false;
-        yield return new WaitForSeconds(spellCooldown);
-        isSpellCooledDown = true;
-    }
 
 }
 

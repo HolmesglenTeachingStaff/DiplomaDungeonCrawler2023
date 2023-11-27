@@ -11,6 +11,10 @@ public class SpiderlingManager : MonoBehaviour
 
     private List<Spiderling> spiderlingsList = new List<Spiderling>();
 
+    public List<Spiderling> GetSpiderlings()
+    {
+        return spiderlingsList;
+    }
 
     void Start()
     {
@@ -31,11 +35,6 @@ public class SpiderlingManager : MonoBehaviour
         }
     }
 
-    public List<Spiderling> GetSpiderlings()
-    {
-        return spiderlingsList;
-    }
-
     void SpawnSpiderling()
     {
         Vector3 spawnPosition = transform.position;
@@ -46,7 +45,7 @@ public class SpiderlingManager : MonoBehaviour
             // Instantiate spiderling at the valid position
             GameObject spiderling = Instantiate(spiderlingPrefab, hit.position, Quaternion.identity);
             Spiderling spiderlingScript = spiderling.GetComponent<Spiderling>(); //getting its 'spiderling' component
-            spiderlingScript.SetBroodMother(this); //making this jorogumo it's "broodmother" (AKA to follow)
+            spiderlingScript.SetBroodmother(this); //making this jorogumo it's "broodmother" (AKA to follow)
             spiderlingsList.Add(spiderlingScript); //adding it to spiderling list 
 
         }
@@ -64,5 +63,17 @@ public class SpiderlingManager : MonoBehaviour
     {
        spiderlingsList.Remove(spiderling);
 
+    }
+
+    public void SetSpiderlingsTarget(Vector3 targetPosition)
+    {
+        foreach (Spiderling spiderling in spiderlingsList)
+        {
+           
+
+            spiderling.SetTarget(targetPosition);
+
+
+        }
     }
 }
