@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //important
 
-// Script was got from github.com/JonDevTutorial/RandomNavMeshMovement
+// Script was got from - https://github.com/JonDevTutorial/RandomNavMeshMovement
+// Video that linked it that found - https://www.youtube.com/watch?v=dYs0WRzzoRc
 
 
 public class OtterAI_Movement : MonoBehaviour //don't forget to change the script name if you haven't
