@@ -1504,6 +1504,7 @@ Transform:
   m_Children:
   - {fileID: 245675259}
   - {fileID: 26273945}
+  - {fileID: 993794458}
   m_Father: {fileID: 0}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5923,6 +5924,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5139641203204371823, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
   m_PrefabInstance: {fileID: 1941137282}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &767433217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 767433218}
+  m_Layer: 6
+  m_Name: EnemySpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &767433218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767433217}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 993794458}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &784228241
 GameObject:
   m_ObjectHideFlags: 0
@@ -6684,6 +6716,130 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1411507541880685341, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
   m_PrefabInstance: {fileID: 1941137282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &987379262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987379263}
+  m_Layer: 6
+  m_Name: EnemySpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987379263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987379262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 993794458}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &993794457
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 60951193}
+    m_Modifications:
+    - target: {fileID: 796129011759539132, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_Name
+      value: IB_Tengu_NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -59.324493
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.9998536
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -54.9352
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129012100517312, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: spawnPoint1
+      value: 
+      objectReference: {fileID: 2121829390}
+    - target: {fileID: 796129012100517312, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: spawnPoint2
+      value: 
+      objectReference: {fileID: 767433218}
+    - target: {fileID: 796129012100517312, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: spawnPoint3
+      value: 
+      objectReference: {fileID: 987379263}
+    - target: {fileID: 796129012806194114, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796129012806194114, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282831048672849803, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+        'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'Slash'\n\tFrom
+        animation clip 'Dodge'"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+--- !u!4 &993794458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 796129011759539133, guid: 6d55edbcfd90d4041a873c732a5269f5, type: 3}
+  m_PrefabInstance: {fileID: 993794457}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &994536066 stripped
 Transform:
@@ -13641,6 +13797,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5479020874489577523, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
   m_PrefabInstance: {fileID: 1941137282}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2121829389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2121829390}
+  m_Layer: 6
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2121829390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121829389}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 993794458}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2123120446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 727816395275420029, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
