@@ -91,8 +91,9 @@ public class IB_FSM2 : MonoBehaviour
     {
         anim.Play("Attack");
         Weapon.GetComponent<BoxCollider>().enabled = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Weapon.GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(1f);
         currentState = States.CHASING;
     }
 
