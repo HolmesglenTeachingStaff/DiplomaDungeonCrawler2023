@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+// Script is from youtube.com/watch?v=yFBB7gvmzK8
+
 public class Otter_NavMesh2 : MonoBehaviour
 {
     public float moveSpeed = 3f;
