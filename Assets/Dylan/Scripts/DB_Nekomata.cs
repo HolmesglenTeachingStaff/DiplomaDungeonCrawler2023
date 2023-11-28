@@ -138,12 +138,12 @@ public class DB_Nekomata : MonoBehaviour
         if(attackType <= 70)
         {
             anim.SetTrigger("BasicAttack");//run animation
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
         }
         else if (attackType > 70)
         {
             anim.SetTrigger("LeapAttack");//run animation
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
         }
 
         agent.updateRotation = true;
