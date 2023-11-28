@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 0
   regenRate: 0
   tempRegen: 0
@@ -502,11 +502,11 @@ MonoBehaviour:
   isDead: 0
   pushable: 0
   isWet: 0
-  Physical: 1
+  Physical: 2
   Fire: 2
-  Water: 0
-  Wind: 0
-  Earth: 0
+  Water: 2
+  Wind: 2
+  Earth: 2
   Light: 2
   Dark: 0
   statusEffectStacks: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38908b45e9134409b35ccab517e6b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 100
+  sightRange: 30
   meleeRange: 3
   buffer: 2
   player: {fileID: 0}
@@ -1768,8 +1768,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.13164577, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.3, y: 0.13164577, z: 1.3}
+  m_Center: {x: 0, y: 6.2266154e-13, z: 0}
 --- !u!54 &6197809346644559644
 Rigidbody:
   m_ObjectHideFlags: 0
