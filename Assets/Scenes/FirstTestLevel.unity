@@ -9211,11 +9211,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1840745526485533898, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4040840759498570172, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
       propertyPath: m_MatchWidthOrHeight
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807723029170778363, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64bccb081b3f7114e80a0306672217d0, type: 3}
@@ -9551,6 +9555,10 @@ PrefabInstance:
     - target: {fileID: 2853429287023831603, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
       value: -268.66995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229388300300182914, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
+      propertyPath: zoomSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5668521407825111634, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_AnchorMax.y
