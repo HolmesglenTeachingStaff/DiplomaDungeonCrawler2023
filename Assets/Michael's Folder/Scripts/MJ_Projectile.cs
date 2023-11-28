@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class MJ_Projectile : MonoBehaviour
 {
-    public float moveSpeed;
+    public float projectileSpeed; 
     public float deathTime;
 
     Rigidbody rb;
@@ -22,7 +22,7 @@ public class MJ_Projectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.position += transform.forward * moveSpeed;
+        rb.position += transform.forward * projectileSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
