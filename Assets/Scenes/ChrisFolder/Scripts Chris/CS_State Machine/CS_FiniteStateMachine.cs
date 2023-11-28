@@ -78,7 +78,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
 
         damageBurst.damageRange = meleeRange;
 
@@ -90,6 +90,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //start the FSM (Finite State Machine)
         StartCoroutine(EnemyFSM());
+        AnimCancel();
     }
 
     #endregion
@@ -112,7 +113,9 @@ public class CS_FiniteStateMachine : MonoBehaviour
     #region Behaviour Coroutines
 
     IEnumerator IDLE()
-    {   
+    {
+        AnimCancel();
+        anim.SetBool("IsIdle", true);
         
         //enter the IDLE state
         //put any code here i want to run at the start of the behaviour
@@ -122,7 +125,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
         //add IDLE anim
         while(currentState == States.IDLE)
-        {   
+        {
+            anim.SetBool("IsIdle", true);
 
             //checking if we need to chase the player
             if(Vector3.Distance(transform.position, player.position) < sightRange)
@@ -159,6 +163,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator PATROLLING()
     {
+        AnimCancel();
+        anim.SetBool("IsWalking", true);
         //ENTER THE PATROLLING STATE >
         //put any code here that you want to run while patrolling
         
@@ -211,6 +217,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
    
     IEnumerator CHASING()
     {
+        AnimCancel();
+        anim.SetBool("IsRunning", true);
         //activeDamage.enabled = false;
         
         //enter the CHASING state
@@ -271,6 +279,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator ATTACKING()
     {
+        AnimCancel();
 
         Debug.Log("GOT YA!");
         //activeDamage.enabled = true;
@@ -286,6 +295,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while(currentState == States.ATTACKING)
         {
+            AnimCancel();
+            anim.SetBool("IsAttacking", true);
             
             agent.speed = 3;
             agent.SetDestination(player.position);
@@ -369,6 +380,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator AIMING()
     {
+        AnimCancel();
+
         //put any code here that you want to run at the start of the behaviour
         chargePointer.SetActive(true);
         fireFeet.SetActive(true);
@@ -381,6 +394,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.AIMING)
         {
+            AnimCancel();
+
             aimTimer += Time.deltaTime;
             
             if(aimTimer >= chargeTime)
@@ -402,6 +417,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
  IEnumerator CHARGING()
     {
+         AnimCancel();
+         
          //ENTER THE CHARGING STATE >
          //put any code here that you want to run while CHARGING
          //activeDamage.enabled = true;
@@ -425,6 +442,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
          //put any code here you want to repeat during the state being active
         while (currentState == States.CHARGING)
         {
+            AnimCancel();
+            anim.SetBool("IsRunningFast", true);
                         
             if(pos < duration) //checking if lerp is complete (is the path complete)
             {
@@ -539,6 +558,8 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
     IEnumerator STUNNED()
     {
+        AnimCancel();
+        anim.SetBool("IsHit", true);
 
         //activeDamage.enabled = false;
         //enter the STUNNED state
@@ -670,6 +691,15 @@ public class CS_FiniteStateMachine : MonoBehaviour
         }
     }
 
+    private void AnimCancel()
+    {
+        anim.SetBool("IsWalking", false);
+        anim.SetBool("IsIdle", false);
+        anim.SetBool("IsRunning", false);
+        anim.SetBool("IsRunningFast", false);
+        anim.SetBool("IsAttacking", false);
+        anim.SetBool("IsHit", false);
+    }
     
 
 }
