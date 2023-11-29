@@ -65,14 +65,22 @@ public class SpiderlingManager : MonoBehaviour
 
     }
 
-    public void SetSpiderlingsTarget(Vector3 targetPosition)
+    public void SetSpiderlingsAttackTarget(Transform targetPosition)
     {
-        foreach (Spiderling spiderling in spiderlingsList)
+        foreach (Spiderling spiderlingScript in spiderlingsList)
         {
            
+            spiderlingScript.SetAttackTarget(targetPosition);
 
-            spiderling.SetTarget(targetPosition);
+        }
+    }
 
+    public void SetSpiderlingsMoveTarget(Vector3 targetPosition)
+    {
+        foreach (Spiderling spiderlingScript in spiderlingsList)
+        {
+
+            spiderlingScript.SetMoveTarget(targetPosition);
 
         }
     }

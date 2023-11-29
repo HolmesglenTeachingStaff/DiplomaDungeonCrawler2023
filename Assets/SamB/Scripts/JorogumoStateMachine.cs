@@ -17,11 +17,10 @@ public class JorogumoStateMachine : MonoBehaviour
     public float sightRange = 25;
     public float rangedRange = 15f; // Adjust the ranged attack range
     public float rangedCooldown = 5f; // Adjust the ranged attack cooldown
-    bool isRangedCooledDown = false;
+    bool isRangedCooledDown = true;
     public float spellRange = 10f; // Adjust the spell range
-    public float channelTime = 2f; // Adjust the channeling time
     public float spellCooldown = 10f; // Adjust the spell cooldown
-    bool isSpellCooledDown = false;
+    bool isSpellCooledDown = true;
 
     public float fleeDuration = 3;
     public float fleeThreshold = 25;
@@ -128,6 +127,9 @@ public class JorogumoStateMachine : MonoBehaviour
         //UPDATE STATE >
         while (currentState == States.PATROLLING)
         {
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length; //makes patrol point next one on list, and loops if it exceeds array limit.
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+
             if (IsInRange(sightRange))
             {
                 currentState = States.CHASING;
@@ -136,18 +138,13 @@ public class JorogumoStateMachine : MonoBehaviour
 
             if (isSpellCooledDown)
             {
-                anim.SetTrigger("SpellCast");//run the attack animation
+                anim.SetTrigger("SpellCast"); //run the attack animation
                 joroAttacks.StartSpellCast();
 
                 StartCoroutine(SpellCooldown());
 
             }
-
-            // Continue patrolling
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length; //makes patrol point next one on list, and loops if it exceeds array limit.
-            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
             
-           
             yield return new WaitForSeconds(UnityEngine.Random.Range(idleDuration - 1, idleDuration + 1));
             
         }
@@ -163,7 +160,6 @@ public class JorogumoStateMachine : MonoBehaviour
         //ENTER THE  STATE >
         Debug.Log("Fresh food!");
         anim.SetBool("IsMoving", true);
-
         agent.updateRotation = true;
         agent.SetDestination(playerPosition.position);
 
@@ -174,42 +170,41 @@ public class JorogumoStateMachine : MonoBehaviour
             else if (!IsInRange(sightRange)) currentState = States.IDLE;
 
             agent.SetDestination(playerPosition.position);
-
-
             yield return new WaitForEndOfFrame();
         }
 
         //EXIT STATE
         anim.SetBool("IsMoving", false);
-
         yield return StartCoroutine(currentState.ToString());
-        //Debug.Log("Oh no I see the player!");
     }
 
 
     IEnumerator ATTACKING()
     {
         //ENTER THE STATE >
-        anim.SetBool("IsIdle", true);
+        anim.SetBool("IsIdle", true); //COULD INSTEASD BE A 'attacking' ANIMATION NOT IDLE
         agent.isStopped = true;
         agent.ResetPath();
-        Debug.Log("Kill them!");
-        float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
+        Debug.Log("Attack, my pretties");
+
+        spiderlingManager.SetSpiderlingsAttackTarget(playerPosition);
+
 
         //UPDATE  STATE 
         while (currentState == States.ATTACKING)
         {
-            spiderlingManager.SetSpiderlingsTarget(playerPosition.position);
+
 
             if (isSpellCooledDown)
             {
-                anim.SetTrigger("SpellCast");//run the attack animation
+                anim.SetTrigger("SpellCast"); //trigger spell animation
                 joroAttacks.StartSpellCast();
 
                 StartCoroutine(SpellCooldown());
 
             }
-            else if (IsInRange(rangedRange) && isRangedCooledDown)
+
+            if (IsInRange(rangedRange) && isRangedCooledDown)
             {
                 anim.SetTrigger("RangedAttack");//run the attack animation
                 joroAttacks.RangedAttack(playerPosition);
@@ -231,12 +226,13 @@ public class JorogumoStateMachine : MonoBehaviour
 
 
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.1f);
         }
 
+        spiderlingManager.SetSpiderlingsMoveTarget(transform.position);
+
         //EXIT  STATE
-        //Debug.Log("Oh no I see the player
-        anim.SetBool("IsIdle", false); //COULD INSTEASD BE A 'attacking' ANIMATION NOT IDLE
+        anim.SetBool("IsIdle", false); 
         yield return StartCoroutine(currentState.ToString());
     }
 
@@ -247,8 +243,6 @@ public class JorogumoStateMachine : MonoBehaviour
         anim.SetBool("IsMoving", true);
         agent.updateRotation = true;
         Debug.Log("I'm too pretty to die!");
-
-
 
         //UPDATE  STATE >
         while (currentState == States.FLEEING)
@@ -265,9 +259,7 @@ public class JorogumoStateMachine : MonoBehaviour
 
         //EXIT STATE
         anim.SetBool("IsMoving", false);
-
         yield return StartCoroutine(currentState.ToString());
-        //Debug.Log("Oh no I see the player!");
     }
     #endregion
 

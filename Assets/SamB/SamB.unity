@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 400843721}
   - component: {fileID: 400843720}
   - component: {fileID: 400843725}
+  - component: {fileID: 400843726}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -259,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400843719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.13, y: 3.08, z: 12.700001}
+  m_LocalPosition: {x: 2.13, y: 2.85, z: 6.85}
   m_LocalScale: {x: 3.366525, y: 7.128332, z: 3.366525}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,6 +283,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &400843726
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400843719}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.545, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &563467735
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +618,6 @@ GameObject:
   - component: {fileID: 378222258315167743}
   - component: {fileID: 8311640168708141121}
   - component: {fileID: 8311640168708141120}
-  - component: {fileID: 8311640168708141122}
   m_Layer: 0
   m_Name: Jorogumo
   m_TagString: Untagged
@@ -617,7 +633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947250483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.165376, y: -0.06, z: -11.272919}
+  m_LocalPosition: {x: 6.165376, y: -0.06, z: -13.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -767,7 +783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585711601}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.184376, y: 1.7749999, z: 0.4449196}
+  m_LocalPosition: {x: -0.04, y: 1.249, z: 0.419}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1554,9 +1570,25 @@ PrefabInstance:
       propertyPath: sightRange
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2270430013310311405, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
+      propertyPath: maxSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270430013310311405, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
+      propertyPath: currentSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2270430013310311407, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
       propertyPath: m_Name
       value: YureiFinal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270430013310311407, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270430013722035838, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28fa1e61ee9e6de48813f4adaf516ef1, type: 3}
@@ -1918,24 +1950,56 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4227634445103794068, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227634445103794068, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227634445103794068, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -42.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417657341204277608, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 23.76
       objectReference: {fileID: 0}
     - target: {fileID: 4417657341204277608, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4417657341204277608, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742363522722977745, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.99
+      objectReference: {fileID: 0}
     - target: {fileID: 4742363522722977745, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742363522722977745, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -48.68
       objectReference: {fileID: 0}
     - target: {fileID: 5349536142373466054, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_Name
       value: PatrolPointsJoro
       objectReference: {fileID: 0}
     - target: {fileID: 6807153474496137035, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807153474496137035, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807153474496137035, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.85
       objectReference: {fileID: 0}
     - target: {fileID: 7553010462426097793, guid: 62832d0fbc5678a43a3735dd251151eb, type: 3}
       propertyPath: m_RootOrder
@@ -2870,7 +2934,6 @@ MonoBehaviour:
   rangedRange: 15
   rangedCooldown: 5
   spellRange: 10
-  channelTime: 2
   spellCooldown: 10
   fleeDuration: 3
   fleeThreshold: 25
@@ -3640,6 +3703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangedProjectile: {fileID: 6805093958039657601, guid: 52146e30c5db792429a4aed350176d65, type: 3}
+  projectileSpawn: {fileID: 1585711602}
   damageType: 0
   rangedDamage: 10
   healSpellAmount: 20
@@ -3709,22 +3773,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8311640168708141122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947250483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c93bc001d45cd644a18f9a524f53608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRanged: 1
-  minRangedDamage: 8
-  maxRangedDamage: 15
-  rangedDamageType: 0
 --- !u!4 &8340303649718318212
 Transform:
   m_ObjectHideFlags: 0

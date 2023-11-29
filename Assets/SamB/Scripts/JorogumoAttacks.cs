@@ -13,12 +13,11 @@ public class JorogumoAttacks : MonoBehaviour
     Stats stats;
     Stats playerStats;
     SpiderlingManager spiderlingManager;
-
+    public Transform projectileSpawn;
 
     public StatSystem.DamageType damageType;
     public int rangedDamage = 15;
 
-    private float channelTime = 0.5f; // Adjust the channeling time
     public float healSpellAmount = 20;
     public float maxSpellRange = 15;
 
@@ -35,10 +34,15 @@ public class JorogumoAttacks : MonoBehaviour
 
     public void RangedAttack(Transform target)
     {
-        // Instantiate the projectile
-        GameObject projectile = Instantiate(rangedProjectile, transform.position, Quaternion.identity);
+        GameObject projectile = Instantiate(rangedProjectile, projectileSpawn.position, projectileSpawn.rotation);         // Instantiate the projectile
 
-        // Perform ranged attack logic here
+        Vector3 targetPosition = target.position;         // Specify the target position when firing the projectile
+
+        Vector3 direction = (targetPosition - transform.position).normalized;         // Calculate the direction towards the target
+
+        projectile.GetComponent<JorogumoProjectiles>().Initialize(direction);         // Set the direction of the projectile
+
+
         Debug.Log("Ranged Attack!");
 
     }
@@ -47,7 +51,7 @@ public class JorogumoAttacks : MonoBehaviour
     public void HealSpider()
     {
         // Perform channeling spell logic here
-        Debug.Log("Channeling Spell...");
+        Debug.Log("Casting heal");
 
         // Wait for channeling time
         StartCoroutine(StartSpellCast());
@@ -67,8 +71,9 @@ public class JorogumoAttacks : MonoBehaviour
 
     public IEnumerator StartSpellCast()
     {
-        yield return new WaitForSeconds(channelTime);
+        //yield return new WaitForSeconds(channelTime);
         HealSpider();
+        yield return null;
     }
 
   

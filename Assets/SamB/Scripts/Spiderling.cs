@@ -5,57 +5,75 @@ using UnityEngine.AI;
 
 public class Spiderling : MonoBehaviour
 {
-    public float followRange = 5f;
+    public float followRange = 4f;
+    public bool isFollowing = true;
+    public bool isAttacking = false;
 
-    public float meleeRange = 2f;
+    public float meleeRange = 3f;
     public float meleeCooldown = 2f;
-    private float lastAttackTime; //tracks when the last attack was
+    public float minMeleeDamage = 3f;
+    public float maxMeleeDamage = 6f;
+    bool isMeleeCooledDown = true;
+
+    public StatSystem.DamageType meleeDamageType; //this will just be standard damage
 
     private SpiderlingManager broodmother; //the jorogumo this spider is following
-    private Transform target; //what this spiderling is curently targeting. Could be set by the Jorogumo.
-    public float spiderlingLeashDistance = 10f;
+    private Vector3 target; //what this spiderling is curently moving to or attacking. Set by Joro.
+    public float spiderlingLeashDistance = 20f;
+    private Stats playerStats;
 
     NavMeshAgent navAgent;
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+
 
     }
 
     void Update()
     {
-        // Follow the jorogumo
-        if (broodmother != null)
+        if (isFollowing && broodmother != null)
         {
             float distanceToMaster = Vector3.Distance(transform.position, broodmother.transform.position);
 
             if (distanceToMaster > followRange)
             {
                 // Calculate a random point within a radius around the master
-                Vector3 randomDestination = RandomNavSphere(broodmother.transform.position, followRange);
+                Vector3 randomDestination = RandomNavSphere(broodmother.transform.position, 3);
 
                 // Set the destination to the random point
                 navAgent.SetDestination(randomDestination);
             }
+
         }
 
-        //set the player as the 'target' to go and attack
-        if (target != null)
+        //checking if close enough to target to attack,  attack if you are move to it if you arent
+        if(target != null )
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-            if (distanceToTarget <= meleeRange && Time.time - lastAttackTime > meleeCooldown)
+            isAttacking = true;
+            isFollowing = false;
+
+            float distanceToTarget = Vector3.Distance(transform.position, target);
+
+            if (distanceToTarget <= meleeRange && isMeleeCooledDown && isAttacking)
             {
                 // perform Melee attack
-                lastAttackTime = Time.time;
+                navAgent.ResetPath();
                 DamagePlayer();
+                StartCoroutine(MeleeCooldown());
+                Debug.Log("SpiderAttackCalled");
             }
-            else
+            else if (distanceToTarget > meleeRange)
             {
-                // Move towards target
-                navAgent.SetDestination(target.position);
+                navAgent.SetDestination(target);
+
             }
+            
         }
+       
+
     }
 
     Vector3 RandomNavSphere(Vector3 origin, float distance)
@@ -66,6 +84,49 @@ public class Spiderling : MonoBehaviour
         NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
         return navHit.position;
     }
+
+    
+    
+    //Sets a new target for this spiderling to move to
+    public void SetMoveTarget(Vector3 targetPosition)
+    {
+        target = targetPosition;
+        isAttacking = false;
+        isFollowing = true;
+        navAgent.SetDestination(target);
+
+    }
+
+    //Sets a new target for this spiderling to attack 
+    public void SetAttackTarget(Transform attackTarget)
+    {
+        target = attackTarget.position;
+        isAttacking = true;
+        isFollowing = false;
+        navAgent.SetDestination(target);
+    }
+
+    void DamagePlayer()
+    {
+        //play animations/effects/sounds
+
+        if (playerStats != null)
+        {
+            // Apply damage to the player
+            StatSystem.DealDamage(playerStats, meleeDamageType, Random.Range(minMeleeDamage, maxMeleeDamage));
+            Debug.Log("SpiderDamageCalled");
+
+        }
+    }
+
+    IEnumerator MeleeCooldown()
+    {
+        isMeleeCooledDown = false;
+        yield return new WaitForSeconds(meleeCooldown);
+        isMeleeCooledDown = true;
+
+    }
+
 
     //establishing reference to the SpiderlingManger that is controlling this spider
     public void SetBroodmother(SpiderlingManager broodMother)
@@ -78,34 +139,6 @@ public class Spiderling : MonoBehaviour
         return broodmother;
     }
 
-    //Sets a new target for this spiderling to attack
-    public void SetTarget(Vector3 targetPosition)
-    {
-        if (Vector3.Distance(transform.position, broodmother.transform.position) > spiderlingLeashDistance)
-        {
-            SetTarget(broodmother.transform.position);
-        }
-        else
-        {
-            navAgent.SetDestination(targetPosition);
-
-        }
-        target = null; // Clear the target so it stops following the old target
-    }
-
-    void DamagePlayer()
-    {
-        //play animations/effects/sounds
-
-
-        // Access the 'Stats' component 
-        Stats playerStats = target.GetComponent<PlayerStats>();
-
-        if (playerStats != null)
-        {
-            // Apply damage to the player
-            playerStats.TakeDamage(10); 
-        }
-    }
+   
 
 }

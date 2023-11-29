@@ -9,20 +9,20 @@ public class YureiAttacks : MonoBehaviour
 
     private float meleeConeAngle = 45f; // Adjust the angle of the melee cone
     private float meleeConeDistance = 3f; // Adjust the distance of the melee cone
+    public int meleeDamage;
+
 
     private float channelTime = 2f; // Adjust the channeling time
     public float maxSpellRange = 20;
 
     Transform playerPosition;
-    //Stats stats;
     PlayerStats playerStats;
 
     public StatSystem.DamageType damageType;
 
-    public int meleeDamage;
+    public ParticleSystem meleeParticles;
     public Transform projectileSpawn;
 
-    public ParticleSystem meleeParticles;
 
     public bool isCasting = false;
 
@@ -39,7 +39,7 @@ public class YureiAttacks : MonoBehaviour
     {
         Debug.Log("Melee Attack!");
         //spell effect
-        Instantiate(meleeParticles, projectileSpawn.position, Quaternion.identity);
+        Instantiate(meleeParticles, projectileSpawn.position, projectileSpawn.rotation);
 
         // Detect enemies in the cone
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meleeConeDistance);
@@ -68,21 +68,23 @@ public class YureiAttacks : MonoBehaviour
     }
 
 
-    public void RangedAttack()
+    public void RangedAttack(Transform target)
     {
-        // Instantiate the projectile
-        GameObject projectile = Instantiate(rangedProjectile, projectileSpawn.position, Quaternion.identity);
+        GameObject projectile = Instantiate(rangedProjectile, projectileSpawn.position, projectileSpawn.rotation);         // Instantiate the projectile
+        Vector3 targetPosition = target.position;         // Specify the target position when firing the projectile
+        Vector3 direction = (targetPosition - transform.position).normalized;         // Calculate the direction towards the target
+        projectile.GetComponent<YureiProjectiles>().Initialize(direction);         // Set the direction of the projectile
 
-        // Perform ranged attack logic here
-        Debug.Log("Ranged Attack!");
+        Debug.Log("Yurei Ranged Attack!");
  
     }
 
 
     public void StartCast(Transform target)
     {
-        // Perform channeling spell logic here
         Debug.Log("Channeling Spell...");
+
+        isCasting = true;
 
         // Wait for channeling time
         StartCoroutine(StartSpellCast(target));
@@ -95,13 +97,17 @@ public class YureiAttacks : MonoBehaviour
         isCasting = true; 
         yield return new WaitForSeconds(channelTime);
 
-        // Perform spell logic after channeling
         // Check if the target is still in range
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget <= maxSpellRange)
         {
-            // Instantiate a spell projectile
-            GameObject newSpell = Instantiate(spellProjectile, projectileSpawn.position, Quaternion.identity);
+            isCasting = false;
+            GameObject projectile = Instantiate(spellProjectile, projectileSpawn.position, projectileSpawn.rotation);         // Instantiate the projectile
+            Vector3 targetPosition = target.position;         // Specify the target position when firing the projectile
+            Vector3 direction = (targetPosition - transform.position).normalized;         // Calculate the direction towards the target
+            projectile.GetComponent<YureiProjectiles>().Initialize(direction);         // Set the direction of the projectile
+
+            Debug.Log("Yurei Spell Attack!");
 
         }
 

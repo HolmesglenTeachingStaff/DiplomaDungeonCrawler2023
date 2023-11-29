@@ -11,32 +11,45 @@ public class JorogumoProjectiles : MonoBehaviour
     
     private float rangedSpeed = 10f; // Adjust the projectile speed
     
-    public StatSystem.DamageType rangedDamageType; //this will just be standard damage
+    public StatSystem.DamageType rangedDamageType;
 
-    private Transform playerPosition;
     private Stats playerStats;
 
-    /* public enum DamageTargets { player, enemy, general }
-    public DamageTargets damageTarget; */
+    private Vector3 direction;
+    private Vector3 initialPosition;
+    public float maximumDistance = 25f; // Adjust the maximum distance for destroying the projectile
+    
 
     private void Awake()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
 
     }
 
     private void Start()
     {
-        // Calculate the direction towards the target
-        Vector3 direction = (playerPosition.transform.position - transform.position).normalized;
-
         if (isRanged)
         {
             // Set the projectile's velocity
             GetComponent<Rigidbody>().velocity = direction * rangedSpeed;
         }
-        
+
+    }
+
+    public void Initialize(Vector3 direction)
+    {
+        this.direction = direction;
+        initialPosition = transform.position;
+    }
+
+    private void Update()
+    {
+     
+            if (Vector3.Distance(initialPosition, transform.position) >= maximumDistance)
+            {
+                Destroy(gameObject);
+            }
+   
     }
 
 

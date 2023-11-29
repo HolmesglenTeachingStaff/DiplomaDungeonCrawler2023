@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4436804679269010715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 0, z: 0}
+  m_LocalPosition: {x: 0.056, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,7 +83,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.74793327
+        value: 0.61750114
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -92,7 +92,7 @@ TrailRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.44119656
+        value: 0.1803323
         inSlope: -0.433018
         outSlope: -0.433018
         tangentMode: 0
@@ -120,8 +120,8 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 10748
-      atime1: 53294
+      atime0: 0
+      atime1: 65535
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -4977,15 +4977,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6805093956886990970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.99999744, y: -0, z: -0, w: 0.0022861825}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1106265, y: 1, z: 1}
+  m_LocalScale: {x: 3.5340927, y: 0.9576879, z: 0.73637486}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2584857181097854521}
   m_Father: {fileID: 6805093958039657603}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -179.738, y: 0, z: 0}
 --- !u!33 &6805093956886990966
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5045,9 +5045,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6805093958039657603}
-  - component: {fileID: 6805093958039657602}
   - component: {fileID: 308246137827315321}
   - component: {fileID: 6836725219195349071}
+  - component: {fileID: 5859295959152989257}
   m_Layer: 0
   m_Name: JoroRangedProjectile
   m_TagString: Untagged
@@ -5072,30 +5072,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6805093958039657602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6805093958039657601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140091271bebe98498ad2631a470a075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRanged: 1
-  isSpell: 0
-  minRangedDamage: 5
-  maxRangedDamage: 25
-  minSpellDamage: 0
-  maxSpellDamage: 0
-  reduceArmour: 0
-  reduceSpeed: 0
-  reduceAttack: 0
-  debuffDuration: 0
-  rangedDamageType: 0
-  spellDamageType: 0
 --- !u!54 &308246137827315321
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5126,3 +5102,20 @@ CapsuleCollider:
   m_Height: 1.02
   m_Direction: 0
   m_Center: {x: -0.000000059604645, y: 0, z: 0}
+--- !u!114 &5859295959152989257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805093958039657601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c93bc001d45cd644a18f9a524f53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRanged: 1
+  minRangedDamage: 5
+  maxRangedDamage: 10
+  rangedDamageType: 0
+  maximumDistance: 25

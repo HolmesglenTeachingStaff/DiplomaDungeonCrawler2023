@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4168694953063266957}
   - component: {fileID: 7544612769380041685}
   m_Layer: 0
-  m_Name: SpiderlingFinal
+  m_Name: SpiderlingBLockout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,9 +222,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followRange: 5
-  meleeRange: 2
+  isFollowing: 1
+  isAttacking: 0
+  meleeRange: 4
   meleeCooldown: 2
-  spiderlingLeashDistance: 10
+  meleeDamage: 5
+  spiderlingLeashDistance: 20
 --- !u!195 &7544612769380041685
 NavMeshAgent:
   m_ObjectHideFlags: 0

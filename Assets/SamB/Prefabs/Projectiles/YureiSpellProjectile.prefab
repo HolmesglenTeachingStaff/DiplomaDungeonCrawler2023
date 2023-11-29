@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3218567412365935013
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622426460732819981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.019, y: 0, z: 0}
+  m_LocalPosition: {x: 0.069, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -284,6 +284,7 @@ MonoBehaviour:
   debuffDuration: 15
   rangedDamageType: 6
   spellDamageType: 6
+  maximumDistance: 25
 --- !u!54 &5749302291380491627
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5364201840848518309}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.51847935, y: 0.0045681, z: -0.008374849}
+  m_LocalPosition: {x: 0.281, y: 0.0045681, z: -0.008}
   m_LocalScale: {x: 0.40469003, y: 0.40469, z: 0.7124899}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1181,7 +1182,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 60
       minScalar: 10
       maxCurve:
         serializedVersion: 2

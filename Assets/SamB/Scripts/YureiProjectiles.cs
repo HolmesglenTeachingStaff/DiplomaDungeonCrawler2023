@@ -19,31 +19,23 @@ public class YureiProjectiles : MonoBehaviour
     public float reduceArmour = 15;
     public float reduceSpeed = 15;
     public float reduceAttack = 15;
-
     public float debuffDuration = 15;
 
     public StatSystem.DamageType rangedDamageType; //this will just be standard damage
     public StatSystem.DamageType spellDamageType; //think this needs to be dark cause debuff
-
-
-    private Transform playerPosition;
     private Stats playerStats;
 
-
-    /* public enum DamageTargets { player, enemy, general }
-    public DamageTargets damageTarget; */
+    private Vector3 direction;
+    private Vector3 initialPosition;
+    public float maximumDistance = 25f; // Adjust the maximum distance for destroying the projectile
 
     private void Awake()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
-
     }
 
     private void Start()
     {
-        // Calculate the direction towards the target
-        Vector3 direction = (playerPosition.transform.position - transform.position).normalized;
 
         if (isRanged)
         {
@@ -56,7 +48,24 @@ public class YureiProjectiles : MonoBehaviour
             GetComponent<Rigidbody>().velocity = direction * spellSpeed;
         }
     }
-    
+
+    public void Initialize(Vector3 direction)
+    {
+        this.direction = direction;
+        initialPosition = transform.position;
+
+    }
+
+    private void Update()
+    {
+
+        if (Vector3.Distance(initialPosition, transform.position) >= maximumDistance)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 
     void OnTriggerEnter(Collider other)
     {

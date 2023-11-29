@@ -134,7 +134,7 @@ public class YureiStateMachine : MonoBehaviour
 
             // Select a random destination within the roamRadius
             Vector3 randomDestination = transform.position + Random.insideUnitSphere * roamRadius;
-            randomDestination.y = transform.position.y; // Keep the y-coordinate constant
+            randomDestination.y = transform.position.y; // Keep the y-coordinate constant as we wdont want it moving up/down
 
             // Move towards the random destination
             agent.SetDestination(randomDestination);
@@ -183,13 +183,11 @@ public class YureiStateMachine : MonoBehaviour
 
     IEnumerator ATTACKING()
     {
+        //ENTER THE STATE >
         anim.SetBool("IsIdle", true); 
         bool isCasting = yureiAttacks.isCasting;
-
-        //ENTER THE STATE >
         agent.isStopped = true;
         agent.ResetPath();
-
         Debug.Log("Die!");
 
         //UPDATE STATE 
@@ -198,32 +196,30 @@ public class YureiStateMachine : MonoBehaviour
 
             if (IsInRange(spellRange) && isSpellCooledDown && !isCasting)
             {
-                anim.SetTrigger("SpellAttack");//run the attack animation
+                anim.SetTrigger("SpellAttack"); //trigger the animation
                 yureiAttacks.StartCast(playerPosition);
 
+                // Start cooldown
                 StartCoroutine(SpellCooldown());
 
             }
-            else if (IsInRange(rangedRange) && !IsInRange(meleeRange) && isRangedCooledDown)
+            else if (IsInRange(meleeRange) && isMeleeCooledDown && !isCasting)
             {
-                anim.SetTrigger("RangedAttack");//run the attack animation
-                yureiAttacks.RangedAttack();
+                anim.SetTrigger("MeleeAttack");
+                yureiAttacks.MeleeAttack();
+
+                StartCoroutine(MeleeCooldown());
+
+            }
+            else if (IsInRange(rangedRange) && isRangedCooledDown && !isCasting)
+            {
+                anim.SetTrigger("RangedAttack");
+                yureiAttacks.RangedAttack(playerPosition);
 
                 StartCoroutine(RangedCooldown());
 
             }
-            else if (IsInRange(meleeRange) && isMeleeCooledDown)
-            {
-                anim.SetTrigger("MeleeAttack");//run the attack animation
-                yureiAttacks.MeleeAttack();
-
-                // Start cooldown
-                StartCoroutine(MeleeCooldown());
-                //isAttacking = true;
-
-            }
-
-
+            
 
 
             if (IsInRange(sightRange))
@@ -239,13 +235,12 @@ public class YureiStateMachine : MonoBehaviour
 
 
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.1f);
         }
 
         //EXIT STATE
         anim.SetBool("IsIdle", false);
         yield return StartCoroutine(currentState.ToString());
-        //Debug.Log("Oh no I see the player!");
     }
 
 
