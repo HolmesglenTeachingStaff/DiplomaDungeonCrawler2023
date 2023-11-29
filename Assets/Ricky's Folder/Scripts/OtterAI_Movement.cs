@@ -9,6 +9,7 @@ using UnityEngine.AI; //important
 
 public class OtterAI_Movement : MonoBehaviour //don't forget to change the script name if you haven't
 {
+    Animator otter_anim;
     public NavMeshAgent agent;
     public float range; //radius of sphere
 
@@ -17,6 +18,7 @@ public class OtterAI_Movement : MonoBehaviour //don't forget to change the scrip
 
     void Start()
     {
+        otter_anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
 
