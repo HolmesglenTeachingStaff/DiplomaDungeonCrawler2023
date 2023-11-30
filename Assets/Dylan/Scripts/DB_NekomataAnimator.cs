@@ -9,6 +9,9 @@ public class DB_NekomataAnimator : MonoBehaviour
     NavMeshAgent agent;
     Vector2 smoothDeltaPosition = Vector2.zero;
     Vector2 velocity = Vector2.zero;
+    bool move;
+    float velx;
+    float vely;
 
     void Start()
     {
