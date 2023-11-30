@@ -261,6 +261,18 @@ public class JorogumoStateMachine : MonoBehaviour
         anim.SetBool("IsMoving", false);
         yield return StartCoroutine(currentState.ToString());
     }
+
+    IEnumerator DEATH()
+    {
+        agent.SetDestination(transform.position);
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(1f); //wait for the animation to end
+
+        //play a particle if possible;
+        Destroy(gameObject, 1);
+
+        Debug.Log("No it cant end like this!");
+    }
     #endregion
 
 
@@ -268,9 +280,8 @@ public class JorogumoStateMachine : MonoBehaviour
     {
         StopAllCoroutines();
         currentState = States.DEATH;
-        anim.SetTrigger("Death"); //set trigger for death animation
-        //Instantiate(deathParticle, transform.position, Quaternion.identity);
-        stats.Die();
+        agent.updateRotation = false;
+        StartCoroutine(DEATH());
 
     }
 

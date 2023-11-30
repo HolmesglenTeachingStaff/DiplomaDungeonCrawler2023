@@ -97,7 +97,7 @@ public class YureiStateMachine : MonoBehaviour
         while (currentState == States.IDLE)
         {
             idleTimer += Time.deltaTime;
-            Debug.Log("IDLE TIMER" + idleTimer);
+            //Debug.Log("IDLE TIMER" + idleTimer);
 
             //check for player
             if (IsInRange(sightRange)) currentState = States.CHASING;
@@ -242,9 +242,19 @@ public class YureiStateMachine : MonoBehaviour
         anim.SetBool("IsIdle", false);
         yield return StartCoroutine(currentState.ToString());
     }
+    IEnumerator DEATH()
+    {
+        agent.SetDestination(transform.position);
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(1f); //wait for the animation to end
 
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        Destroy(gameObject, 1);
 
+        Debug.Log("Im meltingggggg");
+    }
     #endregion
+    
 
 
     //used to check if something is "in range". basically just comparing two things.
@@ -261,9 +271,8 @@ public class YureiStateMachine : MonoBehaviour
     {
         StopAllCoroutines();
         currentState = States.DEATH;
-        anim.SetTrigger("Death"); //set trigger for death animation
-        Instantiate(deathParticle, transform.position, Quaternion.identity);
-        stats.Die();
+        agent.updateRotation = false;
+        StartCoroutine(DEATH());
 
     }
 
