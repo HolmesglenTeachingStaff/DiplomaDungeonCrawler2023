@@ -300,6 +300,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             AnimCancel();
             anim.SetBool("IsAttacking", true);
             
+            
             agent.speed = 3;
             agent.SetDestination(player.position);
 
@@ -308,6 +309,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
             //add ATTACK anim here
             // anim.Play("Standing_Attack");
             yield return new WaitForSeconds(2f); //the number is the time length of the animation
+            
 
             Debug.Log("entered ATTACKING again");            
 
@@ -342,7 +344,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
 
             if(Vector3.Distance(transform.position, player.position) < meleeRange)
             {
-                //activeDamage.enabled = false;
+                //activeDamage.enabled = false;                
                 Debug.Log("entering ATTACKING from ATTACKING");
                 currentState = States.ATTACKING;
             }            
@@ -396,7 +398,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.AIMING)
         {
-            AnimCancel();
+            anim.SetBool("IsAiming", true);
 
             aimTimer += Time.deltaTime;
             
@@ -629,6 +631,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
                     agent.updateRotation = true;
                     fireFeet.SetActive(false);  
                     Debug.Log("entering IDLE from STUNNED");
+                    AnimCancel();
                     currentState = States.IDLE;
                 }
 
@@ -701,6 +704,7 @@ public class CS_FiniteStateMachine : MonoBehaviour
         anim.SetBool("IsRunningFast", false);
         anim.SetBool("IsAttacking", false);
         anim.SetBool("IsHit", false);
+        anim.SetBool("IsAiming", false);
     }
     
 
