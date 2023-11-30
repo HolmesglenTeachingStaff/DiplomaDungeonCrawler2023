@@ -10,11 +10,12 @@ public class FieryWisp_States : MonoBehaviour
     /// </summary>
 
     #region variables
+    Stats stats;
+
     [Header ("Variables")]
     public float sightRange;
-    public float attackRange; //explosion AoE
+    public float attackRange;
     public float attackDelay;
-    public float moveSpeed;
 
     [Header ("Objects")]
     public GameObject player;
@@ -29,6 +30,7 @@ public class FieryWisp_States : MonoBehaviour
 
     [Header ("Gizmos")]
     public Color sightColor;
+    public Color chaseColor;
     public Color attackColor;
     #endregion
 
@@ -42,6 +44,7 @@ public class FieryWisp_States : MonoBehaviour
     }
     void Start()
     {
+        stats = GetComponent<Stats> ();
         hitBox.SetActive (false); //hitbox failsafe
         this.transform.position = spawnPoint.position; //spawn on spawnpoint
         StartCoroutine(EnemyFSM());
@@ -72,14 +75,14 @@ public class FieryWisp_States : MonoBehaviour
         }
         yield return new WaitForEndOfFrame();
     }
-
+    
     IEnumerator CHASING() //transitions to return or attacking
     {
         anim.Play("Moving");
         while (currentState == States.CHASING)
         {
             agent.SetDestination(player.transform.position);
-            agent.speed = moveSpeed;
+            agent.speed = stats.currentSpeed;
 
             if (Vector3.Distance(transform.position, player.transform.position) < attackRange) //can attack
             {
@@ -107,13 +110,13 @@ public class FieryWisp_States : MonoBehaviour
     }
     #endregion
 
-    #region Gizmos
+    #region Debug
     private void OnDrawGizmos()
     {
         Gizmos.color = sightColor;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-        Gizmos.color = attackColor;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = chaseColor;
+        Gizmos.DrawWireSphere(spawnPoint.position, chaseRange);
     }
     #endregion
 }
