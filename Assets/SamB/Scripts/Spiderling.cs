@@ -23,11 +23,13 @@ public class Spiderling : MonoBehaviour
     private Stats playerStats;
 
     NavMeshAgent navAgent;
+    Stats stats; 
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+        stats = GetComponent<Stats>();
 
 
     }
@@ -127,6 +129,18 @@ public class Spiderling : MonoBehaviour
 
     }
 
+    IEnumerator DEATH()
+    {
+        navAgent.SetDestination(transform.position);
+        //anim.SetTrigger("Death");
+        //Instantiate(deathParticle, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.5f); //wait for the animation/particle to end
+
+        Destroy(gameObject, 1);
+
+        Debug.Log("Blegh");
+    }
+
 
     //establishing reference to the SpiderlingManger that is controlling this spider
     public void SetBroodmother(SpiderlingManager broodMother)
@@ -139,6 +153,12 @@ public class Spiderling : MonoBehaviour
         return broodmother;
     }
 
-   
+    public void DIE()
+    {
+        StopAllCoroutines();
+        navAgent.updateRotation = false;
+        StartCoroutine(DEATH());
+
+    }
 
 }
