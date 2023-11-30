@@ -1394,7 +1394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 228
+      value: 213
       objectReference: {fileID: 0}
     - target: {fileID: 6224115787481394486, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2160,6 +2160,14 @@ PrefabInstance:
     - target: {fileID: 3507138177210072405, guid: b59ae2be6872c9d49befec7570c78c6d, type: 3}
       propertyPath: m_Name
       value: CS_Oni_NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507138177210072407, guid: b59ae2be6872c9d49befec7570c78c6d, type: 3}
+      propertyPath: chargeDamage
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507138177210072407, guid: b59ae2be6872c9d49befec7570c78c6d, type: 3}
+      propertyPath: damageAmount
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3507138177210072410, guid: b59ae2be6872c9d49befec7570c78c6d, type: 3}
       propertyPath: player
