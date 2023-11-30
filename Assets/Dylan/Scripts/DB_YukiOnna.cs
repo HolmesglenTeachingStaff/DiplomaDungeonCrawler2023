@@ -5,19 +5,25 @@ using UnityEngine.AI;
 
 public class DB_YukiOnna : MonoBehaviour
 {
-    #region variables
-    public float sightRange;
-    public float slowRange;
-    public float attackRange;
-
+    #region varaibales
+    private NavMeshAgent agent;
     public Transform player;
-    NavMeshAgent agent;
     private Animator anim;
     public float lastAttack, timeBetweenAttacks;
+
+    private int hitCounter, maxHits;
+    private float hitRecovery;
+    private float lastHit;
     private Stats stats;
 
+    public float sightRange, attackRange, slowRange;
+
+    //patrolling
     public List<Vector3> waypoints = new List<Vector3>();
     private int waypointIndex;
+
+    [HideInInspector]
+    public Color sightColor;
     #endregion
 
     #region states
@@ -30,19 +36,28 @@ public class DB_YukiOnna : MonoBehaviour
     {
         currentState = States.IDLE;
     }
-
-    void Start()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
-        stats.OnDamaged.Invoke();
+        GetComponent<Stats>().OnDamaged.Invoke();
 
+        //collect waypoint pos
+        foreach (Transform item in transform)
+        {
+            if (item.tag == "Waypoint")
+            {
+                waypoints.Add(item.position);
+            }
+        }
+        lastAttack = 0f;
+        //start fsm
         StartCoroutine(EnemyFSM());
     }
     #endregion
 
-    #region FSM
+    #region Finite StateMachine
     IEnumerator EnemyFSM()
     {
         while (true)
@@ -52,34 +67,34 @@ public class DB_YukiOnna : MonoBehaviour
     }
     #endregion
 
-    #region Coroutines
+    #region Behaviour Coroutines
     IEnumerator IDLE()
     {
-        float timer = 0; //create a timer to wait 5 seconds;
+        //enter idle state
+        float timer = 0f;
 
+        //update idle state
         while (currentState == States.IDLE)
         {
-            if (IsInRange(sightRange))
-            {
-                currentState = States.CHASING;
-            }
-            //increase the timer
-            timer ++;
-            yield return new WaitForSeconds(1);
-            //check if it should patrol
-            if (timer > 5)
-            {
-                currentState = States.PATROLLING;
-            }
+            //check for player, count until IDLE has run out of time
+            if (IsInRange(attackRange)) currentState = States.ATTACKING;
+            else if (IsInRange(sightRange)) currentState = States.CHASING;
+            else timer += Time.deltaTime;
+            if (timer > 5) currentState = States.PATROLLING;
+            yield return new WaitForEndOfFrame();
         }
+        yield return null;
     }
+
     IEnumerator CHASING()
     {
+        //enter CHASING state
         agent.updateRotation = true;
-        
-        while(currentState == States.CHASING)
+        agent.SetDestination(player.position);
+
+        //update CHASING
+        while (currentState == States.CHASING)
         {
-            agent.SetDestination(player.position);
             if (IsInRange(attackRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
             else if (!IsInRange(sightRange)) currentState = States.PATROLLING;
             else agent.SetDestination(player.position);
@@ -90,8 +105,9 @@ public class DB_YukiOnna : MonoBehaviour
     IEnumerator PATROLLING()
     {
         agent.SetDestination(waypoints[waypointIndex]);
-        Debug.Log("Slow patrol");
+        Debug.Log("Im coming.");
 
+        //update PATROLLING
         while (currentState == States.PATROLLING)
         {
             if (IsInRange(attackRange) && Time.time - lastAttack > timeBetweenAttacks) currentState = States.ATTACKING;
@@ -106,48 +122,63 @@ public class DB_YukiOnna : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+
+        Debug.Log("I see you");
     }
 
     IEnumerator ATTACKING()
     {
-        while (currentState == States.ATTACKING)
+        Debug.Log("Ill kill you");
+        agent.SetDestination(transform.position);
+        agent.updateRotation = false;
+        lastAttack = Time.time;
+        //gamble which attack to run
+        int attackType = Random.Range(0, 100);
+
+        if (attackType <= 70)
         {
-            if (IsInRange(attackRange))
-            {
-                anim.Play("IceSpell");
-                yield return new WaitForSeconds(3f);
-            }
-            else
-            {
-                currentState = States.CHASING;
-            }
-            if(stats.currentHealth <= 0)
-            {
-                currentState = States.DIE;
-            }
-            yield return new WaitForEndOfFrame();
+            anim.SetTrigger("IceSpell");//run animation
+            yield return new WaitForSeconds(2);
         }
+        else if (attackType > 70)
+        {
+            anim.SetTrigger("IceSpell");//run animation
+            yield return new WaitForSeconds(2);
+        }
+
+        agent.updateRotation = true;
+        if (IsInRange(sightRange)) currentState = States.CHASING;
+        else currentState = States.PATROLLING;
+
+        Debug.Log("I see you");
     }
 
     IEnumerator DIE()
     {
-        anim.Play("Death");
-        yield return new WaitForSeconds(2);
+        //enter DIE state
+        agent.speed = 0f;
+        agent.SetDestination(transform.position);
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(2f);
 
-        while (currentState == States.DIE)
+        SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer model in models)
         {
-            yield return new WaitForSeconds(1.5f);
-            if (stats.currentHealth <= 0)
-            {
-                Destroy(gameObject);
-                stats.Die();
-            }
-            yield return new WaitForEndOfFrame();
+            model.enabled = false;
         }
+        MeshRenderer[] meshs = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer mesh in meshs)
+        {
+            mesh.enabled = false;
+        }
+        Destroy(gameObject, 1);
+
+        Debug.Log("youre so mean..");
     }
+
     #endregion
 
-    #region Functions
+    #region functions
     bool IsInRange(float range)
     {
         if (Vector3.Distance(player.position, transform.position) < range)
@@ -163,17 +194,15 @@ public class DB_YukiOnna : MonoBehaviour
         currentState = States.DIE;
         StartCoroutine(DIE());
     }
-
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, slowRange);
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, slowRange);
     }
+    
     #endregion
 }
