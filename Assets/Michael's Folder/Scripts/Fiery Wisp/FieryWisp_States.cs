@@ -12,11 +12,14 @@ public class FieryWisp_States : MonoBehaviour
     #region variables
     [Header ("Variables")]
     public float sightRange;
-    public float attackRange;
+    public float attackRange; //explosion AoE
+    public float attackDelay;
     public float moveSpeed;
 
     [Header ("Objects")]
     public GameObject player;
+    public Animation anim;
+    public GameObject hitBox;
 
     [Header("Territory")]
     public Transform spawnPoint;
@@ -26,7 +29,7 @@ public class FieryWisp_States : MonoBehaviour
 
     [Header ("Gizmos")]
     public Color sightColor;
-    public Color damageColor;
+    public Color attackColor;
     #endregion
 
     #region States
@@ -39,8 +42,9 @@ public class FieryWisp_States : MonoBehaviour
     }
     void Start()
     {
+        hitBox.SetActive (false); //hitbox failsafe
         this.transform.position = spawnPoint.position; //spawn on spawnpoint
-        Gizmos.color = sightColor;
+        StartCoroutine(EnemyFSM());
     }
     #endregion
 
@@ -49,7 +53,7 @@ public class FieryWisp_States : MonoBehaviour
     {
         while (true)
         {
-            yield return StartCoroutine(EnemyFSM());
+            yield return StartCoroutine(currentState.ToString());
         }
     }
     #endregion
@@ -57,40 +61,59 @@ public class FieryWisp_States : MonoBehaviour
     #region Coroutines
     IEnumerator IDLE() //transitions to Chasing
     {
+        anim.Play("Idle"); //play idle anim
         while (currentState == States.IDLE)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < sightRange)
+            if (Vector3.Distance(transform.position, player.transform.position) < sightRange) //player in sight
             {
                 currentState = States.CHASING;
+                yield return StartCoroutine(currentState.ToString());
+            }
+        }
+        yield return new WaitForEndOfFrame();
+    }
+
+    IEnumerator CHASING() //transitions to return or attacking
+    {
+        anim.Play("Moving");
+        while (currentState == States.CHASING)
+        {
+            agent.SetDestination(player.transform.position);
+            agent.speed = moveSpeed;
+
+            if (Vector3.Distance(transform.position, player.transform.position) < attackRange) //can attack
+            {
+                currentState = States.ATTACKING;
                 yield return StartCoroutine(currentState.ToString());
             }
             yield return new WaitForEndOfFrame();
         }
     }
 
-    IEnumerator CHASING() //transitions to return or attacking
-    {
-        //move to player
-        if(Vector3.Distance(transform.position, player.transform.position)  < attackRange) //can attack
-        {
-            currentState = States.ATTACKING;
-            yield return StartCoroutine(currentState.ToString());
-        }
-
-
-    }
-
     IEnumerator ATTACKING()
     {
-        //attack delay before explosion
-        //destroy self
-        yield return null;
+        //play attacking animation
+        anim.Play("Attacking");
+        new WaitForSeconds(attackDelay); //attack delay before explosion
+        hitBox.SetActive(true);
+        Destroy(this.gameObject);
+        yield return new WaitForEndOfFrame();
     }
 
     IEnumerator RETURN()
     {
+        anim.Play("Moving");
         yield return StartCoroutine(currentState.ToString());
     }
     #endregion
 
+    #region Gizmos
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = sightColor;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = attackColor;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+    #endregion
 }
