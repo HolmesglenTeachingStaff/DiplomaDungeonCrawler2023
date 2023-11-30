@@ -16,6 +16,15 @@ public class DR_MenuHandler : MonoBehaviour
     }
     public void NewGame()
     {
+        scenesToLoad.Clear();
+        loadScreen.SetActive(true);
+        scenesToLoad.Add(SceneManager.LoadSceneAsync("IntroCutScene", LoadSceneMode.Additive));
+        
+        StartCoroutine(LoadProgress());
+    }
+    public void ContinueGame()
+    {
+        scenesToLoad.Clear();
         loadScreen.SetActive(true);
         scenesToLoad.Add(SceneManager.LoadSceneAsync("FirstTestLevel", LoadSceneMode.Additive));
         scenesToLoad.Add(SceneManager.LoadSceneAsync("Environment", LoadSceneMode.Additive));

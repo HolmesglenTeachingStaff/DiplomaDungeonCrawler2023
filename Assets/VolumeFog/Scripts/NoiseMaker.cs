@@ -52,7 +52,7 @@ public class NoiseMaker : MonoBehaviour
 
     }
 
-#if(UNITY_EDITOR)
+//#if(UNITY_EDITOR)
     [ContextMenu("Save Noise")]
     void CreateTexture3D()
     {
@@ -60,5 +60,5 @@ public class NoiseMaker : MonoBehaviour
         
         AssetDatabase.CreateAsset(tex3D, "Assets/Volume Fog/3DTexture.asset");
     }
-#endif
+//#endif
 }
