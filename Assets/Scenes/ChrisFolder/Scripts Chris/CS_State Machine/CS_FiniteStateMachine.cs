@@ -176,8 +176,6 @@ public class CS_FiniteStateMachine : MonoBehaviour
         //put any code here you want to repeat during patrolling state being active
         while (currentState == States.PATROLLING)
         {
-            AnimCancel();
-            anim.SetBool("IsWalking", true);
 
             //if (IsInRange(sightRange)) currentState = States.CHASING; //comparing range, making it true or false depending with function IsInRange below
 
