@@ -616,8 +616,8 @@ GameObject:
   - component: {fileID: 8958018822545252336}
   - component: {fileID: 8958018822545251855}
   - component: {fileID: 8958018822545251853}
-  - component: {fileID: 8958018822545251850}
   - component: {fileID: 8958018822545251848}
+  - component: {fileID: 3941723938623458861}
   m_Layer: 6
   m_Name: YukiOnnaRig
   m_TagString: Enemy
@@ -863,25 +863,6 @@ MonoBehaviour:
   statType: 0
   stats: {fileID: 8958018822545251855}
   isWorldSpace: 0
---- !u!114 &8958018822545251850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868586754417728927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9bb82d62e52894db16fb226a2c8839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageIsBasedOnStats: 1
-  statBlock: {fileID: 8958018822545251855}
-  minDamage: 2
-  maxDamage: 10
-  damageType: 7
-  damageTarget: 0
-  particleEffect: {fileID: 0}
 --- !u!114 &8958018822545251848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,6 +875,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379328893d0493744bed47209584376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3941723938623458861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868586754417728927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2c971f07bac4d41af1923dfb7e1fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageIsBasedOnStats: 1
+  statBlock: {fileID: 8958018822545251855}
+  minDamage: 5
+  maxDamage: 5
+  damageType: 7
+  damageTarget: 0
+  particleEffect: {fileID: 0}
 --- !u!1 &900627641636431016
 GameObject:
   m_ObjectHideFlags: 0
