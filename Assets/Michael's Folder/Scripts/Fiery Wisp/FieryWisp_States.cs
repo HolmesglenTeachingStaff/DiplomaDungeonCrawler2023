@@ -45,6 +45,8 @@ public class FieryWisp_States : MonoBehaviour
     void Start()
     {
         stats = GetComponent<Stats> ();
+        agent.speed = stats.currentSpeed;
+
         hitBox.SetActive (false); //hitbox failsafe
         this.transform.position = spawnPoint.position; //spawn on spawnpoint
         StartCoroutine(EnemyFSM());
@@ -82,15 +84,13 @@ public class FieryWisp_States : MonoBehaviour
         while (currentState == States.CHASING)
         {
             agent.SetDestination(player.transform.position);
-            agent.speed = stats.currentSpeed;
-
             if (Vector3.Distance(transform.position, player.transform.position) < attackRange) //can attack
             {
                 currentState = States.ATTACKING;
                 yield return StartCoroutine(currentState.ToString());
             }
-            yield return new WaitForEndOfFrame();
         }
+        yield return new WaitForEndOfFrame();
     }
 
     IEnumerator ATTACKING()
@@ -99,6 +99,7 @@ public class FieryWisp_States : MonoBehaviour
         anim.Play("Attacking");
         new WaitForSeconds(attackDelay); //attack delay before explosion
         hitBox.SetActive(true);
+        new WaitForSeconds(.3f);
         Destroy(this.gameObject);
         yield return new WaitForEndOfFrame();
     }
