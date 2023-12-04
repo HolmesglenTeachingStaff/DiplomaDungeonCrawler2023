@@ -17,6 +17,7 @@ public class DB_Nekomata : MonoBehaviour
     private Stats stats;
     
     public float sightRange, attackRange;
+    GameObject.
 
     //patrolling
     public List<Vector3> waypoints = new List<Vector3>();
@@ -129,13 +130,13 @@ public class DB_Nekomata : MonoBehaviour
     IEnumerator ATTACKING()
     {
         Debug.Log("Ill kill you");
-        agent.SetDestination(transform.position);
-        agent.updateRotation = false;
+        agent.updateRotation = true;
+        agent.SetDestination(player.position);
         lastAttack = Time.time;
         //gamble which attack to run
         int attackType = Random.Range(0, 100);
 
-        if(attackType <= 70)
+        if (attackType <= 70)
         {
             anim.SetTrigger("BasicAttack");//run animation
             yield return new WaitForSeconds(2);
@@ -143,6 +144,7 @@ public class DB_Nekomata : MonoBehaviour
         else if (attackType > 70)
         {
             anim.SetTrigger("LeapAttack");//run animation
+            WaitForSeconds(0.5)
             yield return new WaitForSeconds(2);
         }
 
