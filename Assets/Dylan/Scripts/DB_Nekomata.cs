@@ -17,7 +17,6 @@ public class DB_Nekomata : MonoBehaviour
     private Stats stats;
     
     public float sightRange, attackRange;
-    GameObject.
 
     //patrolling
     public List<Vector3> waypoints = new List<Vector3>();
@@ -144,7 +143,6 @@ public class DB_Nekomata : MonoBehaviour
         else if (attackType > 70)
         {
             anim.SetTrigger("LeapAttack");//run animation
-            WaitForSeconds(0.5)
             yield return new WaitForSeconds(2);
         }
 
