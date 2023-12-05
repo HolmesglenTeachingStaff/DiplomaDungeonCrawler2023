@@ -1,0 +1,257 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+/// <summary>
+/// State machine for a Summoner, used to opperate and switch between states.
+/// Will be used for the majority of managing a Summoners movements/actions.
+/// </summary>
+[RequireComponent(typeof(Collider))]
+public class BW_SummonerStateMachine : MonoBehaviour
+{
+    #region Variables
+    //GetComponent variables.
+    private NavMeshAgent agent;
+    private Animator anim;
+    private OrbitTarget orbitTarget;
+
+    //Transforms.
+    public Transform player;
+    public Transform summonLocation;
+
+    //misc.
+    public GameObject objectToSummon;
+    public Collider weaponCollider;
+    public bool checkingForPlayer = true;
+
+    [Header("Reaction Range Values")]
+    public float sightRange = 12;
+    public float meleeRange = 2;
+
+    //Nodes to indicate where to roam.
+    [SerializeField] Transform[] nodes;
+    int currentNode;
+    #endregion
+
+    //The behaviour states available for a Summoner to switch between.
+    #region States
+    public enum States {IDLE, PATROLLING, MELEE, COMBAT, DEATH}
+
+    public States currentState;
+    #endregion
+
+    //Starting all required components.
+    #region Initialization
+    private void Awake()
+    {
+        currentState = States.IDLE;
+    }
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        orbitTarget = GetComponent<OrbitTarget>();
+        orbitTarget.orbitTarget = player.gameObject;
+
+        weaponCollider.enabled = false;
+
+        StartCoroutine(SummonerFSM());
+    }
+    #endregion
+
+    //Initialize the state machine.
+    #region Finite State Machine
+    IEnumerator SummonerFSM()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(currentState.ToString());
+        }
+    }
+    #endregion
+
+    #region Update
+    void Update()
+    {
+        //Chase the player, if seen from any state.
+        if (checkingForPlayer == true && WithinRange(sightRange))
+        {
+            currentState = States.COMBAT;
+        }
+
+        //Change to MELEE state from any state if the player gets too close.
+        if (WithinRange(meleeRange))
+        {
+            currentState = States.MELEE;
+        }
+
+        //Rotate to face the player while in sightRange.
+        if (WithinRange(sightRange))
+        {
+            transform.LookAt(player);
+        }
+    }
+    #endregion
+
+    //Contents of the states, and how to change between them.
+    #region Behaviour Coroutines
+
+
+    #region IDLE
+    IEnumerator IDLE()
+    {
+        float timer;
+        timer = 0;
+
+        checkingForPlayer = true;
+
+        while (currentState == States.IDLE)
+        {
+            //Increase timer by 1 per second.
+            timer += Time.deltaTime;
+
+            //Time spent remaining IDLE.
+            if (timer >= 6)
+            {
+                currentState = States.PATROLLING;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForEndOfFrame();
+    }
+    #endregion
+
+    #region PATROLLING
+    IEnumerator PATROLLING()
+    {
+        checkingForPlayer = true;
+
+        //Move to the currently indexed nodes position.
+        agent.SetDestination(nodes[currentNode].position);
+        //Change current node.
+        currentNode = Random.Range(0, nodes.Length);
+
+        while (currentState == States.PATROLLING)
+        {
+            //Return to IDLE once node has been reached.
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                currentState = States.IDLE;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForEndOfFrame();
+    }
+    #endregion
+
+    #region COMBAT
+    IEnumerator COMBAT()
+    {
+        checkingForPlayer = false;
+
+        int maxSummons = 0;
+        float summonTimer = 0;
+
+        while (currentState == States.COMBAT)
+        {
+            //Return to IDLE if player is lost.
+            if (!WithinRange(sightRange)) currentState = States.IDLE;
+
+
+            summonTimer += Time.deltaTime;
+            //Spawn a new summon every 5 seconds (With a max of 3 summons at one time).
+            if (maxSummons < 3 && summonTimer >= 5)
+            {
+                //Spawns a summon. Reset timer.
+                Instantiate(objectToSummon, summonLocation.position, summonLocation.rotation);
+                summonTimer = 0;
+                maxSummons++;
+            }
+
+            //Follows the player while maintaining distance, and orbiting them.
+            agent.SetDestination(orbitTarget.orbitPosition);
+
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+    }
+    #endregion
+
+    #region MELEE
+    IEnumerator MELEE()
+    {
+        checkingForPlayer = false;
+
+        //Stop movement.
+        agent.SetDestination(agent.transform.position);
+
+        anim.Play("Summoner_Attack");
+        weaponCollider.enabled = true;
+        yield return new WaitForSeconds(2);
+        weaponCollider.enabled = false;
+        currentState = States.COMBAT;
+
+        //Return to COMBAT, if player is no longer within melee range.
+        while (currentState == States.MELEE)
+        {
+            if (!WithinRange(meleeRange)) currentState = States.COMBAT;
+
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+    }
+    #endregion
+
+    #region DEATH
+    IEnumerator DEATH()
+    {
+        //Destroys this NPC after a short delay, and animation are run.
+        anim.Play("Summoner_Dead");
+        weaponCollider.enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+        StopAllCoroutines();
+
+        yield return null;
+    }
+    #endregion
+
+
+    #endregion
+
+    //Function called from the inspector using the OnDeath Event in the Stats script.
+    public void Dead()
+    {
+        StartCoroutine(DEATH());
+    }
+
+    //Used to help visualize the range values in scene.
+    #region Gizmos
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, sightRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, meleeRange);
+    }
+    #endregion
+
+    //Determine whether the player is within a certain range.
+    #region Range
+    bool WithinRange(float range)
+    {
+        if (Vector3.Distance(player.position, transform.position) < range)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    #endregion
+}
