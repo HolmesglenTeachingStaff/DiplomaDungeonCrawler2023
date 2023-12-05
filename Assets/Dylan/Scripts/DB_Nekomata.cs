@@ -159,7 +159,7 @@ public class DB_Nekomata : MonoBehaviour
         agent.speed = 0f;
         agent.SetDestination(transform.position);
         anim.SetTrigger("Death");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer model in models)
