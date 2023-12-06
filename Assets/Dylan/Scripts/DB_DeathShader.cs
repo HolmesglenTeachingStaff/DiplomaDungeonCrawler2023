@@ -10,7 +10,7 @@ public class DB_DeathShader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mat = GetComponent<MeshRenderer>().material;
+        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
     }
 
     // Update is called once per frame
