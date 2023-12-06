@@ -158,8 +158,8 @@ public class DB_YukiOnna : MonoBehaviour
         //enter DIE state
         agent.speed = 0f;
         agent.SetDestination(transform.position);
-        anim.SetTrigger("Death");
-        yield return new WaitForSeconds(2f);
+        anim.SetTrigger("DIE");
+        yield return new WaitForSeconds(1f);
 
         SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer model in models)
