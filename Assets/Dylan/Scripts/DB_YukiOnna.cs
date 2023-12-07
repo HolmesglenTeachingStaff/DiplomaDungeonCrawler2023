@@ -137,12 +137,12 @@ public class DB_YukiOnna : MonoBehaviour
 
         if (attackType <= 70)
         {
-            anim.SetTrigger("IceSpell");//run animation
+            anim.SetTrigger("icespell");//run animation
             yield return new WaitForSeconds(2);
         }
         else if (attackType > 70)
         {
-            anim.SetTrigger("IceSpell");//run animation
+            anim.SetTrigger("icespell");//run animation
             yield return new WaitForSeconds(2);
         }
 
@@ -158,7 +158,7 @@ public class DB_YukiOnna : MonoBehaviour
         //enter DIE state
         agent.speed = 0f;
         agent.SetDestination(transform.position);
-        anim.SetTrigger("DIE");
+        anim.SetTrigger("death");
         yield return new WaitForSeconds(1f);
 
         SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
