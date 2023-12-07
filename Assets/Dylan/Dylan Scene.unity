@@ -238,6 +238,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &353908955 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4117790588375864593, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
+  m_PrefabInstance: {fileID: 7318813751287694627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &353908957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353908955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3ae45e1eabece489c23efc667197de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 66afc5514ebe47f49a585eae9f0bbbca, type: 2}
 --- !u!1 &1062162042
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062162042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.252, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,7 +300,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0.51, y: 0, z: 0}
 --- !u!114 &1062162045
 MonoBehaviour:
@@ -837,35 +855,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9006b09ccc501eb40990055cd1471685, type: 3}
---- !u!1 &1781513061 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7588793546286849712, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
-  m_PrefabInstance: {fileID: 7318813751287694627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1839477756 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7318813750995094454, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
   m_PrefabInstance: {fileID: 7318813751287694627}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781513061}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1839477766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781513061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e3ae45e1eabece489c23efc667197de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 66afc5514ebe47f49a585eae9f0bbbca, type: 2}
 --- !u!4 &2134634356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 638538059226774962, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
@@ -1036,6 +1036,10 @@ PrefabInstance:
       propertyPath: mat
       value: 
       objectReference: {fileID: 2100000, guid: 66afc5514ebe47f49a585eae9f0bbbca, type: 2}
+    - target: {fileID: 7318813750995094449, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
+      propertyPath: attackRange
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7588793546286849712, guid: 1ca47bd74d0009d4a99b82dd65f397c4, type: 3}
       propertyPath: m_Name
       value: Ninja Idle (1)
