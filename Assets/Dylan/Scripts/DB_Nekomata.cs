@@ -129,13 +129,13 @@ public class DB_Nekomata : MonoBehaviour
     IEnumerator ATTACKING()
     {
         Debug.Log("Ill kill you");
-        agent.SetDestination(transform.position);
-        agent.updateRotation = false;
+        agent.updateRotation = true;
+        agent.SetDestination(player.position);
         lastAttack = Time.time;
         //gamble which attack to run
         int attackType = Random.Range(0, 100);
 
-        if(attackType <= 70)
+        if (attackType <= 70)
         {
             anim.SetTrigger("BasicAttack");//run animation
             yield return new WaitForSeconds(2);
@@ -159,7 +159,7 @@ public class DB_Nekomata : MonoBehaviour
         agent.speed = 0f;
         agent.SetDestination(transform.position);
         anim.SetTrigger("Death");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         SkinnedMeshRenderer[] models = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer model in models)
