@@ -15,7 +15,7 @@ public class CS_MoveWithNavMeshAndAnimation : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInParent<NavMeshAgent>();
 
         agent.updatePosition = false;
     }
@@ -45,7 +45,7 @@ public class CS_MoveWithNavMeshAndAnimation : MonoBehaviour
         anim.SetFloat("Horizontal", velocity.x);
         anim.SetFloat("Vertical", velocity.y);
 
-        GetComponent<CS_LookAt>().lookAtTargetPosition = agent.steeringTarget + transform.forward;
+        //GetComponent<CS_LookAtPos>().lookAtTargetPosition = agent.steeringTarget + transform.forward;
     }
     private void OnAnimatorMove()
     {
