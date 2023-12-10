@@ -188,7 +188,7 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
         {
             anim.SetTrigger("BasicAttack");//run the attack animation
             weapon1.enabled = true;//enable the damage collider
-            yield return new WaitForSeconds(4); //wait for the animation to end
+            yield return new WaitForSeconds(2); //wait for the animation to end
             //weapon1.enabled = false;
             //weapon2.enabled = false;
         }
@@ -197,14 +197,14 @@ public class RD_NinjaFiniteStateMachine : MonoBehaviour
             anim.SetTrigger("KickAttack");//run the attack animation
             yield return new WaitForSeconds(1.5f); //wait for first hitbox
             //weapon2.enabled = true;//enable the damage collider
-            yield return new WaitForSeconds(0.1f); //wait for first hitbox
+            //yield return new WaitForSeconds(0.1f); //wait for first hitbox
             //weapon3.enabled = true;
 
-            yield return new WaitForSeconds(0.1f); //wait for first hitbox to finish
+            //yield return new WaitForSeconds(0.1f); //wait for first hitbox to finish
 
             //weapon2.enabled = false;
 
-            yield return new WaitForSeconds(3); //wait for the animation to end
+            //yield return new WaitForSeconds(3); //wait for the animation to end
             //weapon3.enabled = false;
         }
 

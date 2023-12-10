@@ -4012,7 +4012,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4036,7 +4036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 40
   currentHealth: 0
   regenRate: 1
   tempRegen: 0
@@ -4044,7 +4044,7 @@ MonoBehaviour:
   currentSpeed: 0
   maxArmour: 25
   currentArmour: 0
-  maxBaseAttackDamage: 10
+  maxBaseAttackDamage: 8
   currentBaseAttackDamage: 0
   immune: 0
   isDead: 0
@@ -9321,9 +9321,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4162127384156945279}
     m_Modifications:
+    - target: {fileID: 9174590438917135536, guid: 9def210922cbb6841abbeb2df9b80a2c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9174590438917135537, guid: 9def210922cbb6841abbeb2df9b80a2c, type: 3}
       propertyPath: m_Name
       value: RD_VFXGraph_Smoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174590438917135537, guid: 9def210922cbb6841abbeb2df9b80a2c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9174590438917135538, guid: 9def210922cbb6841abbeb2df9b80a2c, type: 3}
       propertyPath: m_RootOrder
