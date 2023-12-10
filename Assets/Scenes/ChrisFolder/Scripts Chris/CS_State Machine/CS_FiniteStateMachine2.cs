@@ -21,7 +21,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
     public Color sightColour; //i could add my own destint colour this way. To do so, below code would be "Gizmos.color = sightColour"
 
-    public CS_Dialogue dialogue;
+    //public CS_Dialogue dialogue;
 
      
     //patrol settings
