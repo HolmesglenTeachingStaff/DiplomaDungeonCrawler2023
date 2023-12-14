@@ -1978,7 +1978,9 @@ MonoBehaviour:
   sightRange: 6
   healRange: 1.5
   playerToHeal: {fileID: 1764829550}
-  currentState: 1
+  ott_HealHome: {fileID: 354038827}
+  waitBeforeChangingState: 2.5
+  currentState: 0
 --- !u!1 &1439698790
 GameObject:
   m_ObjectHideFlags: 0
