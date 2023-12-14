@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Otter_Healer_StateMachine : MonoBehaviour
+public class Otter_Healer_StateMachine_Test : MonoBehaviour
 {
     #region Variables
     public float sightRange;
@@ -139,22 +139,22 @@ public class Otter_Healer_StateMachine : MonoBehaviour
 
     } 
     
-    IEnumerator BACKTOHOME()
-    {
-        while (currentState == States.BACKTOHOME)
-        {
+    //IEnumerator BACKTOHOME()
+    //{
+    //    while (currentState == States.BACKTOHOME)
+        //{
 
 
 
 
-            return null;
-        }
+        //    return null;
+        //}
 
 
 
 
 
-    }
+    //}
     IEnumerator HEALING()
     {
         // Enter Healing State

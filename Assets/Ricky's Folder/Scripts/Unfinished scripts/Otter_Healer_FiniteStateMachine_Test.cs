@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Otter_ : MonoBehaviour
+public class Otter_Healer_FiniteStateMachine_Test : MonoBehaviour
 {
     public enum NPCState
     {
