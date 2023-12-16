@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class BagDrop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject[] Drops;
+    private int itemNum;
+    private int randNum;
+    private transform Epos;
+
+    public void Start()
     {
-        
+        Epos = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Item()
     {
-        
+        //if death = true spawn item from list
+        if (Stats.Die = true)
+        {
+            //get random number
+            randNum = Random.Range(0, 101);
+
+            if (randNum => 50)
+            {
+                itemNum = 0;
+                Instantiate(Drops[itemNum], Epos.position, Quaternion.identity);
+            }
+            else if (randNum => 20 && randNum < 50)
+            {
+                itemNum = 1;
+                Instantiate(Drops[itemNum], Epos.position, Quaternion.identity);
+            }
+            else if (randNum => 1 && randNum < 20)
+            {
+                itemNum = 2;
+                Instantiate(Drops[itemNum], Epos.position, Quaternion.identity);
+            }
+        }
     }
 }
