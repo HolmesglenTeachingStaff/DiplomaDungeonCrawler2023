@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool inview = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

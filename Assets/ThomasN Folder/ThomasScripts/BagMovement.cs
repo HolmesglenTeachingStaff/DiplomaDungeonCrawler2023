@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngineAI;
+using UnityEngine.AI;
 
 public class BagMovement : MonoBehaviour
 {
+    //General
+    private UnityEngine.AI.NavMeshAgent agent;
+
     //Idle
     private int randNum;
     public float wait;
@@ -16,41 +19,40 @@ public class BagMovement : MonoBehaviour
     //Flee
     public float duration;
     static public bool inradius = false;
-    public float speed;
-    public Transform target;
+    
+    
 
     //Search
 
 
-    void Start()
+    private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        target = GameObject.FindWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");   
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.name == "Player")
         {
-            inradius = true
+            inradius = true;
         }
     }
 
 
-    public void Idle()
+    IEnumerator Idle()
     {
         //turn to random direction after random time
         //range from 0-351 degrees
-        randNum = Random.Range(0, 351);
-        IEnumerator Turn()
+        randNum = Random.Range(0, 351);       
+         
+        float elapsedTime = 0f;
+        if (elapsedTime < duration)
         {
-            float elapsedTime = 0f;
-            if (elapsedTime < duration)
-            {
-                transform.Rotate(0, randNum, 0);
-            }
-
+          transform.player(0, randNum, 0);
         }
+
+      
     }
 
     public void Watch()
@@ -60,49 +62,55 @@ public class BagMovement : MonoBehaviour
         {
             lookat = true;
         }
-        if (lookat)
+        if (lookat = true)
         {
-            transform.lookat(player.transform);
+            transform.player(player.transform);
         }
 
     }
 
-    public void Flee()
-    {
+     public void Flee()
+     {
         //if player is in line of sight and in radius flee
         //if player attacks flee
 
-        if ((FieldOfView.inview) && inradius = true || Stats.TakeDamage)
+        if ((FieldOfView.inview) && inradius || Stats.TakeDamage = true) 
         {
-            Vector3 direction = transform.position - target.position;
-
-            if (direction.sqrmagnitude > 1f)
-            {
-                transform.Translate(direction.normalised * Time.deltaTime, Space.world)
-              transform.forawrd = direction.normalised;
-            }
-
-            StartCoroutine(Check());
+            StartCoroutine(Run());
         }
-        IEnumerator Check()
+
+        IEnumerator Run()
         {
+            Vector3 dirtoplayer = transform.position - player.transform.position;
+
+            Vector3 newPos = transform.position + dirtoplayer;
+
+            agent.SetDestination(newPos);
+
             float elapsedTime = 0f;
-            if (elapsedTime < wait)
+            if (elapsedTime < wait) 
             {
                 //Search
                 //turn 180 degrees
                 transform.Rotate(0, 180, 0);
                 if (FieldOfView.inview = true)
                 {
-
-                    continue fleeing
-
-
+                    StartCoroutine(Run());
+                    return true;
                 }
+                else if (FieldOfView.inview = false)
+                {
+                    StartCoroutine(Idle());
+                    return false;
+                }
+            } 
 
-            }
+            
         }
 
 
-    }
+        
+
+
+     }
 }

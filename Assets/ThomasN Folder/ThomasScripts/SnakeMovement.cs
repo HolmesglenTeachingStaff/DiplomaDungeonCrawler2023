@@ -1,45 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine AI;
+using UnityEngine.AI;
 
 public class SnakeMovement : MonoBehaviour
 {
+    //General
+    private UnityEngine.AI.NavMeshAgent agent;
+
     //Idle
     private int randNum;
     public float timer;
 
     //Hunting
-    Rigidbody = rb
-    public float speed;
     public GameObject player;
 
     //Retreat
     public float clock;
-    public Transform target;
+    public bool lookat = false;
 
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        target = GameObject.FindWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
     }
 
-    public void Idle()
-    {
+     IEnumerator Idle()
+     {
         //turn to random direction after random time
         //range from 9-351 degrees
-        randNum = Random.Range(9, 351);
-        IEnumerator Look()
+        randNum = Random.Range(9, 351);       
+        
+        float elapsedTime = 0f;
+        if (elapsedTime < timer)
         {
-            float elapsedTime = 0f;
-            if (elapsedTime < timer)
-            {
-                transform.Rotate(0, randNum, 0);
-            }
+          transform.Rotate(0, randNum, 0);
+            return;
         }
-    }
+        
+     }
 
     public void Hunting()
     {
@@ -47,13 +47,7 @@ public class SnakeMovement : MonoBehaviour
         //if player is in line of sight go towards them
         if (FieldOfView.inview = true)
         {
-            Vector3 direction = target.position - transform.position;
-
-            if (direction.sqrmagnitude > 1f)
-            {
-                transform.Translate(direction.normalised * Time.deltaTime, Space.world)
-              transform.forawrd = direction.normalised;
-            }
+            agent.SetDestination(player.transform.position);
         }
 
     }
@@ -66,17 +60,19 @@ public class SnakeMovement : MonoBehaviour
         {
             lookat = true;
         }
-        if (lookat)
+        if (lookat = true)
         {
-            transform.lookat(player.transform);
-            rb.AddForce(speed * Time.deltaTime * transform.backwards);
+            transform.player(player.transform);
+
+            StartCoroutine(Withdraw());
         }
         IEnumerator Withdraw()
         {
             float elapsedTime = 0f;
             if (elapsedTime < clock)
             {
-                return to idle mode
+                StartCoroutine(Idle());
+                return true;
             }
         }
     }

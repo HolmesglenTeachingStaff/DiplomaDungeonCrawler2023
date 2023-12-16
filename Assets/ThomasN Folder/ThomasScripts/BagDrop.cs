@@ -7,7 +7,7 @@ public class BagDrop : MonoBehaviour
     public GameObject[] Drops;
     private int itemNum;
     private int randNum;
-    private transform Epos;
+    private Transform Epos;
 
     public void Start()
     {

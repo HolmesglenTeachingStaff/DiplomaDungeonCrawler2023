@@ -17,7 +17,7 @@ public class SnakeAttack : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            inrange = true
+            inrange = true;
         }
     }
 
@@ -28,20 +28,21 @@ public class SnakeAttack : MonoBehaviour
         {
             //player cannot hurt Snakeyokai while wrapped
             //damage player over time
-            DamageonTouch
+            //DamageonTouch
             //lower players speed
             //model must move with player while wrapped
-            StatusEffects.Immobalize
+            //StatusEffects.Immobalize
             //end wrap after timer runs out
 
-            StartCoroutine(Release());
+            //StartCoroutine(Release());
         }
-        IEnumerator Release()
+        //IEnumerator Release()
         {
             float elapsedTime = 0f;
             if (elapsedTime < hold)
             {
-                trigger SnakeMovement.Retreat
+                //SnakeMovement.Retreat;
+
             }
         }
     }
