@@ -5,21 +5,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Collider))]
-public class OttHeal_StateMachine : MonoBehaviour
+public class OttBuff_StateMachine : MonoBehaviour
 {
     #region variables
     public float sightRange;
-    public float healRange;
-    public Transform playerToHeal;
-    private NavMeshAgent ott_HealAgent;
-    public Transform ott_HealHome;
+    public float buffRange;
+    public Transform playerToBuff;
+    private NavMeshAgent ott_BuffAgent;
+    public Transform ott_BuffHome;
     public Stats playerStats;
 
     public float range;
     public Transform centerPoint;
 
 
-    public Animator ottHeal_Anim;
+    public Animator ottBuff_Anim;
 
 
     #endregion
@@ -31,8 +31,8 @@ public class OttHeal_StateMachine : MonoBehaviour
     {
         IDLE,
         ROAMING,
-        WAITINGTOHEAL,
-        HEALING,
+        WAITINGTOBUFF,
+        BUFFING,
         MOVETOSTALL,
     }
 
@@ -47,8 +47,8 @@ public class OttHeal_StateMachine : MonoBehaviour
     }
     private void Start()
     {
-        ott_HealAgent = GetComponent<NavMeshAgent>();
-        ottHeal_Anim = GetComponent<Animator>();
+        ott_BuffAgent = GetComponent<NavMeshAgent>();
+        ottBuff_Anim = GetComponent<Animator>();
         playerStats = GetComponent<Stats>();
         //start the fsm
         StartCoroutine(EnemyFSM());
@@ -78,18 +78,16 @@ public class OttHeal_StateMachine : MonoBehaviour
         //put any code here you want to repeat during the state being active
         while (currentState == States.IDLE)
         {
-            if (Vector3.Distance(transform.position, playerToHeal.position) < sightRange)
+            if (Vector3.Distance(transform.position, playerToBuff.position) < sightRange)
             {
                 
                 currentState = States.MOVETOSTALL;
-                Debug.Log("Entering MoveToStall State from Idle");
             }
 
-            else if(Vector3.Distance(transform.position, playerToHeal.position) > sightRange)
+            else if(Vector3.Distance(transform.position, playerToBuff.position) > sightRange)
             {
                 yield return new WaitForSeconds(3);
                 currentState = States.ROAMING;
-                Debug.Log("Entering Roaming State from Idle 1");
             }
 
 
@@ -105,7 +103,7 @@ public class OttHeal_StateMachine : MonoBehaviour
 
         
     }
-    IEnumerator WAITINGTOHEAL()
+    IEnumerator WAITINGTOBUFF()
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
@@ -114,21 +112,19 @@ public class OttHeal_StateMachine : MonoBehaviour
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.WAITINGTOHEAL)
+        while (currentState == States.WAITINGTOBUFF)
         {
-            transform.LookAt(playerToHeal);
+            transform.LookAt(playerToBuff);
 
 
-            if (Vector3.Distance(transform.position, playerToHeal.position) < healRange)
+            if (Vector3.Distance(transform.position, playerToBuff.position) < buffRange)
             {
-                currentState=States.HEALING;
-                Debug.Log("Entering Healing State from WaitingToHeal");
+                currentState=States.BUFFING;
             }
 
-            if(Vector3.Distance(transform.position, playerToHeal.position) > sightRange)
+            if(Vector3.Distance(transform.position, playerToBuff.position) > sightRange)
             {
                 currentState = States.IDLE;
-                Debug.Log("Entering Idle State from WaitingToHeal");
             }
             yield return new WaitForEndOfFrame();
         }
@@ -142,37 +138,32 @@ public class OttHeal_StateMachine : MonoBehaviour
         //ENTER THE Roaming STATE >
         //put any code here that you want to run at the start of the behaviour
 
-        //Debug.Log("I'ma Get Ya!");
+        Debug.Log("I'ma Get Ya!");
 
         //UPDATE Roaming STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.ROAMING)
         {
-            if(Vector3.Distance(transform.position, playerToHeal.position) < sightRange)
+            if(Vector3.Distance(transform.position, playerToBuff.position) < sightRange)
             {
                 currentState = States.MOVETOSTALL;
-                Debug.Log("Entering MoveToStall State from Roaming");
             }
 
-            else if (Vector3.Distance(transform.position,playerToHeal.position) > sightRange)
+            else if (Vector3.Distance(transform.position,playerToBuff.position) > sightRange)
             {
-                yield return new WaitForSeconds(5);
-                if (ott_HealAgent.remainingDistance <= ott_HealAgent.stoppingDistance) //done with path
+                //yield return new WaitForSeconds(5);
+                if (ott_BuffAgent.remainingDistance <= ott_BuffAgent.stoppingDistance) //done with path
                 {
                     Vector3 point;
                     if (RandomPoint(centerPoint.position, range, out point)) //pass in our centre point and radius of area
                     {
-                        Debug.DrawRay(point, Vector3.up, Color.magenta, 5.0f); //so you can see with gizmos
-                        yield return new WaitForSeconds(5);
-                        ott_HealAgent.SetDestination(point);
-
-                        
+                        Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
+                        ott_BuffAgent.SetDestination(point);
                         currentState = States.IDLE;
-                        Debug.Log("Entering IDLE state from Roaming now");
                     }
                 }
 
-                currentState = States.IDLE;
+                
             }
             
         }
@@ -180,38 +171,30 @@ public class OttHeal_StateMachine : MonoBehaviour
         //EXIT Roaming STATE >
         //write any code here you want to run when the state is left
 
-        //Debug.Log("Oh no I see the player!");
+        Debug.Log("Oh no I see the player!");
         yield return new WaitForEndOfFrame();
     }
     IEnumerator HEALING()
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            playerStats.currentHealth += 100f;
+        }
 
-
-
-        //Debug.Log("I'ma Get Ya!");
+        Debug.Log("I'ma Get Ya!");
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
-        while (currentState == States.HEALING)
+        while (currentState == States.BUFFING)
         {
-          
-            if(Vector3.Distance(transform.position, playerToHeal.position) > healRange)
+            if(Vector3.Distance(transform.position, playerToBuff.position) > buffRange)
             {
-                currentState = States.WAITINGTOHEAL;
-                Debug.Log("Entering WaitingToHeal state from Healing");
+                currentState = States.WAITINGTOBUFF;
             }
 
-            else if (Vector3.Distance(transform.position, playerToHeal.position) < healRange)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    playerStats.currentHealth += 100f;
-                    Debug.Log("Healed the player for 100 health");
-                }
-            }
-            
+
 
 
 
@@ -224,32 +207,30 @@ public class OttHeal_StateMachine : MonoBehaviour
         //EXIT IDLE STATE >
         //write any code here you want to run when the state is left
 
-        //Debug.Log("Oh no I see the player!");
+        Debug.Log("Oh no I see the player!");
     } 
     IEnumerator MOVETOSTALL()
     {
         //ENTER THE Chasing STATE >
         //put any code here that you want to run at the start of the behaviour
-        transform.LookAt(ott_HealHome);
-        ott_HealAgent.SetDestination(ott_HealHome.position);
+        transform.LookAt(ott_BuffHome);
+        ott_BuffAgent.SetDestination(ott_BuffHome.position);
 
 
-        //Debug.Log("I'ma Get Ya!");
+        Debug.Log("I'ma Get Ya!");
 
         //UPDATE Chasing STATE >
         //put any code here you want to repeat during the state being active
         while (currentState == States.MOVETOSTALL)
         {
-            if(Vector3.Distance(transform.position, playerToHeal.position) < sightRange)
+            if(Vector3.Distance(transform.position, playerToBuff.position) < sightRange)
             {
-                currentState = States.WAITINGTOHEAL;
-                Debug.Log("Entering WaitingToHeal state from MoveToStall");
+                currentState = States.WAITINGTOBUFF;
             }
             
-            if(Vector3.Distance(transform.position, playerToHeal.position) > sightRange)
+            if(Vector3.Distance(transform.position, playerToBuff.position) > sightRange)
             {
                 currentState= States.IDLE;
-                Debug.Log("Entering Idle from MoveToStall");
             }
 
             yield return new WaitForEndOfFrame();
@@ -258,7 +239,7 @@ public class OttHeal_StateMachine : MonoBehaviour
         //EXIT IDLE STATE >
         //write any code here you want to run when the state is left
 
-       //Debug.Log("Oh no I see the player!");
+        Debug.Log("Oh no I see the player!");
     }
     #endregion
 
@@ -286,7 +267,7 @@ public class OttHeal_StateMachine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, healRange);
+        Gizmos.DrawWireSphere(transform.position, buffRange);
     }
 
 }
