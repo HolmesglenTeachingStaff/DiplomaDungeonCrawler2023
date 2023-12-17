@@ -110,6 +110,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
     IEnumerator IDLE()
     {
+        agent.updatePosition = false;
         attack.attackActive = false;
         dialogueCanvas.SetActive(false);
         gloatVictoryScreen.SetActive(false);
@@ -131,6 +132,12 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
             dialogueCanvas.SetActive(false);
             agent.SetDestination(startPos);
             anim.SetBool("IsIdle", true);
+
+
+            agent.SetDestination(transform.position);
+            agent.nextPosition = transform.position;
+
+            agent.updatePosition = true;
 
             
             if(Vector3.Distance(transform.position, player.position) < talkRange)
@@ -243,7 +250,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
             }
             if(Vector3.Distance(transform.position, player.position) <sightRange) 
             {
-                if (currentNode == nodes.Length)
+                if (currentNode == nodes.Length -1)
                 {
                     Debug.Log("entering GLOAT from FLOAT");
                     currentState = States.GLOAT;
@@ -335,9 +342,14 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         agent.speed = 3;
         agent.SetDestination(player.position);
         attack.attackActive = true;
+
+        yield return new WaitForSeconds(2f);
+
         gloatVictoryScreen.SetActive(true);
 
         yield return new WaitForSeconds(2f);
+
+        
 
         //enter the GLOAT state
                 
