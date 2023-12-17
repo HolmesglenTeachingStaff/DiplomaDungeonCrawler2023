@@ -23,7 +23,7 @@ public class SnakeMovement : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
+        
     }
 
      public void Idle()
