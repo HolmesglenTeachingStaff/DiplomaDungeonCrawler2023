@@ -14,6 +14,9 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
     public bool idleDone;
     public float[] idleTimer;
 
+    public float meleeRange;
+    public float damageRange;
+
            
     public Transform player;
     public Transform shinigami;
@@ -71,6 +74,9 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
     //set default state
     private void Awake()
     {
+
+        damageBurst = GetComponent<CS_DamageReactions>();
+
         idleDone = false;
         
         currentState = States.IDLE;        
@@ -78,6 +84,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
     private void Start()
     {
+        damageBurst.damageRange = meleeRange;
         anim = GetComponentInChildren<Animator>();
         shinigami.position = startPos;
         agent = GetComponent<NavMeshAgent>();
@@ -110,11 +117,12 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
     IEnumerator IDLE()
     {
+        currentNode = 0;
         agent.updatePosition = false;
         attack.attackActive = false;
         dialogueCanvas.SetActive(false);
         gloatVictoryScreen.SetActive(false);
-        agent.SetDestination(startPos);
+        transform.position = startPos;
         AnimCancel();
         anim.SetBool("IsIdle", true);
         
@@ -130,7 +138,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
             gloatVictoryScreen.SetActive(false);
             attack.attackActive = false;
             dialogueCanvas.SetActive(false);
-            agent.SetDestination(startPos);
+            transform.position = startPos;
             anim.SetBool("IsIdle", true);
 
 
@@ -222,6 +230,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
    
     IEnumerator FLOAT()
     {
+        agent.updatePosition = true;
         attack.attackActive = false;
         dialogueCanvas.SetActive(false);
         AnimCancel();
@@ -232,6 +241,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         Debug.Log("began FLOAT state");
         agent.speed = 3;
         agent.SetDestination(nodes[currentNode].position);
+        
 
         //UPDATE FLOAT STATE >
         //put any code here you want to repeat during FLOAT state being active
@@ -241,7 +251,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
             AnimCancel();
             anim.SetBool("IsFloating", true);
             dialogueCanvas.SetActive(false);
-            agent.SetDestination(nodes[currentNode].position);
+            //agent.SetDestination(nodes[currentNode].position);
                       
             if(Vector3.Distance(transform.position, player.position) > sightRange)
             {
@@ -255,13 +265,22 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
                     Debug.Log("entering GLOAT from FLOAT");
                     currentState = States.GLOAT;
                 }
-                for (int currentNode = 0; currentNode < nodes.Length; currentNode ++)
+                /*for (int currentNode = 0; currentNode < nodes.Length; currentNode ++)
                 {
                     Debug.Log("entering FLOAT from FLOAT");
                     currentState = States.FLOAT;
-                }
+                }*/
+                
                 
             }
+            if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)//pathPending is when the agent is still in the process of picking a path
+                {
+                    yield return new WaitForSeconds(1); //wait at node, then move on
+                    currentNode = (currentNode + 1) % nodes.Length; //this divides the first number by the second number, starting from node 0 going upward, resseting the nodes to 0 when they're completed through.
+
+                    //currentNode++; //increasing node count
+                    agent.SetDestination(nodes[currentNode].position);
+                }
             
             /*if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)//pathPending is when the agent is still in the process of picking a path
             {
@@ -298,10 +317,10 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         //put any code here i want to run at the start of the behaviour
         Debug.Log("began TALK state");
         agent.speed = 3;
-        agent.SetDestination(startPos);
+        transform.position = startPos;
 
         //this amount is how long the text should read for
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(30);
        
         //UPDATE TALK state
         //put any code here you want to repeat during the state being active
@@ -309,7 +328,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         {
             attack.attackActive = false;
             //dialogueCanvas.SetActive(true);
-            agent.SetDestination(startPos);
+            transform.position = startPos;
                         
             if(Vector3.Distance(transform.position, player.position) < sightRange)
             {
@@ -342,6 +361,8 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         agent.speed = 3;
         agent.SetDestination(player.position);
         attack.attackActive = true;
+        damageBurst.DamageBurst();
+    
 
         yield return new WaitForSeconds(2f);
 
@@ -361,7 +382,6 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
             dialogueCanvas.SetActive(false);
             AnimCancel();
             anim.SetBool("IsGloat", true);            
-            
             
             agent.speed = 3;
             agent.SetDestination(player.position);
@@ -398,6 +418,9 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, talkRange);
+        
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
 
 
