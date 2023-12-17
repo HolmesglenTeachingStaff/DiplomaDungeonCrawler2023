@@ -102,7 +102,7 @@ public class BagMovement : MonoBehaviour
                 }
                 else if (LineOfSight.inView = false)
                 {
-                    //Idle mode
+                    trigger Idle mode
                 }
             } 
 

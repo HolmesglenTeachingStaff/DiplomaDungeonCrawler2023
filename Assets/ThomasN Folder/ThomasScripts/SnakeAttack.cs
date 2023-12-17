@@ -28,20 +28,21 @@ public class SnakeAttack : MonoBehaviour
         {
             //player cannot hurt Snakeyokai while wrapped
             //damage player over time
-            //DamageonTouch
+            SnakeYokai cannot take damage
+            inflict StatusEffect.DamageOverTime onto player
             //lower players speed
             //model must move with player while wrapped
-            //StatusEffects.Immobalize
+            inflict StatusEffects.Immobalize onto player
             //end wrap after timer runs out
-
-            //StartCoroutine(Release());
+            //leave damage over time
+            StartCoroutine(Release());
         }
-        //IEnumerator Release()
+        IEnumerator Release()
         {
             float elapsedTime = 0f;
             if (elapsedTime < hold)
             {
-                //SnakeMovement.Retreat;
+                trigger SnakeMovement.Retreat;
 
             }
         }

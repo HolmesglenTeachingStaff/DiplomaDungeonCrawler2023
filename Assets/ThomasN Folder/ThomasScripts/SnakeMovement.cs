@@ -78,7 +78,7 @@ public class SnakeMovement : MonoBehaviour
         float elapsedTime = 0f;
         if (elapsedTime < clock) 
         {
-        
+          trigger idle mode
         }
 
         
