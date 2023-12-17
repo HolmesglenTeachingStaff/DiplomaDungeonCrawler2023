@@ -1452,7 +1452,7 @@ GameObject:
   - component: {fileID: 1116845008}
   - component: {fileID: 1116845007}
   - component: {fileID: 1116845006}
-  - component: {fileID: 1116845005}
+  - component: {fileID: 1116845012}
   - component: {fileID: 1116845004}
   - component: {fileID: 1116845010}
   - component: {fileID: 1116845009}
@@ -1476,27 +1476,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 50
+  currentHealth: 50
   regenRate: 0
   tempRegen: 0
-  maxSpeed: 0
-  currentSpeed: 0
+  maxSpeed: 5
+  currentSpeed: 5
   maxArmour: 0
   currentArmour: 0
-  maxBaseAttackDamage: 0
-  currentBaseAttackDamage: 0
+  maxBaseAttackDamage: 5
+  currentBaseAttackDamage: 5
   immune: 0
   isDead: 0
   pushable: 0
   isWet: 0
-  Physical: 0
-  Fire: 0
-  Water: 0
-  Wind: 0
-  Earth: 0
-  Light: 0
-  Dark: 0
+  Physical: 1
+  Fire: 1
+  Water: 1
+  Wind: 1
+  Earth: 1
+  Light: 1
+  Dark: 1
   statusEffectStacks: 0
   OnDamaged:
     m_PersistentCalls:
@@ -1507,20 +1507,6 @@ MonoBehaviour:
   OnBuffRecieved:
     m_PersistentCalls:
       m_Calls: []
---- !u!136 &1116845005
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116845003}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1116845006
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1613,8 +1599,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 0
-  stats: {fileID: 0}
+  stats: {fileID: 1116845004}
   isWorldSpace: 0
+--- !u!136 &1116845012
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116845003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1143002002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,13 +1724,13 @@ GameObject:
   - component: {fileID: 1299045191}
   - component: {fileID: 1299045190}
   - component: {fileID: 1299045189}
-  - component: {fileID: 1299045188}
+  - component: {fileID: 1299045195}
   - component: {fileID: 1299045187}
   - component: {fileID: 1299045193}
   - component: {fileID: 1299045192}
   - component: {fileID: 1299045194}
   m_Layer: 0
-  m_Name: BagEnemy
+  m_Name: BagYokai
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1748,12 +1748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6040f8a096b1854c8a07e3b8c61e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 30
+  currentHealth: 30
   regenRate: 0
   tempRegen: 0
-  maxSpeed: 0
-  currentSpeed: 0
+  maxSpeed: 5
+  currentSpeed: 5
   maxArmour: 0
   currentArmour: 0
   maxBaseAttackDamage: 0
@@ -1779,19 +1779,6 @@ MonoBehaviour:
   OnBuffRecieved:
     m_PersistentCalls:
       m_Calls: []
---- !u!135 &1299045188
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299045186}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1299045189
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1884,8 +1871,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 0
-  stats: {fileID: 0}
+  stats: {fileID: 1299045187}
   isWorldSpace: 0
+--- !u!136 &1299045195
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299045186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1368643190
 GameObject:
   m_ObjectHideFlags: 0

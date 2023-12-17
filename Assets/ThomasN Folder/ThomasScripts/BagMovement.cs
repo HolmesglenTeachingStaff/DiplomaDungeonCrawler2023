@@ -25,10 +25,10 @@ public class BagMovement : MonoBehaviour
     //Search
 
 
-    private void Start()
+    public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");   
+         
     }
 
     public void OnTriggerEnter(Collider other)
@@ -40,25 +40,27 @@ public class BagMovement : MonoBehaviour
     }
 
 
-    IEnumerator Idle()
+    public void Idle()
     {
         //turn to random direction after random time
         //range from 0-351 degrees
-        randNum = Random.Range(0, 351);       
-         
-        float elapsedTime = 0f;
-        if (elapsedTime < duration)
+        while(LineOfSight.inView = false) 
         {
-          transform.player(0, randNum, 0);
+            randNum = Random.Range(0, 351);
+
+            float elapsedTime = 0f;
+            if (elapsedTime < duration)
+            {
+                transform.player(0, randNum, 0);
+            }
         }
 
-      
     }
 
     public void Watch()
     {
         //if player is in line of sight watch them
-        if (FieldOfView.inview = true)
+        if (LineOfSight.inView = true)
         {
             lookat = true;
         }
@@ -74,7 +76,7 @@ public class BagMovement : MonoBehaviour
         //if player is in line of sight and in radius flee
         //if player attacks flee
 
-        if ((FieldOfView.inview) && inradius || Stats.TakeDamage = true) 
+        if (LineOfSight.inView && inradius || Stats.TakeDamage) 
         {
             StartCoroutine(Run());
         }
@@ -93,15 +95,14 @@ public class BagMovement : MonoBehaviour
                 //Search
                 //turn 180 degrees
                 transform.Rotate(0, 180, 0);
-                if (FieldOfView.inview = true)
+                if (LineOfSight.inView = true)
                 {
                     StartCoroutine(Run());
-                    return true;
+                    
                 }
-                else if (FieldOfView.inview = false)
+                else if (LineOfSight.inView = false)
                 {
-                    StartCoroutine(Idle());
-                    return false;
+                    //Idle mode
                 }
             } 
 

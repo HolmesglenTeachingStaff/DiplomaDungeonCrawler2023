@@ -26,18 +26,22 @@ public class SnakeMovement : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-     IEnumerator Idle()
+     public void Idle()
      {
         //turn to random direction after random time
         //range from 9-351 degrees
-        randNum = Random.Range(9, 351);       
-        
-        float elapsedTime = 0f;
-        if (elapsedTime < timer)
+        while(LineOfSight.inView = false) 
         {
-          transform.Rotate(0, randNum, 0);
-            return;
+            randNum = Random.Range(9, 351);
+
+            float elapsedTime = 0f;
+            if (elapsedTime < timer)
+            {
+                transform.Rotate(0, randNum, 0);
+
+            }
         }
+
         
      }
 
@@ -45,7 +49,7 @@ public class SnakeMovement : MonoBehaviour
     {
         //Hunting
         //if player is in line of sight go towards them
-        if (FieldOfView.inview = true)
+        if (LineOfSight.inView = true)
         {
             agent.SetDestination(player.transform.position);
         }
@@ -56,7 +60,7 @@ public class SnakeMovement : MonoBehaviour
     {
         //move away from player till timer runs out
         //don't look away from player
-        if (FieldOfView.inview = true)
+        if (LineOfSight.inView = true)
         {
             lookat = true;
         }
@@ -64,16 +68,19 @@ public class SnakeMovement : MonoBehaviour
         {
             transform.player(player.transform);
 
-            StartCoroutine(Withdraw());
+            Vector3 dirtoplayer = transform.position - player.transform.position;
+
+            Vector3 newPos = transform.position + dirtoplayer;
+
+            agent.SetDestination(newPos);
         }
-        IEnumerator Withdraw()
+     
+        float elapsedTime = 0f;
+        if (elapsedTime < clock) 
         {
-            float elapsedTime = 0f;
-            if (elapsedTime < clock)
-            {
-                StartCoroutine(Idle());
-                return true;
-            }
+        
         }
+
+        
     }
 }
