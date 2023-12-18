@@ -42,7 +42,7 @@ public class SnakeAttack : MonoBehaviour
             float elapsedTime = 0f;
             if (elapsedTime < hold)
             {
-                trigger SnakeMovement.Retreat;
+                SnakeMovement.Retreat;
 
             }
         }

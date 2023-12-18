@@ -68,7 +68,10 @@ public class BagMovement : MonoBehaviour
         {
             transform.player(player.transform);
         }
-
+        else if (lookat = false)
+        {
+            Idle();
+        }
     }
 
      public void Flee()
@@ -102,7 +105,7 @@ public class BagMovement : MonoBehaviour
                 }
                 else if (LineOfSight.inView = false)
                 {
-                    trigger Idle mode
+                    Idle();
                 }
             } 
 

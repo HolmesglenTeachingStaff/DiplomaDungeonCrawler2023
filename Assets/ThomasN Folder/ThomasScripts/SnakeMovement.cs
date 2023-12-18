@@ -14,6 +14,7 @@ public class SnakeMovement : MonoBehaviour
 
     //Hunting
     public GameObject player;
+    public bool seen = false;
 
     //Retreat
     public float clock;
@@ -51,9 +52,16 @@ public class SnakeMovement : MonoBehaviour
         //if player is in line of sight go towards them
         if (LineOfSight.inView = true)
         {
+            seen = true;
+        }
+        if (seen = true) 
+        {
             agent.SetDestination(player.transform.position);
         }
-
+        else if(seen = false) 
+        {
+            Idle();
+        }
     }
 
     public void Retreat()
@@ -78,9 +86,12 @@ public class SnakeMovement : MonoBehaviour
         float elapsedTime = 0f;
         if (elapsedTime < clock) 
         {
-          trigger idle mode
+            Idle();
         }
-
+        void SnakeDeath() 
+        { 
+        
+        }
         
     }
 }
