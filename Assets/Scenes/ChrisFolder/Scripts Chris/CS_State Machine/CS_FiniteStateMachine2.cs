@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
+using UnityEngine.Events;
 
 public class CS_FiniteStateMachine2 : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
     public float meleeRange;
     public float damageRange;
 
+    public UnityEvent OnFloating;
+
            
     public Transform player;
     public Transform shinigami;
@@ -28,7 +31,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
     public CS_DamageReactions damageBurst;
     public CS_DamageReactions attack;
 
-    public CS_LookAt looking;
+    public CS_LookAtPos looking;
 
     public Color sightColour; //i could add my own destint colour this way. To do so, below code would be "Gizmos.color = sightColour"
 
@@ -460,7 +463,8 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
         anim.SetBool("IsWaiting", false);
         anim.SetBool("IsIdle", false);
         anim.SetBool("IsFloating", false);
-        anim.SetBool("IsGloat", false);        
+        anim.SetBool("IsGloat", false);
+        anim.SetBool("IsTalking", false);
     }
     
     private void OnTriggerEnter(Collider other)
@@ -502,6 +506,7 @@ public class CS_FiniteStateMachine2 : MonoBehaviour
 
         yield return null;
     }
+    
 
 
 }

@@ -8,7 +8,7 @@ public class CS_LookAtPos : MonoBehaviour
     public float sightRange;
     public Transform player;
     public float lookAtSpeed;
-
+    
     private Coroutine LookCoroutine;
 
     // Update is called once per frame
