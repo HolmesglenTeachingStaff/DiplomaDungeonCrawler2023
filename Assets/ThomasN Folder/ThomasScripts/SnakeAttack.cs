@@ -8,7 +8,7 @@ public class SnakeAttack : MonoBehaviour
     public GameObject target;
     static public bool inrange = false;
 
-    void Start()
+    void Awake()
     {
         target = GameObject.FindWithTag("Player");
     }

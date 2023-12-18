@@ -9,7 +9,7 @@ public class BagDrop : MonoBehaviour
     private int randNum;
     private Transform Epos;
 
-    public void Start()
+    public void Awake()
     {
         Epos = GetComponent<Transform>();
     }

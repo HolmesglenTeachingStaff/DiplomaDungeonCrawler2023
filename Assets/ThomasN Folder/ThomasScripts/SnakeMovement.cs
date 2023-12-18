@@ -21,7 +21,7 @@ public class SnakeMovement : MonoBehaviour
     public bool lookat = false;
 
 
-    private void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         

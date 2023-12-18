@@ -19,16 +19,35 @@ public class BagMovement : MonoBehaviour
     //Flee
     public float duration;
     static public bool inradius = false;
-    
-    
 
     //Search
 
 
-    public void Start()
+    public BagYokaiState DefaultState;
+    private BagYokaiState _state;
+
+    public BagYokaiState State 
+    {
+        get 
+        {
+            return _state;
+        }
+        set 
+        {
+            OnStateChange?.Invoke(_state, value);
+            _state = value;
+        }
+    }
+
+    public delegate void StateChangeEvent(BagYokaiState oldstate, BagYokaiState newState);
+    public StateChangeEvent OnStateChange;
+
+
+    public void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-         
+
+        OnStateChange += HandleStateChange;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -39,9 +58,14 @@ public class BagMovement : MonoBehaviour
         }
     }
 
+    private void OnDisable() 
+    {
+        _state = DefaultState;
+    }
 
     public void Idle()
     {
+        OnStateChange?.Invoke(BagYokaiState.Idle, DefaultState);
         //turn to random direction after random time
         //range from 0-351 degrees
         while(LineOfSight.inView = false) 
@@ -117,7 +141,10 @@ public class BagMovement : MonoBehaviour
 
         }
 
-
+        private void HandleStateChange(EnemyState oldState, EnemyState newState) 
+        {
+          if(oldState != newState)
+        }
         
 
 
