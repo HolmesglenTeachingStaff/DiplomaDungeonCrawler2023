@@ -92,24 +92,29 @@ public class BagMovement : MonoBehaviour
 
             agent.SetDestination(newPos);
 
-            float elapsedTime = 0f;
-            if (elapsedTime < wait) 
-            {
-                //Search
-                //turn 180 degrees
-                transform.Rotate(0, 180, 0);
-                if (LineOfSight.inView = true)
-                {
-                    StartCoroutine(Run());
-                    
-                }
-                else if (LineOfSight.inView = false)
-                {
-                    Idle();
-                }
-            } 
+            StartCoroutine(Search());
 
-            
+        }  
+        IEnumerator Search() 
+        {
+          float elapsedTime = 0f;
+          if (elapsedTime < wait)
+          {
+            //Search
+            //turn 180 degrees
+            transform.Rotate(0, 180, 0);
+            if (LineOfSight.inView = true)
+            {
+              StartCoroutine(Run());
+
+            }
+            else if (LineOfSight.inView = false)
+            {
+              Idle();
+            }
+          }
+
+
         }
 
 
