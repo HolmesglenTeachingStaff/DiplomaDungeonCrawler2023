@@ -2102,6 +2102,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9123582276377693596, guid: 83b561c1fc3390f408a53cd9d0794572, type: 3}
   m_PrefabInstance: {fileID: 9123582275718774275}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &546439343268453061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 546439343613413825, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 181959852}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844972, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844973, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: m_Name
+      value: CS_Shinigami_NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 86890452}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: nodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1323730189}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: nodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 173687808}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: nodes.Array.data[2]
+      value: 
+      objectReference: {fileID: 626987627}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: nodes.Array.data[3]
+      value: 
+      objectReference: {fileID: 611939882}
+    - target: {fileID: 546439344446844975, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: nodes.Array.data[4]
+      value: 
+      objectReference: {fileID: 1077970696}
+    - target: {fileID: 546439344446844981, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 86890452}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e01d5069fbaaf6441a8eb27072b2bd8d, type: 3}
 --- !u!1001 &1520625625548464216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2167,95 +2256,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c243d38bd2bdc874cbc400158fbd3b74, type: 3}
---- !u!1001 &1917982081805667949
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1917982081445993833, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 181959852}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803396, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803397, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: m_Name
-      value: CS_Shinigami_NPC
-      objectReference: {fileID: 0}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 86890452}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: nodes.Array.data[0]
-      value: 
-      objectReference: {fileID: 1323730189}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: nodes.Array.data[1]
-      value: 
-      objectReference: {fileID: 173687808}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: nodes.Array.data[2]
-      value: 
-      objectReference: {fileID: 626987627}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: nodes.Array.data[3]
-      value: 
-      objectReference: {fileID: 611939882}
-    - target: {fileID: 1917982082689803399, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: nodes.Array.data[4]
-      value: 
-      objectReference: {fileID: 1077970696}
-    - target: {fileID: 1917982082689803421, guid: f3581b96b296840489c5f880e6282411, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 86890452}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f3581b96b296840489c5f880e6282411, type: 3}
 --- !u!1001 &4495794581182670724
 PrefabInstance:
   m_ObjectHideFlags: 0
